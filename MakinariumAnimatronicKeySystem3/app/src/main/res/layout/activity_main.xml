@@ -37,32 +37,44 @@
                 tools:clickable="false"
                 tools:enabled="false" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
 
                 <TextView
                     android:id="@+id/mouthStatus"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="8dp"
                     android:text="✓"
                     android:textColor="@color/activePerform"
-                    app:layout_constraintStart_toEndOf="@+id/stopButton"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/mouthTextS"/>
+
+                <TextView
+                    android:id="@+id/mouthTextS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:text="Mouth"
+                    android:layout_alignParentRight="true" />
 
                 <TextView
                     android:id="@+id/eyesStatus"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_marginStart="36dp"
                     android:text="✓"
                     android:textColor="@color/activePerform"
-                    app:layout_constraintStart_toEndOf="@+id/stopButton"
-                    app:layout_constraintTop_toBottomOf="@+id/mouthStatus" />
-
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/mouthStatus"
+                    android:layout_toLeftOf="@+id/eyesTextS"/>
+                <TextView
+                    android:id="@+id/eyesTextS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:text="Eyes"
+                    android:layout_alignParentRight="true" />
 
                 <TextView
                     android:id="@+id/headStatus"
@@ -71,37 +83,17 @@
                     android:layout_marginStart="36dp"
                     android:text="✓"
                     android:textColor="@color/activePerform"
-                    app:layout_constraintStart_toEndOf="@+id/stopButton"
-                    app:layout_constraintTop_toBottomOf="@+id/eyesStatus" />
-
-                <TextView
-                    android:id="@+id/mouthTextS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Mouth"
-                    app:layout_constraintStart_toEndOf="@+id/mouthStatus"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/eyesTextS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="7dp"
-                    android:text="Eyes"
-                    app:layout_constraintStart_toEndOf="@+id/eyesStatus"
-                    app:layout_constraintTop_toBottomOf="@+id/mouthTextS" />
-
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/headTextS"/>
                 <TextView
                     android:id="@+id/headTextS"
                     android:layout_width="wrap_content"
                     android:layout_height="16dp"
                     android:layout_marginStart="7dp"
                     android:text="Head"
-                    app:layout_constraintStart_toEndOf="@+id/headStatus"
-                    app:layout_constraintTop_toBottomOf="@+id/eyesTextS" />
-            </LinearLayout>
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
 
             <Switch
                 android:id="@+id/nameSwitch"
