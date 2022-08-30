@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        //first row with util buttons and switches
+        <!--first row with until buttons and switches -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -38,60 +38,63 @@
                 tools:enabled="false" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
                 android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingRight="8dp"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/mouthStatus"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:text="✓"
-                    android:textColor="@color/activePerform"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_toLeftOf="@+id/mouthTextS"/>
+                    android:text="✓"
+                    android:textColor="@color/activePerform" />
 
                 <TextView
                     android:id="@+id/mouthTextS"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="15dp"
-                    android:text="Mouth"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/mouthStatus"
+                    android:text="Mouth ctrl" />
 
                 <TextView
                     android:id="@+id/eyesStatus"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:text="✓"
-                    android:textColor="@color/activePerform"
-                    android:layout_alignParentLeft="true"
                     android:layout_below="@+id/mouthStatus"
-                    android:layout_toLeftOf="@+id/eyesTextS"/>
+                    android:layout_alignParentLeft="true"
+                    android:text="✓"
+                    android:textColor="@color/activePerform" />
+
                 <TextView
                     android:id="@+id/eyesTextS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="16dp"
-                    android:text="Eyes"
-                    android:layout_alignParentRight="true" />
+                    android:layout_width="30dp"
+                    android:layout_height="15dp"
+                    android:layout_below="@+id/mouthTextS"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/eyesStatus"
+                    android:text="Eyes ctrl" />
 
                 <TextView
                     android:id="@+id/headStatus"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_marginStart="36dp"
-                    android:text="✓"
-                    android:textColor="@color/activePerform"
                     android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@+id/headTextS"/>
+                    android:layout_below="@+id/eyesStatus"
+                    android:text="✓"
+                    android:textColor="@color/activePerform" />
                 <TextView
                     android:id="@+id/headTextS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="7dp"
-                    android:text="Head"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_width="30dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/headStatus"
+                    android:layout_below="@+id/eyesTextS"
+                    android:text="Head rec" />
 
             </RelativeLayout>
 
@@ -123,12 +126,12 @@
         </LinearLayout>
 
 
-        //recs buttons table
+        <!-- recs buttons table-->
         <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-            //preset row
+            <!-- preset row -->
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -146,9 +149,7 @@
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_01"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:textSize="@dimen/textsize" />
                     <Button
                         android:id="@+id/preset_01"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -156,18 +157,14 @@
                         android:layout_height="@dimen/bheight"
                         android:layout_marginStart="@dimen/firstleft"
                         android:text="01"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cronometro" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
                         android:id="@+id/presetPB01"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_01" />
+                        android:layout_marginStart="@dimen/firstleft" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -242,9 +239,128 @@
                     app:layout_constraintStart_toEndOf="@+id/presetPB02"
                     app:layout_constraintTop_toBottomOf="@+id/preset_03" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/presetText04"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/preset_04"
+                        app:layout_constraintStart_toEndOf="@+id/presetText03" />
+                    <Button
+                        android:id="@+id/preset_04"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="04"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/preset_03"
+                        app:layout_constraintTop_toTopOf="@+id/preset_03" />
+                    <ProgressBar
+                        android:id="@+id/presetPB04"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/presetPB03"
+                        app:layout_constraintTop_toBottomOf="@+id/preset_04" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/presetText05"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/preset_05"
+                        app:layout_constraintStart_toEndOf="@+id/presetText04" />
+                    <Button
+                        android:id="@+id/preset_05"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="05"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/preset_04"
+                        app:layout_constraintTop_toTopOf="@+id/preset_04" />
+                    <ProgressBar
+                        android:id="@+id/presetPB05"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/presetPB04"
+                        app:layout_constraintTop_toBottomOf="@+id/preset_05" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
             </TableRow>
 
-            //eyebrows row
+            <!-- eyebrows row -->
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -287,11 +403,163 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/eyebrowText02"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize" />
+                    <Button
+                        android:id="@+id/eyebrow_02"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="02"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/eyebrowPB02"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/eyebrowText03"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_03"
+                        app:layout_constraintStart_toEndOf="@+id/eyebrowText02" />
+                    <Button
+                        android:id="@+id/eyebrow_03"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        
+                        android:text="03"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/eyebrow_02"
+                        app:layout_constraintTop_toBottomOf="@+id/preset_03" />
+
+                    <ProgressBar
+                        android:id="@+id/eyebrowPB03"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB02"
+                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_03" />
+
+                    
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/eyebrowText04"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize" />
+                    <Button
+                        android:id="@+id/eyebrow_04"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="04"
+                        android:theme="@style/AppTheme.PerformToRec" />
+                    <ProgressBar
+                        android:id="@+id/eyebrowPB04"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB03"
+                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_04" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
             </TableRow>
 
-            //eyelid row
+            <!-- eyelid row -->
             <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -307,9 +575,7 @@
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_01"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:textSize="@dimen/textsize" />
                     <Button
                         android:id="@+id/eyelid_01"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -317,17 +583,13 @@
                         android:layout_height="@dimen/bheight"
                         android:layout_marginStart="@dimen/firstleft"
                         android:text="01"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_01" />
+                        android:theme="@style/AppTheme.PerformToRec" />
                     <ProgressBar
                         android:id="@+id/eyelidPB01"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_01" />
+                        android:layout_marginStart="@dimen/firstleft" />
 
 
                 </LinearLayout>
@@ -336,6 +598,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/eyelidText02"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+                    <Button
+                        android:id="@+id/eyelid_02"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="02"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+                    <ProgressBar
+                        android:id="@+id/eyelidPB02"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft" />
 
                 </LinearLayout>
 
@@ -343,11 +628,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/eyelidText03"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
 
+                    <Button
+                        android:id="@+id/eyelid_03"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="03"
+                        android:theme="@style/AppTheme.PerformToRec" />
+
+                    <ProgressBar
+                        android:id="@+id/eyelidPB03"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft" />
                 </LinearLayout>
             </TableRow>
 
-            //eyes row
+            <!-- eyes row -->
             <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -385,7 +694,37 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/eyes_01" />
                 </LinearLayout>
+                <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/eyesText02"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize" />
+                    <Button
+                        android:id="@+id/eyes_02"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="02"
+                        android:theme="@style/AppTheme.PerformToRec" />
+                    <ProgressBar
+                        android:id="@+id/eyesPB02"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/eyesPB01"
+                        app:layout_constraintTop_toBottomOf="@+id/eyes_02" />
 
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -394,7 +733,7 @@
                 </LinearLayout>
             </TableRow>
 
-            //nose row
+            <!-- nose row -->
             <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -450,7 +789,7 @@
 
             </TableRow>
 
-            //mouth row
+            <!-- mouth row -->
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -495,6 +834,7 @@
                     android:orientation="vertical">
 
                 </LinearLayout>
+
             </TableRow>
 
 
@@ -502,62 +842,9 @@
 
 
 
-    <Button
-        android:id="@+id/eyelid_02"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/bheight"
-        android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
-        android:text="02"
-        android:theme="@style/AppTheme.PerformToRec"
-        app:layout_constraintStart_toEndOf="@+id/eyelid_01"
-        app:layout_constraintTop_toBottomOf="@+id/eyebrow_02" />
 
-    <ProgressBar
-        android:id="@+id/eyelidPB02"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/pbheight"
-        android:layout_marginStart="@dimen/mleft"
-        app:layout_constraintStart_toEndOf="@+id/eyelidPB01"
-        app:layout_constraintTop_toBottomOf="@+id/eyelid_02" />
 
-    <TextView
-        android:id="@+id/eyelidText02"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="15dp"
-        android:layout_marginStart="@dimen/mleft"
-        android:clickable="true"
-        android:onClick="changeName"
-        android:text="Name"
-        android:textSize="@dimen/textsize"
-        app:layout_constraintBottom_toTopOf="@+id/eyelid_02"
-        app:layout_constraintStart_toEndOf="@+id/eyelidText01" />
 
-    <Button
-        android:id="@+id/eyes_02"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/bheight"
-        android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
-        android:text="02"
-        android:theme="@style/AppTheme.PerformToRec"
-        app:layout_constraintStart_toEndOf="@+id/eyes_01"
-        app:layout_constraintTop_toBottomOf="@+id/eyelid_02" />
-
-    <TextView
-        android:id="@+id/eyesText02"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="15dp"
-        android:layout_marginStart="@dimen/mleft"
-        android:clickable="true"
-        android:onClick="changeName"
-        android:text="Name"
-        android:textSize="@dimen/textsize"
-        app:layout_constraintBottom_toTopOf="@+id/eyes_02"
-        app:layout_constraintStart_toEndOf="@+id/eyesText01" />
 
     <Button
         android:id="@+id/nose_02"
@@ -565,11 +852,8 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
         android:text="02"
-        android:theme="@style/AppTheme.PerformToRec"
-        app:layout_constraintStart_toEndOf="@+id/nose_01"
-        app:layout_constraintTop_toBottomOf="@+id/eyes_02" />
+        android:theme="@style/AppTheme.PerformToRec"/>
 
     <ProgressBar
         android:id="@+id/nosePB02"
@@ -595,38 +879,7 @@
 
 
 
-    <Button
-        android:id="@+id/eyelid_03"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/bheight"
-        android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
-        android:text="03"
-        android:theme="@style/AppTheme.PerformToRec"
-        app:layout_constraintStart_toEndOf="@+id/eyelid_02"
-        app:layout_constraintTop_toBottomOf="@+id/eyebrow_03" />
 
-    <ProgressBar
-        android:id="@+id/eyelidPB03"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/pbheight"
-        android:layout_marginStart="@dimen/mleft"
-        app:layout_constraintStart_toEndOf="@+id/eyelidPB02"
-        app:layout_constraintTop_toBottomOf="@+id/eyelid_03" />
-
-    <TextView
-        android:id="@+id/eyelidText03"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="15dp"
-        android:layout_marginStart="@dimen/mleft"
-        android:clickable="true"
-        android:onClick="changeName"
-        android:text="Name"
-        android:textSize="@dimen/textsize"
-        app:layout_constraintBottom_toTopOf="@+id/eyelid_03"
-        app:layout_constraintStart_toEndOf="@+id/eyelidText02" />
 
     <Button
         android:id="@+id/eyes_03"
@@ -634,7 +887,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="03"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_02"
@@ -667,7 +920,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="03"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_02"
@@ -705,7 +958,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="02"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_01"
@@ -729,7 +982,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="03"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_02"
@@ -760,73 +1013,10 @@
 
 
 
-    <Button
-        android:id="@+id/eyebrow_02"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/bheight"
-        android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
-        android:text="02"
-        android:theme="@style/AppTheme.PerformToRec"
-        app:layout_constraintStart_toEndOf="@+id/eyebrow_01"
-        app:layout_constraintTop_toBottomOf="@+id/preset_02" />
 
 
-    <ProgressBar
-        android:id="@+id/eyebrowPB02"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/pbheight"
-        android:layout_marginStart="@dimen/mleft"
-        app:layout_constraintStart_toEndOf="@+id/eyebrowPB01"
-        app:layout_constraintTop_toBottomOf="@+id/eyebrow_02" />
-
-    <TextView
-        android:id="@+id/eyebrowText02"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="15dp"
-        android:layout_marginStart="@dimen/mleft"
-        android:clickable="true"
-        android:onClick="changeName"
-        android:text="Name"
-        android:textSize="@dimen/textsize"
-        app:layout_constraintBottom_toTopOf="@+id/eyebrow_02"
-        app:layout_constraintStart_toEndOf="@+id/eyebrowText01" />
 
 
-    <Button
-        android:id="@+id/eyebrow_03"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/bheight"
-        android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
-        android:text="03"
-        android:theme="@style/AppTheme.PerformToRec"
-        app:layout_constraintStart_toEndOf="@+id/eyebrow_02"
-        app:layout_constraintTop_toBottomOf="@+id/preset_03" />
-
-    <ProgressBar
-        android:id="@+id/eyebrowPB03"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/pbheight"
-        android:layout_marginStart="@dimen/mleft"
-        app:layout_constraintStart_toEndOf="@+id/eyebrowPB02"
-        app:layout_constraintTop_toBottomOf="@+id/eyebrow_03" />
-
-    <TextView
-        android:id="@+id/eyebrowText03"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="15dp"
-        android:layout_marginStart="@dimen/mleft"
-        android:clickable="true"
-        android:onClick="changeName"
-        android:text="Name"
-        android:textSize="@dimen/textsize"
-        app:layout_constraintBottom_toTopOf="@+id/eyebrow_03"
-        app:layout_constraintStart_toEndOf="@+id/eyebrowText02" />
 
 
     <TextView
@@ -871,14 +1061,7 @@
         app:layout_constraintTop_toBottomOf="@+id/eyebrowsText" />
 
 
-    <ProgressBar
-        android:id="@+id/eyesPB02"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/pbheight"
-        android:layout_marginStart="@dimen/mleft"
-        app:layout_constraintStart_toEndOf="@+id/eyesPB01"
-        app:layout_constraintTop_toBottomOf="@+id/eyes_02" />
+
 
     <ProgressBar
         android:id="@+id/mouthPB02"
@@ -901,71 +1084,10 @@
         app:layout_constraintStart_toEndOf="@+id/eyes_12"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <Button
-        android:id="@+id/preset_04"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/bheight"
-        android:layout_marginStart="@dimen/mleft"
-        android:text="04"
-        android:theme="@style/AppTheme.PerformToRec"
-        app:layout_constraintStart_toEndOf="@+id/preset_03"
-        app:layout_constraintTop_toTopOf="@+id/preset_03" />
 
 
-    <ProgressBar
-        android:id="@+id/presetPB04"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/pbheight"
-        android:layout_marginStart="@dimen/mleft"
-        app:layout_constraintStart_toEndOf="@+id/presetPB03"
-        app:layout_constraintTop_toBottomOf="@+id/preset_04" />
-
-    <TextView
-        android:id="@+id/presetText04"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="15dp"
-        android:layout_marginStart="@dimen/mleft"
-        android:clickable="true"
-        android:onClick="changeName"
-        android:text="Name"
-        android:textSize="@dimen/textsize"
-        app:layout_constraintBottom_toTopOf="@+id/preset_04"
-        app:layout_constraintStart_toEndOf="@+id/presetText03" />
-
-    <Button
-        android:id="@+id/preset_05"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/bheight"
-        android:layout_marginStart="@dimen/mleft"
-        android:text="05"
-        android:theme="@style/AppTheme.PerformToRec"
-        app:layout_constraintStart_toEndOf="@+id/preset_04"
-        app:layout_constraintTop_toTopOf="@+id/preset_04" />
 
 
-    <ProgressBar
-        android:id="@+id/presetPB05"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/pbheight"
-        android:layout_marginStart="@dimen/mleft"
-        app:layout_constraintStart_toEndOf="@+id/presetPB04"
-        app:layout_constraintTop_toBottomOf="@+id/preset_05" />
-
-    <TextView
-        android:id="@+id/presetText05"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="15dp"
-        android:layout_marginStart="@dimen/mleft"
-        android:clickable="true"
-        android:onClick="changeName"
-        android:text="Name"
-        android:textSize="@dimen/textsize"
-        app:layout_constraintBottom_toTopOf="@+id/preset_05"
-        app:layout_constraintStart_toEndOf="@+id/presetText04" />
 
     <Button
         android:id="@+id/preset_06"
@@ -1186,36 +1308,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
-    <Button
-        android:id="@+id/eyebrow_04"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/bheight"
-        android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
-        android:text="04"
-        android:theme="@style/AppTheme.PerformToRec"
-        app:layout_constraintStart_toEndOf="@+id/eyebrow_03"
-        app:layout_constraintTop_toBottomOf="@+id/preset_04" />
 
-    <ProgressBar
-        android:id="@+id/eyebrowPB04"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="@dimen/pbheight"
-        android:layout_marginStart="@dimen/mleft"
-        app:layout_constraintStart_toEndOf="@+id/eyebrowPB03"
-        app:layout_constraintTop_toBottomOf="@+id/eyebrow_04" />
-
-    <TextView
-        android:id="@+id/eyebrowText04"
-        android:layout_width="@dimen/bwidth"
-        android:layout_height="15dp"
-        android:layout_marginStart="@dimen/mleft"
-        android:text="Name"
-        android:textSize="@dimen/textsize"
-        app:layout_constraintBottom_toTopOf="@+id/eyebrow_04"
-        app:layout_constraintStart_toEndOf="@+id/eyebrowText03" />
 
     <Button
         android:id="@+id/eyelid_04"
@@ -1223,7 +1316,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="04"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyelid_03"
@@ -1256,7 +1349,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="04"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_03"
@@ -1290,7 +1383,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="04"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_03"
@@ -1323,7 +1416,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="04"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_03"
@@ -1356,7 +1449,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="05"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyebrow_04"
@@ -1389,7 +1482,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="05"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyelid_04"
@@ -1422,7 +1515,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="05"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_04"
@@ -1455,7 +1548,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="05"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_04"
@@ -1488,7 +1581,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="05"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_04"
@@ -1521,7 +1614,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="06"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyebrow_05"
@@ -1555,7 +1648,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="06"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyelid_05"
@@ -1589,7 +1682,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="06"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_05"
@@ -1622,7 +1715,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="06"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_05"
@@ -1655,7 +1748,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="06"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_05"
@@ -1689,7 +1782,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="07"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyebrow_06"
@@ -1723,7 +1816,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="07"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyelid_06"
@@ -1756,7 +1849,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="07"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_06"
@@ -1789,7 +1882,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="07"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_06"
@@ -1822,7 +1915,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="07"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_06"
@@ -1855,7 +1948,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="08"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyebrow_07"
@@ -1888,7 +1981,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="08"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyelid_07"
@@ -1921,7 +2014,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="08"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_07"
@@ -1954,7 +2047,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="08"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_07"
@@ -1988,7 +2081,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="08"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_07"
@@ -2021,7 +2114,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="09"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyebrow_08"
@@ -2054,7 +2147,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="09"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyelid_08"
@@ -2088,7 +2181,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="09"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_08"
@@ -2121,7 +2214,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="09"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_08"
@@ -2155,7 +2248,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="09"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_08"
@@ -2189,7 +2282,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="10"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyebrow_09"
@@ -2222,7 +2315,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="10"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyelid_09"
@@ -2256,7 +2349,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="10"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_09"
@@ -2289,7 +2382,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="10"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_09"
@@ -2322,7 +2415,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="10"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_09"
@@ -2355,7 +2448,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="11"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyebrow_10"
@@ -2389,7 +2482,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="11"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyelid_10"
@@ -2424,7 +2517,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="11"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_10"
@@ -2458,7 +2551,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="11"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_10"
@@ -2491,7 +2584,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="11"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_10"
@@ -2556,7 +2649,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="12"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyebrow_11"
@@ -2589,7 +2682,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="12"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyelid_11"
@@ -2622,7 +2715,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="12"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/eyes_11"
@@ -2656,7 +2749,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="12"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/nose_11"
@@ -2690,7 +2783,7 @@
         android:layout_width="@dimen/bwidth"
         android:layout_height="@dimen/bheight"
         android:layout_marginStart="@dimen/mleft"
-        android:layout_marginTop="@dimen/mup"
+        
         android:text="12"
         android:theme="@style/AppTheme.PerformToRec"
         app:layout_constraintStart_toEndOf="@+id/mouth_11"
@@ -2751,11 +2844,6 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="parent" />
-
-
-
-
-
 
     </TableLayout>
     </LinearLayout>

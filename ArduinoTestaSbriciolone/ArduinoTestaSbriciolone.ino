@@ -1,4 +1,4 @@
-iarestruct ServoValues {
+struct ServoValues {
   int minValue;
   int maxValue;
   int channel;
