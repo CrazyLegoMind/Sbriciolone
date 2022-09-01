@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private double multiplicator = 1;
-    private VerticalSeekBar multBar;
+    private SeekBar multBar;
     private Button resetM;
     private TextView multText;
     private static final int minValueMult = 3;
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        multBar = (VerticalSeekBar) findViewById(R.id.seekBar);
+        multBar = (SeekBar) findViewById(R.id.seekBar);
         resetM = (Button) findViewById(R.id.resetM);
         resetM.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
