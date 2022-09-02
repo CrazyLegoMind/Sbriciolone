@@ -36,6 +36,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:text="■ "
+                android:onClick="stopButton"
                 tools:clickable="false"
                 tools:enabled="false"
                 android:layout_gravity="center_vertical" />

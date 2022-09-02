@@ -32,7 +32,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.makinarium.makinariumanimatronickeysystem.com.makinarium.customgraphics.VerticalSeekBar;
 import com.makinarium.makinariumanimatronickeysystem.com.makinarium.presetthings.AbstractPerformance;
 import com.makinarium.makinariumanimatronickeysystem.com.makinarium.presetthings.ButtonPerformance;
 import com.makinarium.makinariumanimatronickeysystem.com.makinarium.presetthings.ButtonsContainer;
@@ -155,57 +154,32 @@ public class MainActivity extends AppCompatActivity {
 
         performanceFilter = new HashSet<>();
 
-        cronometro = (TextView)findViewById(R.id.cronometro);
-        stopButton = (Button)findViewById(R.id.stopButton);
+        cronometro = findViewById(R.id.cronometro);
+        stopButton = findViewById(R.id.stopButton);
         stopButton.setClickable(false);
         stopButton.setEnabled(false);
-        stopButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                stopButton();
-            }
-        });
 
 
-        mouthSwitch = (Switch)findViewById(R.id.mouthSwitch);
-        eyesSwitch = (Switch)findViewById(R.id.eyesSwitch);
-        nameSwitch = (Switch)findViewById(R.id.nameSwitch);
-
+        mouthSwitch = findViewById(R.id.mouthSwitch);
+        eyesSwitch = findViewById(R.id.eyesSwitch);
+        nameSwitch = findViewById(R.id.nameSwitch);
         mouthSwitch.setChecked(true);
         eyesSwitch.setChecked(true);
+        mouthSwitch.setOnCheckedChangeListener(this::onCheckMouth);
+        eyesSwitch.setOnCheckedChangeListener(this::onCheckEyes);
+        nameSwitch.setOnCheckedChangeListener(this::onCheckNames);
 
-        mouthSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                onCheckMouth(buttonView,isChecked);
-            }
-        });
-
-        eyesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                onCheckEyes(buttonView,isChecked);
-            }
-        });
-
-        nameSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                onCheckNames(buttonView,isChecked);
-            }
-        });
-
-        multBar = (SeekBar) findViewById(R.id.seekBar);
-        resetM = (Button) findViewById(R.id.resetM);
-        resetM.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                resetSBButton();
-            }
-        });
-        multText = (TextView) findViewById(R.id.multText);
+        multBar = findViewById(R.id.seekBar);
+        resetM = findViewById(R.id.resetM);
+        resetM.setOnClickListener(v -> resetSBButton());
+        multText = findViewById(R.id.multText);
 
         multBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 multiplicator = (progress + minValueMult) / 10.0;
-                multText.setText(" " + String.valueOf(multiplicator) + " ");
+                multText.setText(String.valueOf(multiplicator));
             }
 
             @Override
@@ -219,9 +193,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mouthStatus = (TextView) findViewById(R.id.mouthStatus);
-        eyesStatus = (TextView) findViewById(R.id.eyesStatus);
-        headStatus = (TextView) findViewById(R.id.headStatus);
+        mouthStatus = findViewById(R.id.mouthStatus);
+        eyesStatus = findViewById(R.id.eyesStatus);
+        headStatus = findViewById(R.id.headStatus);
 
         checkThread = new CheckConnectionsThread(this);
 
@@ -349,12 +323,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initilializeButton(int id, FaceSector sector, int pbID, int textID)
     {
-        Button b = (Button) findViewById(id);
-        ProgressBar pb = (ProgressBar) findViewById(pbID);
-        TextView t = (TextView) findViewById(textID);
+        Button b = findViewById(id);
+        ProgressBar pb = findViewById(pbID);
+        TextView t = findViewById(textID);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 performClick(v);
             }
         });
@@ -371,9 +344,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initilializePresetButton(int id, int pbID, int textID)
     {
-        Button b = (Button) findViewById(id);
-        ProgressBar pb = (ProgressBar) findViewById(pbID);
-        TextView t = (TextView) findViewById(textID);
+        Button b = findViewById(id);
+        ProgressBar pb = findViewById(pbID);
+        TextView t = findViewById(textID);
 
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -392,6 +365,7 @@ public class MainActivity extends AppCompatActivity {
         container.addPresetButton(id, b, FaceSector.PRESET, pb, t);
     }
 
+    /*
     private void testButton()//only for debug
     {
 
@@ -404,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
         container.getButtonPerformance(R.id.mouth_01).addPerformancePiece(arrayTest,200);
         container.getButtonPerformance(R.id.mouth_01).addPerformancePiece(arrayTest,4000);
     }
-
+    //*/
 
     public void startBTConnection(BluetoothDevice device, BluetoothConnectionService connection)
     {
@@ -539,7 +513,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void stopButton()
+    public void stopButton(View v)
     {
         timeTask.cancel(true);
         timeTask = null;
@@ -653,7 +627,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... values)
         {
-            cronometro.setText(" " + printNumberForTimer(values[0]) + ":" + printNumberForTimer(values[1]) + ":" + values[2] + values[3] );
+            String timeStr = " " + printNumberForTimer(values[0]) + ":" + printNumberForTimer(values[1]) + ":" + values[2] + values[3];
+            cronometro.setText(timeStr);
         }
 
         private String printNumberForTimer(int n)
@@ -731,7 +706,6 @@ public class MainActivity extends AppCompatActivity {
             if(who.equals(Constants.headStatus))
             {
                 setTextViewStatus(headStatus,status);
-                return;
             }
         }
 
@@ -960,10 +934,10 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle("Change button name");
 // I'm using fragment here so I'm using getView() to provide ViewGroup
 // but you can provide here any other instance of ViewGroup from your Fragment / Activity
-        ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
+        ViewGroup view = findViewById(android.R.id.content);
         View viewInflated = LayoutInflater.from(this).inflate(R.layout.popupname, view, false);
 // Set up the input
-        final EditText input = (EditText) viewInflated.findViewById(R.id.insertName);
+        final EditText input = viewInflated.findViewById(R.id.insertName);
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         builder.setView(viewInflated);
 

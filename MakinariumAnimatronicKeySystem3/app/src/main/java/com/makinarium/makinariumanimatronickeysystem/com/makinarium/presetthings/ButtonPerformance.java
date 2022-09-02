@@ -110,8 +110,7 @@ public class ButtonPerformance extends AbstractPerformance{
 
                 //Log.i("ZIP", "BBBBBAAAAA  " + p.toString());
 
-                if(y == null)
-                {
+                if(y == null) {
                     y = performance.get(i);
                     y.eraseThis();
                     //Log.i("ELIMINATO", y.toString());
@@ -119,11 +118,8 @@ public class ButtonPerformance extends AbstractPerformance{
                         direction = AnalogDirection.UP;
                     else
                         direction = AnalogDirection.DOWN;
-                }
-                else
-                {
 
-
+                } else {
                     int diff = y.getAnalogValue() - performance.get(i).getAnalogValue();
                     if(direction == AnalogDirection.UP && diff > 0)
                         break;
@@ -141,8 +137,7 @@ public class ButtonPerformance extends AbstractPerformance{
             if(z!= null) {
                 p.setAnalogStringAndChecksum(z.getAnalogValue(), z.getStringVersion(), z.getCheckSum());
                 p.setAction(z.getBytes());
-            }
-            else if(y != null) {
+            } else if(y != null) {
                 p.setAnalogStringAndChecksum(y.getAnalogValue(), y.getStringVersion(), y.getCheckSum());
                 p.setAction(y.getBytes());
             }
