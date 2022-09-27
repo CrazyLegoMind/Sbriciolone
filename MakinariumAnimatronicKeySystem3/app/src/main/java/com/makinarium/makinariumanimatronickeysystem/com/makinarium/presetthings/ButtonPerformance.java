@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+//handler class for for single animations, not presets
+//holds a performance, so list of messages to send
+
 public class ButtonPerformance extends AbstractPerformance{
 
     private List<PerformancePiece<byte[]>> performance;
@@ -25,7 +29,7 @@ public class ButtonPerformance extends AbstractPerformance{
         performance = new ArrayList<>();
     }
 
-
+    //utils functions
     public void deletePerformance()
     {
         super.deletePerformance();

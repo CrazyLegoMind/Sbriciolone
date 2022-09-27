@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="4dp"
+    android:paddingTop="4dp"
     android:paddingRight="4dp"
     android:paddingBottom="4dp"
-    android:paddingTop="4dp"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -25,29 +25,29 @@
                 android:id="@+id/cronometro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/firstleft"
                 android:background="@drawable/backsquare"
                 android:text=" 00.00.00 "
-                android:textSize="30sp"
-                android:layout_gravity="center_vertical"/>
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/stopButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="■ "
+                android:layout_gravity="center_vertical"
                 android:onClick="stopButton"
+                android:text="■ "
                 tools:clickable="false"
-                tools:enabled="false"
-                android:layout_gravity="center_vertical" />
+                tools:enabled="false" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
 
                 <TextView
                     android:id="@+id/mouthStatus"
@@ -90,13 +90,14 @@
                     android:layout_toRightOf="@+id/mouthTextS"
                     android:text="✓"
                     android:textColor="@color/activePerform" />
+
                 <TextView
                     android:id="@+id/headTextS"
                     android:layout_width="80dp"
                     android:layout_height="17dp"
+                    android:layout_below="@+id/eyesTextS"
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/headStatus"
-                    android:layout_below="@+id/eyesTextS"
                     android:text="Head rec" />
 
             </RelativeLayout>
@@ -105,22 +106,22 @@
                 android:id="@+id/nameSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="13dp"
-                android:text="Names"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:text="Names" />
 
             <Switch
                 android:id="@+id/mouthSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mouth"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:text="Mouth" />
 
             <Switch
                 android:id="@+id/eyesSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Eyes"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:text="Eyes" />
 
 
         </LinearLayout>
@@ -128,9 +129,9 @@
 
         <!-- recs buttons table-->
         <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <!-- preset row -->
             <TableRow
                 android:layout_width="wrap_content"
@@ -141,15 +142,16 @@
                     android:id="@+id/presetText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Preset"
                     android:textSize="@dimen/textsize"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/presetText01"
                         android:layout_width="@dimen/bwidth"
@@ -159,6 +161,7 @@
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
+
                     <Button
                         android:id="@+id/preset_01"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -175,6 +178,7 @@
                         android:layout_height="@dimen/pbheight"
                         android:layout_marginStart="@dimen/firstleft" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -191,6 +195,7 @@
                         android:textSize="@dimen/textsize"
                         app:layout_constraintBottom_toTopOf="@+id/preset_02"
                         app:layout_constraintStart_toEndOf="@+id/presetText01" />
+
                     <Button
                         android:id="@+id/preset_02"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -212,44 +217,50 @@
                         app:layout_constraintTop_toBottomOf="@+id/preset_02" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                <TextView
-                    android:id="@+id/presetText03"
-                    android:layout_width="@dimen/bwidth"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="@dimen/mleft"
-                    android:clickable="true"
-                    android:onClick="changeName"
-                    android:text="Name"
-                    android:textSize="@dimen/textsize"
-                    app:layout_constraintBottom_toTopOf="@+id/preset_03"
-                    app:layout_constraintStart_toEndOf="@+id/presetText02" />
-                <Button
-                    android:id="@+id/preset_03"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="@dimen/bwidth"
-                    android:layout_height="@dimen/bheight"
-                    android:layout_marginStart="@dimen/mleft"
-                    android:text="03"
-                    android:theme="@style/AppTheme.PerformToRec"
-                    app:layout_constraintStart_toEndOf="@+id/preset_02"
-                    app:layout_constraintTop_toTopOf="@+id/preset_02" />
-                <ProgressBar
-                    android:id="@+id/presetPB03"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="@dimen/bwidth"
-                    android:layout_height="@dimen/pbheight"
-                    android:layout_marginStart="@dimen/mleft"
-                    app:layout_constraintStart_toEndOf="@+id/presetPB02"
-                    app:layout_constraintTop_toBottomOf="@+id/preset_03" />
+
+                    <TextView
+                        android:id="@+id/presetText03"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/preset_03"
+                        app:layout_constraintStart_toEndOf="@+id/presetText02" />
+
+                    <Button
+                        android:id="@+id/preset_03"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="03"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/preset_02"
+                        app:layout_constraintTop_toTopOf="@+id/preset_02" />
+
+                    <ProgressBar
+                        android:id="@+id/presetPB03"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/presetPB02"
+                        app:layout_constraintTop_toBottomOf="@+id/preset_03" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/presetText04"
                         android:layout_width="@dimen/bwidth"
@@ -258,9 +269,11 @@
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
+                        android:textColor="#212121"
                         android:textSize="@dimen/textsize"
                         app:layout_constraintBottom_toTopOf="@+id/preset_04"
                         app:layout_constraintStart_toEndOf="@+id/presetText03" />
+
                     <Button
                         android:id="@+id/preset_04"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -271,6 +284,7 @@
                         android:theme="@style/AppTheme.PerformToRec"
                         app:layout_constraintStart_toEndOf="@+id/preset_03"
                         app:layout_constraintTop_toTopOf="@+id/preset_03" />
+
                     <ProgressBar
                         android:id="@+id/presetPB04"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -280,10 +294,12 @@
                         app:layout_constraintStart_toEndOf="@+id/presetPB03"
                         app:layout_constraintTop_toBottomOf="@+id/preset_04" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/presetText05"
                         android:layout_width="@dimen/bwidth"
@@ -295,6 +311,7 @@
                         android:textSize="@dimen/textsize"
                         app:layout_constraintBottom_toTopOf="@+id/preset_05"
                         app:layout_constraintStart_toEndOf="@+id/presetText04" />
+
                     <Button
                         android:id="@+id/preset_05"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -305,6 +322,7 @@
                         android:theme="@style/AppTheme.PerformToRec"
                         app:layout_constraintStart_toEndOf="@+id/preset_04"
                         app:layout_constraintTop_toTopOf="@+id/preset_04" />
+
                     <ProgressBar
                         android:id="@+id/presetPB05"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -314,6 +332,7 @@
                         app:layout_constraintStart_toEndOf="@+id/presetPB04"
                         app:layout_constraintTop_toBottomOf="@+id/preset_05" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -390,6 +409,7 @@
                         app:layout_constraintStart_toEndOf="@+id/presetPB06"
                         app:layout_constraintTop_toBottomOf="@+id/preset_07" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -427,6 +447,7 @@
                         app:layout_constraintStart_toEndOf="@+id/presetPB07"
                         app:layout_constraintTop_toBottomOf="@+id/preset_08" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -464,6 +485,7 @@
                         app:layout_constraintStart_toEndOf="@+id/presetPB08"
                         app:layout_constraintTop_toBottomOf="@+id/preset_09" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -501,6 +523,7 @@
                         app:layout_constraintStart_toEndOf="@+id/presetPB09"
                         app:layout_constraintTop_toBottomOf="@+id/preset_10" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -538,6 +561,7 @@
                         app:layout_constraintStart_toEndOf="@+id/presetPB10"
                         app:layout_constraintTop_toBottomOf="@+id/preset_11" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -586,15 +610,16 @@
                     android:id="@+id/eyebrowsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Eyebrows"
                     android:textSize="@dimen/textsize"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/eyebrowText01"
                         android:layout_width="@dimen/bwidth"
@@ -606,6 +631,7 @@
                         android:textSize="@dimen/textsize"
                         app:layout_constraintBottom_toTopOf="@+id/eyebrow_01"
                         app:layout_constraintStart_toStartOf="parent" />
+
                     <Button
                         android:id="@+id/eyebrow_01"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -616,6 +642,7 @@
                         android:theme="@style/AppTheme.PerformToRec"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/preset_01" />
+
                     <ProgressBar
                         android:id="@+id/eyebrowPB01"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -625,10 +652,12 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/eyebrow_01" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/eyebrowText02"
                         android:layout_width="@dimen/bwidth"
@@ -638,6 +667,7 @@
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
+
                     <Button
                         android:id="@+id/eyebrow_02"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -645,7 +675,7 @@
                         android:layout_height="@dimen/bheight"
                         android:layout_marginStart="@dimen/mleft"
                         android:text="02"
-                        android:theme="@style/AppTheme.PerformToRec"/>
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
                         android:id="@+id/eyebrowPB02"
@@ -655,10 +685,12 @@
                         android:layout_marginStart="@dimen/mleft" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/eyebrowText03"
                         android:layout_width="@dimen/bwidth"
@@ -670,13 +702,14 @@
                         android:textSize="@dimen/textsize"
                         app:layout_constraintBottom_toTopOf="@+id/eyebrow_03"
                         app:layout_constraintStart_toEndOf="@+id/eyebrowText02" />
+
                     <Button
                         android:id="@+id/eyebrow_03"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
                         android:layout_marginStart="@dimen/mleft"
-                        
+
                         android:text="03"
                         android:theme="@style/AppTheme.PerformToRec"
                         app:layout_constraintStart_toEndOf="@+id/eyebrow_02"
@@ -691,8 +724,9 @@
                         app:layout_constraintStart_toEndOf="@+id/eyebrowPB02"
                         app:layout_constraintTop_toBottomOf="@+id/eyebrow_03" />
 
-                    
+
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -705,6 +739,7 @@
                         android:layout_marginStart="@dimen/mleft"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
+
                     <Button
                         android:id="@+id/eyebrow_04"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -713,6 +748,7 @@
                         android:layout_marginStart="@dimen/mleft"
                         android:text="04"
                         android:theme="@style/AppTheme.PerformToRec" />
+
                     <ProgressBar
                         android:id="@+id/eyebrowPB04"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -724,6 +760,7 @@
 
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -762,6 +799,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyebrowPB04"
                         app:layout_constraintTop_toBottomOf="@+id/eyebrow_05" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -814,7 +852,7 @@
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"/>
+                        android:textSize="@dimen/textsize" />
 
                     <Button
                         android:id="@+id/eyebrow_07"
@@ -831,8 +869,9 @@
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"/>
+                        android:layout_marginStart="@dimen/mleft" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -872,6 +911,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/eyebrow_08" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -889,15 +929,6 @@
                         app:layout_constraintBottom_toTopOf="@+id/eyebrow_09"
                         app:layout_constraintStart_toEndOf="@+id/eyebrowText08" />
 
-                    <ProgressBar
-                        android:id="@+id/eyebrowPB09"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB08"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_09" />
-
                     <Button
                         android:id="@+id/eyebrow_09"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -909,7 +940,19 @@
                         android:theme="@style/AppTheme.PerformToRec"
                         app:layout_constraintStart_toEndOf="@+id/eyebrow_08"
                         app:layout_constraintTop_toBottomOf="@+id/preset_09" />
+
+                    <ProgressBar
+                        android:id="@+id/eyebrowPB09"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB08"
+                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_09" />
+
+
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -927,6 +970,17 @@
                         app:layout_constraintBottom_toTopOf="@+id/eyebrow_10"
                         app:layout_constraintStart_toEndOf="@+id/eyebrowText09" />
 
+                    <Button
+                        android:id="@+id/eyebrow_10"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:text="10"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/eyebrow_09"
+                        app:layout_constraintTop_toBottomOf="@+id/preset_10" />
+
                     <ProgressBar
                         android:id="@+id/eyebrowPB10"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -936,18 +990,9 @@
                         app:layout_constraintStart_toEndOf="@+id/eyebrowPB09"
                         app:layout_constraintTop_toBottomOf="@+id/eyebrow_10" />
 
-                    <Button
-                        android:id="@+id/eyebrow_10"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
 
-                        android:text="10"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrow_09"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_10" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -987,6 +1032,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/eyebrow_11" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1038,15 +1084,16 @@
                     android:id="@+id/textView3"
                     android:layout_width="37dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Eyelid"
                     android:textSize="@dimen/textsize"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical" />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/eyelidText01"
                         android:layout_width="@dimen/bwidth"
@@ -1056,6 +1103,7 @@
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
+
                     <Button
                         android:id="@+id/eyelid_01"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -1064,6 +1112,7 @@
                         android:layout_marginStart="@dimen/firstleft"
                         android:text="01"
                         android:theme="@style/AppTheme.PerformToRec" />
+
                     <ProgressBar
                         android:id="@+id/eyelidPB01"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -1073,10 +1122,12 @@
 
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/eyelidText02"
                         android:layout_width="@dimen/bwidth"
@@ -1085,7 +1136,8 @@
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"/>
+                        android:textSize="@dimen/textsize" />
+
                     <Button
                         android:id="@+id/eyelid_02"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -1093,7 +1145,8 @@
                         android:layout_height="@dimen/bheight"
                         android:layout_marginStart="@dimen/mleft"
                         android:text="02"
-                        android:theme="@style/AppTheme.PerformToRec"/>
+                        android:theme="@style/AppTheme.PerformToRec" />
+
                     <ProgressBar
                         android:id="@+id/eyelidPB02"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -1102,10 +1155,12 @@
                         android:layout_marginStart="@dimen/mleft" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/eyelidText03"
                         android:layout_width="@dimen/bwidth"
@@ -1114,7 +1169,7 @@
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"/>
+                        android:textSize="@dimen/textsize" />
 
                     <Button
                         android:id="@+id/eyelid_03"
@@ -1132,6 +1187,7 @@
                         android:layout_height="@dimen/pbheight"
                         android:layout_marginStart="@dimen/mleft" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1171,6 +1227,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/eyelid_04" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1210,6 +1267,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/eyelid_05" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1288,6 +1346,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyelidPB06"
                         app:layout_constraintTop_toBottomOf="@+id/eyelid_07" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1326,6 +1385,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyelidPB07"
                         app:layout_constraintTop_toBottomOf="@+id/eyelid_08" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1343,15 +1403,6 @@
                         app:layout_constraintBottom_toTopOf="@+id/eyelid_09"
                         app:layout_constraintStart_toEndOf="@+id/eyelidText08" />
 
-                    <ProgressBar
-                        android:id="@+id/eyelidPB09"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB08"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_09" />
-
                     <Button
                         android:id="@+id/eyelid_09"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -1363,7 +1414,19 @@
                         android:theme="@style/AppTheme.PerformToRec"
                         app:layout_constraintStart_toEndOf="@+id/eyelid_08"
                         app:layout_constraintTop_toBottomOf="@+id/eyebrow_09" />
+
+                    <ProgressBar
+                        android:id="@+id/eyelidPB09"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/eyelidPB08"
+                        app:layout_constraintTop_toBottomOf="@+id/eyelid_09" />
+
+
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1403,6 +1466,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/eyelid_10" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1441,6 +1505,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyelidPB10"
                         app:layout_constraintTop_toBottomOf="@+id/eyelid_11" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1491,15 +1556,16 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Eyes"
                     android:textSize="@dimen/textsize"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/eyesText01"
                         android:layout_width="@dimen/bwidth"
@@ -1511,6 +1577,7 @@
                         android:textSize="@dimen/textsize"
                         app:layout_constraintBottom_toTopOf="@+id/eyes_01"
                         app:layout_constraintStart_toStartOf="parent" />
+
                     <Button
                         android:id="@+id/eyes_01"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -1521,6 +1588,7 @@
                         android:theme="@style/AppTheme.PerformToRec"
                         app:layout_constraintStart_toStartOf="@+id/eyelid_01"
                         app:layout_constraintTop_toBottomOf="@+id/eyelid_01" />
+
                     <ProgressBar
                         android:id="@+id/eyesPB01"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -1530,10 +1598,12 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/eyes_01" />
                 </LinearLayout>
+
                 <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/eyesText02"
                         android:layout_width="@dimen/bwidth"
@@ -1543,6 +1613,7 @@
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
+
                     <Button
                         android:id="@+id/eyes_02"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -1551,6 +1622,7 @@
                         android:layout_marginStart="@dimen/mleft"
                         android:text="02"
                         android:theme="@style/AppTheme.PerformToRec" />
+
                     <ProgressBar
                         android:id="@+id/eyesPB02"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -1561,6 +1633,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/eyes_02" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1599,6 +1672,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyesPB02"
                         app:layout_constraintTop_toBottomOf="@+id/eyes_03" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1637,6 +1711,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyesPB03"
                         app:layout_constraintTop_toBottomOf="@+id/eyes_04" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1675,6 +1750,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyesPB04"
                         app:layout_constraintTop_toBottomOf="@+id/eyes_05" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1753,6 +1829,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/eyes_07" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1792,6 +1869,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/eyes_08" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1830,6 +1908,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyesPB08"
                         app:layout_constraintTop_toBottomOf="@+id/eyes_09" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1868,6 +1947,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyesPB09"
                         app:layout_constraintTop_toBottomOf="@+id/eyes_10" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1906,6 +1986,7 @@
                         app:layout_constraintStart_toEndOf="@+id/eyesPB10"
                         app:layout_constraintTop_toBottomOf="@+id/eyes_11" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1948,22 +2029,23 @@
 
             <!-- nose row -->
             <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Nose"
                     android:textSize="@dimen/textsize"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/noseText01"
                         android:layout_width="@dimen/bwidth"
@@ -1975,6 +2057,7 @@
                         android:textSize="@dimen/textsize"
                         app:layout_constraintBottom_toTopOf="@+id/nose_01"
                         app:layout_constraintStart_toStartOf="parent" />
+
                     <Button
                         android:id="@+id/nose_01"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -1985,6 +2068,7 @@
                         android:theme="@style/AppTheme.PerformToRec"
                         app:layout_constraintStart_toStartOf="@+id/eyelid_01"
                         app:layout_constraintTop_toBottomOf="@+id/eyes_01" />
+
                     <ProgressBar
                         android:id="@+id/nosePB01"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -1995,6 +2079,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/nose_01" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2031,6 +2116,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/nose_02" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2069,6 +2155,7 @@
                         app:layout_constraintStart_toEndOf="@+id/nosePB02"
                         app:layout_constraintTop_toBottomOf="@+id/nose_03" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2107,6 +2194,7 @@
                         app:layout_constraintStart_toEndOf="@+id/nosePB03"
                         app:layout_constraintTop_toBottomOf="@+id/nose_04" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2146,6 +2234,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/nose_05" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2223,6 +2312,7 @@
                         app:layout_constraintStart_toEndOf="@+id/nosePB06"
                         app:layout_constraintTop_toBottomOf="@+id/nose_07" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2261,10 +2351,11 @@
                         app:layout_constraintStart_toEndOf="@+id/nosePB07"
                         app:layout_constraintTop_toBottomOf="@+id/nose_08" />
                 </LinearLayout>
+
                 <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/noseText09"
@@ -2300,10 +2391,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/nose_09" />
 
                 </LinearLayout>
+
                 <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/noseText10"
@@ -2339,6 +2431,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/nose_10" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2377,6 +2470,7 @@
                         app:layout_constraintStart_toEndOf="@+id/nosePB10"
                         app:layout_constraintTop_toBottomOf="@+id/nose_11" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2428,10 +2522,10 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Mouth"
                     android:textSize="@dimen/textsize"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -2470,6 +2564,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/mouth_01" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2509,6 +2604,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/mouth_02" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -2548,6 +2644,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/mouth_03" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2587,6 +2684,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/mouth_04" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2626,6 +2724,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/mouth_05" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2703,6 +2802,7 @@
                         app:layout_constraintStart_toEndOf="@+id/mouthPB06"
                         app:layout_constraintTop_toBottomOf="@+id/mouth_07" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2742,6 +2842,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/mouth_08" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2780,6 +2881,7 @@
                         app:layout_constraintStart_toEndOf="@+id/mouthPB08"
                         app:layout_constraintTop_toBottomOf="@+id/mouth_09" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2818,6 +2920,7 @@
                         app:layout_constraintStart_toEndOf="@+id/mouthPB09"
                         app:layout_constraintTop_toBottomOf="@+id/mouth_10" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2856,6 +2959,7 @@
                         app:layout_constraintStart_toEndOf="@+id/mouthPB10"
                         app:layout_constraintTop_toBottomOf="@+id/mouth_11" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -2917,24 +3021,23 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/backsquare"
-                android:text=" 1.0 "
-                 />
+                android:text=" 1.0 " />
 
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="250dp"
                 android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
                 android:max="27"
                 android:min="3"
-                android:progress="7"
-                android:layout_gravity="center_vertical"/>
+                android:progress="7" />
 
             <Button
                 android:id="@+id/resetM"
                 android:layout_width="80dp"
                 android:layout_height="39dp"
-                android:text="Reset"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:text="Reset" />
 
         </LinearLayout>
 

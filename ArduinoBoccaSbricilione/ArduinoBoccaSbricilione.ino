@@ -130,17 +130,14 @@ void readWriteMotor(Motor& m, int index)
 {
   int sensorValue = analogRead(m.port);
 
-  if (abs(m.oldValue - sensorValue) > Analogfilter)
-  {
+  if (abs(m.oldValue - sensorValue) > Analogfilter){
     sendMotor(m, sensorValue);
-    if (parlataButton.value && m.pinH == listaMotori[2].pinH)
-    {
+    if (parlataButton.value && m.pinH == listaMotori[2].pinH){
       sendMotor(listaMotori[0], parlataConversion(sensorValue, parlataDistanceLaterali));
       sendMotor(listaMotori[1], parlataConversion(sensorValue, parlataDistanceCentrali));
       sendMotor(listaMotori[3], parlataConversion(sensorValue, parlataDistanceCentrali));
       sendMotor(listaMotori[4], parlataConversion(sensorValue, parlataDistanceLaterali));
-    }
-    else if (mirrorButton.value)
+    }else if (mirrorButton.value)
       if (index == 3 || index == 4)
         sendMotor(listaMotori[4 - index], sensorValue);
   }

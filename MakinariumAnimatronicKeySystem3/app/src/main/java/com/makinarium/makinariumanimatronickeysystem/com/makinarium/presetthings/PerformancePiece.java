@@ -3,6 +3,9 @@ package com.makinarium.makinariumanimatronickeysystem.com.makinarium.presetthing
 import com.makinarium.makinariumanimatronickeysystem.MessageTypes;
 import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.Constants;
 
+//packet handling class, stores a single action tied to
+//a servo and a value
+
 public class PerformancePiece <T>{
 
     private T action;
@@ -28,6 +31,7 @@ public class PerformancePiece <T>{
         parseMessage();
     }
 
+    //utils functions
     private void parseMessage()
     {
         type = MessageTypes.fromChar(stringVersion.charAt(1));
@@ -62,75 +66,20 @@ public class PerformancePiece <T>{
         this.millisToAction = toCopy.getMillisToAction();
     }
 
-    public T getAction()
-    {
-        return action;
-    }
-
-
-    public int getMillisToAction()
-    {
-        return millisToAction;
-    }
-
     public void addMillis(int millis)
     {
         millisToAction += millis;
     }
 
-    public int getChannelPin() {
-        return channelPin;
-    }
-
-    public int getAnalogValue() {
-        return analogValue;
-    }
-
-    public boolean isToErase() {
-        return toErase;
-    }
-
-    public void eraseThis()
-    {
+    public void eraseThis() {
         toErase = true;
     }
 
-    public MessageTypes getType() {
-        return type;
+    protected byte[] getBytes() {
+        return stringVersion.getBytes();
     }
 
-
-    public void setAction(T action) {
-        this.action = action;
-    }
-
-    protected void setAnalogValue(int analogValue)
-    {
-        this.analogValue = analogValue;
-        //updateStringVersion();
-
-    }
-
-    protected void setAnalogStringAndChecksum(int analogValue, String stringVersion, int checkSum)
-    {
-        this.analogValue = analogValue;
-        this.stringVersion = stringVersion;
-        this.checkSum = checkSum;
-
-
-
-    }
-
-    public String getStringVersion() {
-        return stringVersion;
-    }
-
-    public int getCheckSum() {
-        return checkSum;
-    }
-
-    private void updateStringVersion()
-    {
+    private void updateStringVersion() {
         this.stringVersion = "" + stringVersion.charAt(0) + stringVersion.charAt(1) + Constants.SEPARATOR +
                 channelPin + Constants.SEPARATOR + analogValue + Constants.SEPARATOR;
 
@@ -142,15 +91,66 @@ public class PerformancePiece <T>{
         this.stringVersion += checksum;
     }
 
-    @Override
-    public String toString()
-    {
+    protected void setAnalogStringAndChecksum(int analogValue, String stringVersion, int checkSum) {
+        this.analogValue = analogValue;
+        this.stringVersion = stringVersion;
+        this.checkSum = checkSum;
+
+
+
+    }
+
+
+
+    //setters and getters
+
+    public void setAction(T action) {
+        this.action = action;
+    }
+
+    public T getAction() {
+        return action;
+    }
+
+    public int getMillisToAction() {
+        return millisToAction;
+    }
+
+    public int getChannelPin() {
+        return channelPin;
+    }
+
+    protected void setAnalogValue(int analogValue) {
+        this.analogValue = analogValue;
+        //updateStringVersion();
+    }
+
+    public int getAnalogValue() {
+        return analogValue;
+    }
+
+    public boolean isToErase() {
+        return toErase;
+    }
+
+    public MessageTypes getType() {
+        return type;
+    }
+
+    public String getStringVersion() {
         return stringVersion;
     }
 
-
-    protected byte[] getBytes()
-    {
-        return stringVersion.getBytes();
+    public int getCheckSum() {
+        return checkSum;
     }
+
+
+
+    //object overrides
+    @Override
+    public String toString() {
+        return stringVersion;
+    }
+
 }

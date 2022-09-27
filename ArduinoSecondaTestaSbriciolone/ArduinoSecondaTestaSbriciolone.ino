@@ -232,12 +232,10 @@ void setup() {
 
 void loop() {
   String message = Serial3.readStringUntil('\n');
-  if (message.length() > 0)
-  {
+  if (message.length() > 0){
 
     bool doIt = true;
-    if (message.charAt(0) != 'r')
-    {
+    if (message.charAt(0) != 'r'){
       
       long randNumber = random(100);
 
@@ -245,13 +243,10 @@ void loop() {
       {
         doIt = false;
       }
-    }
-    else
-    {
+    }else{
       message = message.substring(1);
     }
-    if (doIt)
-    {
+    if (doIt){
 
       //delay(30);
       int lenghtMessage = getLenghtBeforeCheckSum(message, ';');
@@ -272,27 +267,19 @@ void loop() {
 
       if (myCheckSum == checksum)
       {
-        if (message.charAt(0) == eyesC)
-        {
+        if (message.charAt(0) == eyesC){
           eyesMotorMessage(message);
-        }
-        else if (message.charAt(0) == eyeLidsC)
-        {
+
+        }else if (message.charAt(0) == eyeLidsC){
           eyelidsMessage(message);
-        }
 
-        else if (message.charAt(0) == eyebrownsC)
-        {
+        }else if (message.charAt(0) == eyebrownsC){
           eyeBrowMessage(message);
-        }
 
-        else if (message.charAt(0) == noseC)
-        {
+        }else if (message.charAt(0) == noseC){
           noseMessage(message);
-        }
-
-        else if (message.charAt(0) == mouthC)
-        {
+          
+        }else if (message.charAt(0) == mouthC){
           mouthMessage(message);
         }
       }

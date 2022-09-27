@@ -9,6 +9,9 @@ import com.makinarium.makinariumanimatronickeysystem.FaceSector;
 import java.util.ArrayList;
 import java.util.List;
 
+//handler class for animation presets, holding all linked
+//button performances to start when starting the animation
+
 public class PresetPerformance extends AbstractPerformance{
     private ButtonPerformance eyebrowns;
     private ButtonPerformance eyelids;

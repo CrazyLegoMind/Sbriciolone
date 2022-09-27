@@ -11,6 +11,8 @@ import com.makinarium.makinariumanimatronickeysystem.FaceSector;
 import com.makinarium.makinariumanimatronickeysystem.R;
 import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.IDFactory;
 
+// handler class for generic animations, holding the triggering button and the
+// rest of the visuals, BOTH BUTTONS AND PRESETS
 public abstract class AbstractPerformance {
 
     private transient Button button;
@@ -38,6 +40,8 @@ public abstract class AbstractPerformance {
         this.textView = textView;
     }
 
+    //utils
+
     public void deactivatesButton()
     {
         this.button.setAlpha(.5f);
@@ -52,48 +56,11 @@ public abstract class AbstractPerformance {
         this.button.setClickable(true);
     }
 
-    public Button getButton()
-    {
-        return button;
-    }
-
-    public FaceSector getFaceSector() {
-        return faceSector;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    protected void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    protected void setPerform(boolean canPerform) {this.canPerform = canPerform; }
-
-    public boolean canPerform()
-    {
-        return canPerform;
-    }
-
     public void deletePerformance()
     {
         duration = 0;
         canPerform = false;
 
-    }
-
-    public ProgressBar getProgressBar() {
-        return progressBar;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void updateTextName()
-    {
-        textView.setText(name);
     }
 
     public void updateColor()
@@ -110,12 +77,50 @@ public abstract class AbstractPerformance {
             button.getBackground().setColorFilter(performToRecColor, PorterDuff.Mode.SRC_ATOP);
     }
 
+    public void updateTextName()
+    {
+        textView.setText(name);
+    }
+
     public void setButtonProgressBarAndTextView(Button button, ProgressBar progressBar, TextView textView)
     {
         this.button = button;
         this.progressBar = progressBar;
         this.textView = textView;
 
+    }
+
+    // getters and setters
+    public Button getButton()
+    {
+        return button;
+    }
+
+    public FaceSector getFaceSector() {
+        return faceSector;
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    protected void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public boolean canPerform()
+    {
+        return canPerform;
+    }
+
+    protected void setPerform(boolean canPerform) {this.canPerform = canPerform; }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
