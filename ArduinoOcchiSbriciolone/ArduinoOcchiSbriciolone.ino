@@ -194,9 +194,11 @@ void readWriteMotor(Motor& m)
       sendMotor(listaMotori[2], sensorValue);
       
     sendMotor(m, sensorValue);
+
+    m.oldValue = sensorValue;
   }
 
-  m.oldValue = sensorValue;
+  
 }
 
 void readButtonLed(ButtonLed& button)

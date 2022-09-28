@@ -432,23 +432,24 @@ public class MainActivity extends AppCompatActivity {
     {
 
         int id = v.getId();
-        ButtonPerformance bp = container.getButtonPerformance(id);
-        if(!bp.canPerform())
-        {
+        ButtonPerformance clickedButton = container.getButtonPerformance(id);
+
+        if(!clickedButton.canPerform()) {
             Toast.makeText(this, Constants.emptyPerformance, Toast.LENGTH_SHORT).show();
             return;
         }
+
         Toast.makeText(this, Constants.performing, Toast.LENGTH_SHORT).show();
-        container.deactivatesButtonSectorButton(bp.getFaceSector());
-        if(presetRegistrationMode)
-        {
+        container.deactivatesButtonSectorButton(clickedButton.getFaceSector());
+
+        if(presetRegistrationMode) {
             presetInRec.setButtonPerformance(container.getButtonPerformance(id));
             timePresetRec = System.currentTimeMillis();
         }
 
-        performanceFilter.add(bp.getFaceSector());
+        performanceFilter.add(clickedButton.getFaceSector());
         performanceThread pt = new performanceThread();
-        pt.executeOnExecutor(myExecutor,bp);
+        pt.executeOnExecutor(myExecutor,clickedButton);
         //pt.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, bp);
 
     }

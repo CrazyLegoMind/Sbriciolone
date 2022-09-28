@@ -66,11 +66,6 @@ public abstract class AbstractPerformance {
     public void updateColor()
     {
 
-        if(id == IDFactory.getLogicID(R.id.eyebrow_01) || id == IDFactory.getLogicID(R.id.eyes_01) ||
-                id == IDFactory.getLogicID(R.id.eyelid_01) || id == IDFactory.getLogicID(R.id.preset_01) ||
-                id == IDFactory.getLogicID(R.id.mouth_01) || id == IDFactory.getLogicID(R.id.nose_01))
-            return;
-
         if(canPerform)
             button.getBackground().setColorFilter(activeColor, PorterDuff.Mode.SRC_ATOP);
         else
