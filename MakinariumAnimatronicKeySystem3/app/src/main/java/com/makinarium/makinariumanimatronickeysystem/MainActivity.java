@@ -461,8 +461,7 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         Toast.makeText(this, Constants.RegistrationString, Toast.LENGTH_LONG).show();
-        timeTask = new TimerForRecorder();
-        timeTask.executeOnExecutor(myExecutor);
+
         //timeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         stopButton.setClickable(true);
         stopButton.setEnabled(true);
@@ -472,14 +471,18 @@ public class MainActivity extends AppCompatActivity {
         undoManager.addLastEdit(bInRec);
         bInRec.deletePerformance();
         previousPerformancePieceTime = System.currentTimeMillis();
+
+        if(timeTask != null)
+            timeTask.killTimer();
+        timeTask = new TimerForRecorder();
+        timeTask.executeOnExecutor(myExecutor,bInRec);
     }
 
 
     public void presetRecClick(View v)
     {
         Toast.makeText(this, Constants.RegistrationString, Toast.LENGTH_LONG).show();
-        timeTask = new TimerForRecorder();
-        timeTask.executeOnExecutor(myExecutor);
+
         //timeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         stopButton.setClickable(true);
         stopButton.setEnabled(true);
@@ -490,6 +493,11 @@ public class MainActivity extends AppCompatActivity {
         undoManager.addLastEdit(presetInRec);
         presetInRec.deletePerformance();
         previousPerformancePieceTime = System.currentTimeMillis();
+
+        if(timeTask != null)
+            timeTask.killTimer();
+        timeTask = new TimerForRecorder();
+        timeTask.executeOnExecutor(myExecutor, presetInRec);
     }
 
     public void presetPerformClick(View v)
@@ -516,7 +524,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void stopButton(View v)
     {
-        timeTask.cancel(true);
+        timeTask.killTimer();
         timeTask = null;
         performRegistrationMode = false;
         presetRegistrationMode = false;
@@ -594,7 +602,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public class TimerForRecorder extends AsyncTask<String, Integer, String> {
+    public class TimerForRecorder extends AsyncTask<AbstractPerformance, String, String> {
+        private final String zeroedTime = "00:00:00";
+        private long performanceStartTime = -1;
+        private AbstractPerformance registeringPerformance;
+        private boolean blinkState = true;
+        private int timeDarkColor = ResourcesCompat.getColor(getResources(), R.color.textDark, null);
+        private int timeLightColor = ResourcesCompat.getColor(getResources(), R.color.textLight, null);
+        private int timeColorCurrent = timeDarkColor;
+        private int timeColor = timeDarkColor;
+        private boolean stop = false;
 
         @Override
         protected void onPreExecute() {
@@ -602,48 +619,96 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(AbstractPerformance... params) {
             long startTime = System.currentTimeMillis();
-            while(!isCancelled())
-            {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                long timePassed = System.currentTimeMillis() - startTime;
-                timePassed /= 10;
-                int centesimi = (int) timePassed % 10;
-                timePassed /= 10;
-                int decimi = (int) timePassed % 10;
-                timePassed /= 10;
-                int seconds = (int) timePassed % 60;
-                int minutes = (int) timePassed / 60;
-                publishProgress(minutes, seconds, decimi, centesimi);
+            registeringPerformance = params[0];
+            while(!isCancelled() && !stop) {
+                //show elapsed time while registering input
+                if(registeringPerformance.canPerform()) {
+                    if (performanceStartTime <= 0){
+                        performanceStartTime = System.currentTimeMillis();
+                        timeColor = timeDarkColor;
+                        publishProgress(zeroedTime);
+                    }
 
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        //e.printStackTrace();
+                        Log.i("TIMERTHREAD", "timer stopped");
+                    }
+                    long timePassed = System.currentTimeMillis() - performanceStartTime;
+                    String timeString = generateTimerString(timePassed);
+                    publishProgress(timeString);
+
+                }else{ //blink the timer while waiting for input
+                    long timePassed = System.currentTimeMillis() - startTime;
+                    if(timePassed % 1000 > 500) {
+                        if (blinkState) {
+                            blinkState = false;
+                            timeColor = timeDarkColor;
+                            publishProgress(zeroedTime);
+                        }
+                    }else{
+                        if (!blinkState) {
+                            blinkState = true;
+                            timeColor = timeLightColor;
+                            publishProgress(zeroedTime);
+                        }
+                    }
+                }
             }
             return null;
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values)
-        {
-            String timeStr = " " + printNumberForTimer(values[0]) + ":" + printNumberForTimer(values[1]) + ":" + values[2] + values[3];
-            cronometro.setText(timeStr);
+        protected void onProgressUpdate(String...values) {
+            //String timeStr = " " + printNumberForTimer(values[0]) + ":" + printNumberForTimer(values[1]) + ":" + values[2] + values[3];
+            cronometro.setText(values[0]);
+            if (timeColor != timeColorCurrent) {
+                cronometro.setTextColor(timeColor);
+                timeColorCurrent = timeColor;
+            }
         }
 
-        private String printNumberForTimer(int n)
-        {
+        @Override
+        protected void onPostExecute(String result) {
+            cronometro.setTextColor(timeDarkColor);
+            if(performanceStartTime > 0 ){
+                String timeString = generateTimerString(previousPerformancePieceTime-performanceStartTime);
+                Log.i("TIMER_POST",String.valueOf(previousPerformancePieceTime-performanceStartTime)+" prev: "+previousPerformancePieceTime);
+                cronometro.setText(timeString);
+                return;
+            }
+            cronometro.setText(zeroedTime);
+        }
+
+        //utils
+
+        private String generateTimerString(long millisElapsed){
+            if (millisElapsed < 0){
+                return zeroedTime;
+            }
+            String timerString = "";
+            millisElapsed /= 10;
+            int centesimi = (int) millisElapsed % 10;
+            millisElapsed /= 10;
+            int decimi = (int) millisElapsed % 10;
+            millisElapsed /= 10;
+            int seconds = (int) millisElapsed % 60;
+            int minutes = (int) millisElapsed / 60;
+            timerString = twodigitFromInt(minutes)+":" + twodigitFromInt(seconds)+":" + String.valueOf(decimi) + String.valueOf(centesimi);
+            return timerString;
+        }
+        private String twodigitFromInt(int n) {
             if(n > 9)
                 return ""+n;
             return "0"+n;
         }
 
-        @Override
-        protected void onPostExecute(String result) {
-
+        public void killTimer(){
+            stop = true;
         }
-
     }
 
     private void addPerforamancePieceToRec(byte[] action, String text)
@@ -753,7 +818,7 @@ public class MainActivity extends AppCompatActivity {
             if(performanceFilter.contains(f))
                 return;
 
-            //Log.i("BT15",text);
+            Log.i("BT_REC: ",text);
             switch (id){
                 case Constants.MouthID:
                     if(!mouthActiveController)

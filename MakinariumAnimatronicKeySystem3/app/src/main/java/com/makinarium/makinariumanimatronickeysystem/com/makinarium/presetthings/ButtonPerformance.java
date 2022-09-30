@@ -63,85 +63,102 @@ public class ButtonPerformance extends AbstractPerformance{
 
     public void compressMessage()
     {
-        Log.i("ZIP", "inizio");
-        Log.i("ZIP", String.valueOf(performance.size()));
-        Log.i("duration " , String.valueOf(super.getDuration()));
+        Log.i("PFGZ", "-- START COMPRESSING");
+        Log.i("PFGZ","performance size : " + String.valueOf(performance.size()));
+        Log.i("PFGZ" , "performance duration : " +String.valueOf(super.getDuration()));
         int pIndex = 0;
         HashMap<Integer,Boolean> first = new HashMap<>();
 
-        for(PerformancePiece<byte[]> p : performance)
-        {
+        //init an array to ignore the first packet for each channel
+        for(PerformancePiece<byte[]> p : performance) {
             first.put(p.getChannelPin(), true);
         }
-        for(PerformancePiece<byte[]> p : performance)
-        {
+        Log.i("PFGZ" , "channels recorded: " + first.toString());
 
-            Log.i("ZIP", p.toString());
-            Log.i("TIME",String.valueOf(p.getMillisToAction()) );
-            if (first.get(p.getChannelPin()))
-            {
-                first.put(p.getChannelPin(), false);
+        for(PerformancePiece<byte[]> p : performance) {
+            int pChannel = p.getChannelPin();
+
+            Log.i("PFGZ_piece", "PIECE: " + p.toString()+ "- of length: "+String.valueOf(p.getMillisToAction()));
+
+            //ignore only if first packet
+            if (first.get(pChannel)) {
+                first.put(pChannel, false);
                 pIndex++;
+                Log.i("PFGZ_piece","failed mask");
                 continue;
-
             }
+
+            //if this piece is to erase or not a servo command skip to next piece
             if(p.isToErase() || !(p.getType() == MessageTypes.SERVO)) {
                 pIndex++;
+                Log.i("PFGZ_piece","erased");
                 continue;
             }
+
             PerformancePiece<byte[]> y = null;
             PerformancePiece<byte[]> z = null;
-            int pChannel = p.getChannelPin();
+
             int millisFuture = 0;
             AnalogDirection direction = AnalogDirection.UP;
-            int timeToAdd = 0;
-            //Log.i("ZIP", "AAAAA  " + p.toString());
-            for(int i = pIndex + 1; i < performance.size(); i++)
-            {
-                Log.i("TIzME",String.valueOf(performance.get(i).getMillisToAction()) );
-                millisFuture += performance.get(i).getMillisToAction();
-               // Log.i("ZIP", "BBBBBAAAAA  " + String.valueOf(millisFuture));
+            //compress from the second packet of a channel to the end of animation
+            //check only packet after this one
+            for(int i = pIndex + 1; i < performance.size(); i++) {
+                PerformancePiece piece = performance.get(i);
+
+
+
+                //keep track of the timings
+                millisFuture += piece.getMillisToAction();
+
+                //if the piece is not from this own channel
+                //is to be clear or is not a servo command
+                //skip it so analyze next piece
+                if(!(piece.getType() == MessageTypes.SERVO) ||
+                        piece.getChannelPin() != pChannel ||
+                        piece.isToErase())
+                    continue;
+                //now the piece is good
+                Log.i("PFGZ_piece",  "- loop with: " + piece.toString());
+                //when enough time is passed from the last good piece
+                //exit the for and modify the performance
+
                 if(millisFuture > Constants.DELAYTOERASEFORBTE)
-                    if(performance.get(i).getMillisToAction() > Constants.LITTLEDELAY)
+                    if(piece.getMillisToAction() > Constants.LITTLEDELAY)
                         break;
-                if(!(performance.get(i).getType() == MessageTypes.SERVO))
-                    continue;
-                if(performance.get(i).getChannelPin() != pChannel)
-                    continue;
 
-                if(performance.get(i).isToErase())
-                    continue;
-
-                //Log.i("ZIP", "BBBBBAAAAA  " + p.toString());
-
+                //if not enough time is passed i keep track of direction changes
                 if(y == null) {
-                    y = performance.get(i);
+                    //if no packet is set i memorize it and init the direction
+                    y = piece;
                     y.eraseThis();
-                    //Log.i("ELIMINATO", y.toString());
-                    if(p.getAnalogValue() < y.getAnalogValue())
-                        direction = AnalogDirection.UP;
+                    int diff = p.getAnalogValue() - piece.getAnalogValue();
+                    if(diff < 0)
+                        direction = AnalogDirection.UP; // diff is negative
                     else
-                        direction = AnalogDirection.DOWN;
+                        direction = AnalogDirection.DOWN; //diff is positive
 
                 } else {
-                    int diff = y.getAnalogValue() - performance.get(i).getAnalogValue();
+                    //if I already have a packet check for direction changes
+                    //if direction changes exit the loop
+                    int diff = y.getAnalogValue() - piece.getAnalogValue();
                     if(direction == AnalogDirection.UP && diff > 0)
                         break;
                     if(direction == AnalogDirection.DOWN && diff < 0)
                         break;
-                    z = performance.get(i);
+                    //erase only if there was no direction change
+                    z = piece;
                     z.eraseThis();
-                    //Log.i("ELIMINATO", z.toString());
-                    //y = z;
                 }
             }
+            //after the for loop
 
-
-
+            Log.i("PFGZ_piece",  "PIECE: " + p.toString()+ "for loop passed");
             if(z!= null) {
+                Log.i("PFGZ_piece",  "PIECE: " + p.toString()+ "overwriting with z");
                 p.setAnalogStringAndChecksum(z.getAnalogValue(), z.getStringVersion(), z.getCheckSum());
                 p.setAction(z.getBytes());
             } else if(y != null) {
+                Log.i("PFGZ_piece",  "PIECE: " + p.toString()+ "overwriting with y");
                 p.setAnalogStringAndChecksum(y.getAnalogValue(), y.getStringVersion(), y.getCheckSum());
                 p.setAction(y.getBytes());
             }
@@ -156,51 +173,30 @@ public class ButtonPerformance extends AbstractPerformance{
 
         //Log.i("MILLIS", "AHUAHSUGFHKDKGFHSGSF \n\n");
 
-        for(PerformancePiece<byte[]> p : performance)
-        {
-            if(p.isToErase())
-            {
-                timeToAddToOthers += p.getMillisToAction();
-                //Log.i("timezz","-----");
-                //Log.i("timezz", String.valueOf(p.getMillisToAction()));
-                //Log.i("timezz","-----");
-                continue;
-            }
-
-            //Log.i("timezz", String.valueOf(timeToAddToOthers));
-            //Log.i("timezz", String.valueOf(p.getMillisToAction()));
-            p.addMillis(timeToAddToOthers);
-            //Log.i("timezz", String.valueOf(p.getMillisToAction()));
-            timeToAddToOthers = 0;
-        }
-
-
-
-        Log.i("ZIP", String.valueOf(timeToAddToOthers));
-        performance.removeIf(p -> p.isToErase());
-        Log.i("ZIP", String.valueOf(performance.size()));
-
-        /*
         for(PerformancePiece<byte[]> p : performance) {
-            Log.i("ZIP", p.toString());
+            if(p.isToErase()) {
+                timeToAddToOthers += p.getMillisToAction();
+            }else{
+                p.addMillis(timeToAddToOthers);
+                timeToAddToOthers = 0;
+            }
         }
-        */
+
+
+
+        Log.i("PFGZ_clear", "size before:" +  String.valueOf(performance.size()));
+        Log.i("PFGZ_clear" , "duration before:" +   String.valueOf(super.getDuration()));
+        performance.removeIf(p -> p.isToErase());
+
 
         int duration = 0;
-        for(PerformancePiece<byte[]> p : performance)
-        {
+        for(PerformancePiece<byte[]> p : performance) {
             duration += p.getMillisToAction();
         }
-
         super.setDuration(duration);
 
-
-        for(PerformancePiece<byte[]> p : performance)
-        {
-            Log.i("MILLIS", String.valueOf(p.getMillisToAction()));
-        }
-
-        //Log.i("duration " , String.valueOf(super.getDuration()));
+        Log.i("PFGZ_clear", "size after:" +  String.valueOf(performance.size()));
+        Log.i("PFGZ_clear" , "duration after:" +   String.valueOf(super.getDuration()));
     }
 
 

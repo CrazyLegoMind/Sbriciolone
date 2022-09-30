@@ -58,7 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:focusableInTouchMode="true">
 
                 <EditText
                     android:id="@+id/editMouthMac"
@@ -104,7 +105,7 @@
             android:fontFamily="casual"
             android:text="Continue"
             android:theme="@style/AppTheme.PerformToRec"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
 
     </LinearLayout>
 

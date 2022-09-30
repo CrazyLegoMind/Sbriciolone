@@ -10,4 +10,6 @@
     <color name="disablePerformToRec">#bdbdbd</color>
     <color name="disablePreset">#ff9e80</color>
     <color name="disablePerform">#81c784</color>
+    <color name="textDark">#616161</color>
+    <color name="textLight">#B1B1B1</color>
 </resources>
