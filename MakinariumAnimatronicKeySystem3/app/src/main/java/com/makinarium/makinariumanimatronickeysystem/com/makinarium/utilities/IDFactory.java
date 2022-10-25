@@ -53,7 +53,7 @@ public class IDFactory {
         buttonsLogicID.put(R.id.eyelid_10, counter.click());
         buttonsLogicID.put(R.id.eyelid_11, counter.click());
         buttonsLogicID.put(R.id.eyelid_12, counter.click());
-
+        /*
         buttonsLogicID.put(R.id.eyes_01, counter.click());
         buttonsLogicID.put(R.id.eyes_02, counter.click());
         buttonsLogicID.put(R.id.eyes_03, counter.click());
@@ -66,7 +66,7 @@ public class IDFactory {
         buttonsLogicID.put(R.id.eyes_10, counter.click());
         buttonsLogicID.put(R.id.eyes_11, counter.click());
         buttonsLogicID.put(R.id.eyes_12, counter.click());
-
+        */
         buttonsLogicID.put(R.id.nose_01, counter.click());
         buttonsLogicID.put(R.id.nose_02, counter.click());
         buttonsLogicID.put(R.id.nose_03, counter.click());
@@ -135,7 +135,7 @@ public class IDFactory {
         textToButtonLogicID.put(R.id.eyelidText10, getLogicID(R.id.eyelid_10));
         textToButtonLogicID.put(R.id.eyelidText11, getLogicID(R.id.eyelid_11));
         textToButtonLogicID.put(R.id.eyelidText12, getLogicID(R.id.eyelid_12));
-
+        /*
         textToButtonLogicID.put(R.id.eyesText01, getLogicID(R.id.eyes_01));
         textToButtonLogicID.put(R.id.eyesText02, getLogicID(R.id.eyes_02));
         textToButtonLogicID.put(R.id.eyesText03, getLogicID(R.id.eyes_03));
@@ -148,7 +148,7 @@ public class IDFactory {
         textToButtonLogicID.put(R.id.eyesText10, getLogicID(R.id.eyes_10));
         textToButtonLogicID.put(R.id.eyesText11, getLogicID(R.id.eyes_11));
         textToButtonLogicID.put(R.id.eyesText12, getLogicID(R.id.eyes_12));
-
+        */
         textToButtonLogicID.put(R.id.noseText01, getLogicID(R.id.nose_01));
         textToButtonLogicID.put(R.id.noseText02, getLogicID(R.id.nose_02));
         textToButtonLogicID.put(R.id.noseText03, getLogicID(R.id.nose_03));

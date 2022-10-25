@@ -16,9 +16,11 @@ public class CheckConnectionsThread extends Thread {
     private long lastTimeMouthAlive;
     private long lastTimeEyesAlive;
     private long lastTimeHeadAlive;
+    private long lastTimeTailAlive;
     private boolean mouthStatus = true;
     private boolean eyesStatus = true;
     private boolean headStatus = true;
+    private boolean tailStatus = true;
 
     private boolean threadAlive = true;
 
@@ -42,6 +44,7 @@ public class CheckConnectionsThread extends Thread {
             checkAndSend(currentTime,lastTimeMouthAlive,Constants.mouthStatus,mouthStatus);
             checkAndSend(currentTime,lastTimeEyesAlive,Constants.eyesStatus,eyesStatus);
             checkAndSend(currentTime,lastTimeHeadAlive,Constants.headStatus,headStatus);
+            checkAndSend(currentTime,lastTimeTailAlive,Constants.tailStatus,tailStatus);
         }
 
     }
@@ -88,6 +91,8 @@ public class CheckConnectionsThread extends Thread {
             eyesStatus = status;
         if(who.equals(Constants.headStatus))
             headStatus = status;
+        if(who.equals(Constants.tailStatus))
+            tailStatus = status;
     }
 
 
@@ -101,6 +106,9 @@ public class CheckConnectionsThread extends Thread {
 
     public void setLastTimeHeadAlive(long lastTimeHeadAlive) {
         this.lastTimeHeadAlive = lastTimeHeadAlive;
+    }
+    public void setLastTimeTailAlive(long lastTimeTailAlive) {
+        this.lastTimeTailAlive = lastTimeTailAlive;
     }
 
     public void stopChecking()

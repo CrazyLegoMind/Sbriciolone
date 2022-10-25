@@ -1,24 +1,44 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial BTSerial(10, 11); // RX | TX
+SoftwareSerial mySerial(2, 3);  // RX, TX
 
-void setup()
-{
-  pinMode(9, OUTPUT);  // this pin will pull the HC-05 pin 34 (key pin) HIGH to switch module to AT mode
-  digitalWrite(9, HIGH);
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(4, OUTPUT);  // questo pin è connesso al relativo pin 34 (pin KEY) del HC-05
+  // che portato a HIGH permette di passare alla modalità AT
+  digitalWrite(4, HIGH);
+  mySerial.begin(38400);
   Serial.begin(9600);
+  /*
+  sendCommand("AT");
+  sendCommand("AT+RMAAD");
+  sendCommand("AT+ROLE0");
+  sendCommand("AT+ADDR?");
+  sendCommand("AT+UART=115200,0,0");
+*/
   Serial.println("Enter AT commands:");
-  BTSerial.begin(38400);  // HC-05 default speed in AT command more
+  mySerial.println("AT");
 }
 
-void loop()
-{
+void loop() {
+  if (Serial.available()) {
+    int i = 0;
+    char at_cmd[100];
+    while(Serial.available()){
+      at_cmd[i] = Serial.read();
+      i++;
+      delay(10);
+    }
+    at_cmd[i] = '\r';
+    at_cmd[i+1] = '\n';
+    at_cmd[i+2] = '\0';
+    Serial.write("sending_cmd: ");
+    Serial.write(at_cmd);
+    mySerial.write(at_cmd);
+  }
 
-  // Keep reading from HC-05 and send to Arduino Serial Monitor
-  if (BTSerial.available())
-    Serial.write(BTSerial.read());
-
-  // Keep reading from Arduino Serial Monitor and send to HC-05
-  if (Serial.available())
-    BTSerial.write(Serial.read());
+  if (mySerial.available()) {
+    byte a = mySerial.read();
+    Serial.write(a);
+  }
 }

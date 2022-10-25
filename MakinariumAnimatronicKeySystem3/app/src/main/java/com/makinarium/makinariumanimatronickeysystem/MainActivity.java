@@ -84,11 +84,12 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothConnectionService mBluetoothConnectionMouth;
     private BluetoothConnectionService mBluetoothConnectionHead;
     private BluetoothConnectionService mBluetoothConnectionEyes;
+    private BluetoothConnectionService mBluetoothConnectionTail;
 
     private BluetoothDevice mBTMouthDevice;
     private BluetoothDevice mBTDeviceHead;
     private BluetoothDevice mBTDeviceEyes;
-
+    private BluetoothDevice mBTDeviceTail;
 
     private double multiplicator = 1;
     private SeekBar multBar;
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mouthStatus;
     private TextView eyesStatus;
     private TextView headStatus;
+    private TextView tailStatus;
 
     private Gson gson;
 
@@ -196,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         mouthStatus = findViewById(R.id.mouthStatus);
         eyesStatus = findViewById(R.id.eyesStatus);
         headStatus = findViewById(R.id.headStatus);
+        tailStatus = findViewById(R.id.tailStatus);
 
         checkThread = new CheckConnectionsThread(this);
 
@@ -233,6 +236,13 @@ public class MainActivity extends AppCompatActivity {
                 mBTDeviceHead = bt;
                 mBluetoothConnectionHead = new BluetoothConnectionService(MainActivity.this, Constants.HeadID);
                 startBTConnection(mBTDeviceHead, mBluetoothConnectionHead);
+            }
+            if (bt.getAddress().equals(Constants.macTailBT)) {
+                Log.d(TAG, bt.getName());
+
+                mBTDeviceTail = bt;
+                mBluetoothConnectionTail = new BluetoothConnectionService(MainActivity.this, Constants.TailID);
+                startBTConnection(mBTDeviceTail, mBluetoothConnectionTail);
             }
 
         }
@@ -279,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
         initilializeButton(R.id.eyelid_11 , FaceSector.EYELIDS, R.id.eyelidPB11, R.id.eyelidText11);
         initilializeButton(R.id.eyelid_12 , FaceSector.EYELIDS, R.id.eyelidPB12, R.id.eyelidText12);
 
-
+        /*
         initilializeButton(R.id.eyes_01 , FaceSector.EYES, R.id.eyesPB01, R.id.eyesText01);
         initilializeButton(R.id.eyes_02 , FaceSector.EYES, R.id.eyesPB02, R.id.eyesText02);
         initilializeButton(R.id.eyes_03 , FaceSector.EYES, R.id.eyesPB03, R.id.eyesText03);
@@ -292,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
         initilializeButton(R.id.eyes_10 , FaceSector.EYES, R.id.eyesPB10, R.id.eyesText10);
         initilializeButton(R.id.eyes_11 , FaceSector.EYES, R.id.eyesPB11, R.id.eyesText11);
         initilializeButton(R.id.eyes_12 , FaceSector.EYES, R.id.eyesPB12, R.id.eyesText12);
-
+        */
 
         initilializeButton(R.id.nose_01 , FaceSector.NOSE, R.id.nosePB01, R.id.noseText01);
         initilializeButton(R.id.nose_02 , FaceSector.NOSE, R.id.nosePB02, R.id.noseText02);
@@ -773,6 +783,10 @@ public class MainActivity extends AppCompatActivity {
             {
                 setTextViewStatus(headStatus,status);
             }
+            if(who.equals(Constants.tailStatus))
+            {
+                setTextViewStatus(tailStatus,status);
+            }
         }
 
 
@@ -805,6 +819,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case Constants.HeadID:
                     checkThread.setLastTimeHeadAlive(currentTime);
+                    break;
+                case Constants.TailID:
+                    checkThread.setLastTimeTailAlive(currentTime);
                     break;
                 default:
                     break;

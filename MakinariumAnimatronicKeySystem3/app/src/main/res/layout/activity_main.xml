@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <!--first row with until buttons and switches -->
         <LinearLayout
@@ -100,6 +100,23 @@
                     android:layout_toRightOf="@+id/headStatus"
                     android:text="Head rec" />
 
+                <TextView
+                    android:id="@+id/tailStatus"
+                    android:layout_width="15dp"
+                    android:layout_height="17dp"
+                    android:layout_below="@+id/headStatus"
+                    android:layout_toRightOf="@+id/mouthTextS"
+                    android:text="✓"
+                    android:textColor="@color/activePerform" />
+
+                <TextView
+                    android:id="@+id/tailTextS"
+                    android:layout_width="80dp"
+                    android:layout_height="17dp"
+                    android:layout_below="@+id/headStatus"
+                    android:layout_toRightOf="@+id/tailStatus"
+                    android:text="Tail rec" />
+
             </RelativeLayout>
 
             <Switch
@@ -129,12 +146,12 @@
 
         <!-- recs buttons table-->
         <TableLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <!-- preset row -->
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/firstcolumn">
 
@@ -1548,6 +1565,7 @@
             </TableRow>
 
             <!-- eyes row -->
+            <!--
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -2026,6 +2044,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/eyes_12" />
                 </LinearLayout>
             </TableRow>
+            -->
 
             <!-- nose row -->
             <TableRow
@@ -2067,7 +2086,7 @@
                         android:text="01"
                         android:theme="@style/AppTheme.PerformToRec"
                         app:layout_constraintStart_toStartOf="@+id/eyelid_01"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_01" />
+                        app:layout_constraintTop_toBottomOf="@+id/eyelid_01" />
 
                     <ProgressBar
                         android:id="@+id/nosePB01"

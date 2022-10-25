@@ -195,9 +195,8 @@ void readWriteMotor(Motor& m)
       
     sendMotor(m, sensorValue);
 
-    m.oldValue = sensorValue;
   }
-
+  m.oldValue = sensorValue;
   
 }
 
