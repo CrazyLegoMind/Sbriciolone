@@ -849,8 +849,11 @@ public class MainActivity extends AppCompatActivity {
                             addPerforamancePieceToRec(bytes, text);
                         }
                     }
-
-                    mBluetoothConnectionHead.write(bytes);
+                    if(f != FaceSector.TAIL){
+                        mBluetoothConnectionHead.write(bytes);
+                    }else{
+                        mBluetoothConnectionTail.write(bytes);
+                    }
                     break;
 
                 case Constants.eyesID:
@@ -864,8 +867,11 @@ public class MainActivity extends AppCompatActivity {
                         if(f == bInRec.getFaceSector())
                             addPerforamancePieceToRec(bytes, text);
                     }
-
-                    mBluetoothConnectionHead.write(bytes);
+                    if(f != FaceSector.TAIL){
+                        mBluetoothConnectionHead.write(bytes);
+                    }else{
+                        mBluetoothConnectionTail.write(bytes);
+                    }
                     break;
                 case Constants.HeadID:
                     //IMPOSSIBLE

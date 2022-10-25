@@ -1,120 +1,151 @@
 #include <SoftwareSerial.h>
 #include <PWMServo.h>
+#include <C:\Users\Admin\Documents\worspaces\animatronica\git_repo\Sbriciolone\LupoArduino\common.h>
+#define DEBUG
 
-struct ServoValues {
-  int minValue;
-  int maxValue;
-  int channel;
-  String servoName;
-  bool mirror;
-  int lastPosition = 512;
-  int counterShutDown;
-  bool stopAndGo;
-  int shutDownWhen;
-};
 
-const char eventsC = 'e';
-const char statusChangeC = 'C';
-const char servoC = 'S';
-
-const char eyesC = 'E';
-const char eyeLidsC = 'L';
-const char eyebrownsC = 'B';
-const char mouthC = 'M';
-const char noseC = 'N';
-const char tailC = 'T';
 
 int aliveCounter = 0;
 const byte aliveTrigger = 10;
+bool servo_busy = false;
+unsigned long current_time = 0;
+unsigned long trigger_time = 0;
+int sweep_delay = 100;
+bool standby = false;
+unsigned long standby_time = 0;
 
 SoftwareSerial BTSerial(2, 3);
 PWMServo tailServo;
 int tailServoPos = 1500;
-
+int tailSweepValue = 1500;
 void setup() {
+#ifdef DEBUG
   Serial.begin(9600);
-  BTSerial.begin(115200);
-  BTSerial.setTimeout(20);
-  tailServo.attach(SERVO_PIN_A);  // attaches the servo on pin 9 to the servo object
-  //tailServo.attach(SERVO_PIN_A, 1000, 2000); // some motors need min/max setting
+  Serial.println("DEBUG READY");
+#endif
+  BTSerial.begin(38400);
+  BTSerial.setTimeout(20);                    // attaches the servo on pin 9 to the servo object
 }
 
 
 void loop() {
   String message = BTSerial.readStringUntil('\n');
-  if (message.length() > 0)
-  {
+  int msglen = message.length();
+  unsigned long us = micros();
+  current_time = millis();
 
+  if (message.length() > 0) {
     bool doIt = true;
-    if (message.charAt(0) != 'r')
-    {
-      
-      long randNumber = random(100);
 
-      if (randNumber < 20)
-      {
-        doIt = false;
-      }
-    }
-    else
-    {
+    Serial.print(message);
+    if (message.charAt(0) == 'r') {
       message = message.substring(1);
     }
-    if (doIt)
-    {
+    int pckLen = getLenghtBeforeCheckSum(message, ';');
+    int numberSeparators = homManySeparator(message, ';');
+    int checksum = getValueStringSplitter(message, ';', numberSeparators).toInt();
+    char bufferChar[pckLen];
+    message.toCharArray(bufferChar, pckLen);
 
-      //delay(30);
-      int lenghtMessage = getLenghtBeforeCheckSum(message, ';');
-      int numberSeparators = homManySeparator(message, ';');
-      int checksum = getValueStringSplitter(message, ';', numberSeparators).toInt();
+    int sum = 0;
+    for (int i = 0; i < pckLen - 1; i++) {
+      sum += bufferChar[i];
+    }
+    int myCheckSum = sum % 100;
+    if (myCheckSum != checksum) {
+      doIt = false;
+      //Serial.print(" csm fail: ");
+      //Serial.println(myCheckSum);
+    } else {
+      //Serial.println(" Pass");
+    }
 
-      char bufferChar[lenghtMessage];
-      message.toCharArray(bufferChar, lenghtMessage);
 
-      int sum = 0;
-      for (int i = 0; i <  lenghtMessage; i++)
-      {
-        sum += bufferChar[i];
-      }
-
-
-      int myCheckSum = sum % 100;
-
-      if (myCheckSum == checksum)
-      {
-        if (message.charAt(0) == tailC)
-        {
+    if (doIt && !servo_busy) {
+      if (message.charAt(0) == tailC) {
+        if (message.charAt(1) == eventsC) {
+          String valueString = getValueStringSplitter(message, ';', 2);
+          int value = valueString.toInt();
+          tailSweepValue = map(value, 0, 1023, 1000, 2000);
+        } else if (message.charAt(1) == servoC) {
           handleTail(message);
+          ;
         }
       }
     }
   }
+  handleServo();
   deadManButton();
   //shutDownMotors();
-  //delay(20);
+  delay(5);
+  if (message.length() > 0) {
+    unsigned long elapsed = micros() - us;
+    //Serial.print("Check took: ");
+    //Serial.println(elapsed);
+  }
 }
-
-void handleTail(String message){
-  if (message.charAt(1) == eventsC){
-    Serial.println("tail event");
-  }else{
-    String valueString = getValueStringSplitter(message, ';', 2);
-    int value = valueString.toInt();
-    int angle = map(value,0,1023,30,150);
-    tailServo.write(angle);
+void handleTail(String message) {
+  String valueString = getValueStringSplitter(message, ';', 2);
+  int value = valueString.toInt();
+  if (value < 300){
+    tailSweepValue = 1000;
   }
 }
 
-int analogServoConversion(int analogValue, ServoValues & servo)
-{
-  if (servo.mirror)
-    return map(analogValue, 1023, 0, servo.minValue, servo.maxValue);
-  return map(analogValue, 0, 1023, servo.minValue, servo.maxValue);
+
+void handleServo() {
+  if (tailSweepValue != 1500 && !servo_busy) {
+    standby = false;
+    servo_busy = true;
+    if(!tailServo.attached())
+      tailServo.attach(SERVO_PIN_A, 1000, 2000);
+
+    tailServo.write(microsToAngle(tailSweepValue));
+    Serial.println(microsToAngle(tailSweepValue));
+    if (trigger_time == 0){
+      trigger_time = current_time;
+    }
+  }
+
+  if (tailSweepValue != 1500) {
+    if (current_time - trigger_time >= sweep_delay) {
+      servo_busy = false;
+      if (tailSweepValue > 1500) {
+        tailSweepValue -= 20;
+        if (tailSweepValue <= 1500) {
+          tailSweepValue = 1500;
+          trigger_time == 0;
+        }
+      } else if (tailSweepValue < 1500) {
+        tailSweepValue += 20;
+        if (tailSweepValue >= 1500) {
+          tailSweepValue = 1500;
+          trigger_time == 0;
+        }
+      }
+    }
+  }
+  if (tailSweepValue == 1500) {
+    if (standby_time == 0 && !standby) {
+      standby_time = current_time;
+    }
+    if (current_time - standby_time >= 100) {
+      tailServo.detach();
+      standby_time == 0;
+      standby = true;
+    }
+  }
 }
 
 
-int getLenghtBeforeCheckSum(String data, char separator)
-{
+int microsToAngle(int micros) {
+  int res = map(micros, 1000, 2000, 0, 180);
+  res = constrain(res,1,179);
+  return res;
+}
+
+
+int getLenghtBeforeCheckSum(String data, char separator) {
   int l = -1;
 
   for (int i = 0; i < data.length(); i++)
@@ -123,8 +154,7 @@ int getLenghtBeforeCheckSum(String data, char separator)
   return (l + 1);
 }
 
-int homManySeparator(String data, char separator)
-{
+int homManySeparator(String data, char separator) {
   int s = 0;
   for (int i = 0; i < data.length(); i++)
     if (data.charAt(i) == separator)
@@ -132,10 +162,9 @@ int homManySeparator(String data, char separator)
   return s;
 }
 
-String getValueStringSplitter(String data, char separator, int index)
-{
+String getValueStringSplitter(String data, char separator, int index) {
   int found = 0;
-  int strIndex[] = {0, -1};
+  int strIndex[] = { 0, -1 };
   int maxIndex = data.length() - 1;
 
   for (int i = 0; i <= maxIndex && found <= index; i++) {
@@ -164,8 +193,7 @@ void shutDownMotors()
 }
 */
 
-void deadManButton()
-{
+void deadManButton() {
   if (aliveCounter % aliveTrigger == 0)
     BTSerial.println("ALIVE");
 

@@ -1,12 +1,4 @@
-const char eventsC = 'e';
-const char statusChangeC = 'C';
-const char servoC = 'S';
-
-const char eyesC = 'E';
-const char eyeLidsC = 'L';
-const char eyebrownsC = 'B';
-const char mouthC = 'M';
-const char noseC = 'N';
+#include <C:\Users\Admin\Documents\worspaces\animatronica\git_repo\Sbriciolone\LupoArduino\common.h>
 
 struct Motor {
   int port;
@@ -46,7 +38,7 @@ ButtonLed palpebreButton;
 int checkSumForEvent1;
 int checkSumForEvent0;
 
-int checksumEyelid = (eyeLidsC + eventsC + ';') % 100;
+int chesumTail = (eyeLidsC + eventsC + ';') % 100;
 
 int checkSumFunction(String SCS)
 {
@@ -69,7 +61,7 @@ void setup()
 
   checkSumForEvent1 = checkSumFunction("LC;1;");
   checkSumForEvent0 = checkSumFunction("LC;0;");
-  checksumEyelid = checkSumFunction("Le;");
+  chesumTail = checkSumFunction("Te;");
 
 
   mirrorButton.pin = 3;
@@ -117,7 +109,7 @@ void setup()
   listaMotori[6].port = A7;
   listaMotori[6].pinH = 11;
 
-  listaMotori[7].sector = eyeLidsC;//PalpebraDestra
+  listaMotori[7].sector = tailC;//PalpebraDestra
   listaMotori[7].port = A2;
   listaMotori[7].pinH = 15;
 
@@ -160,15 +152,38 @@ void loop() {
 }
 
 
-void readCloseEyesButton()
-{
+void readCloseEyesButton() {
   closeEyesState = digitalRead(closeEyesButtonPin);
 
   if (closeEyesState != oldCloseEyesState)
-    if (closeEyesState == LOW)
-    {
-      Serial.print("Le;");
-      Serial.println(checksumEyelid);
+    if (closeEyesState == LOW) {
+      String SCS = "";
+      SCS += 'T';
+      SCS += 'e';
+      SCS += ';';
+      SCS += 0;
+      SCS += ';';
+      SCS += 1023;
+      SCS += ';';
+
+      char bufferChar[SCS.length()];
+      SCS.toCharArray(bufferChar, SCS.length());
+
+      int sum = 0;
+      for (int i = 0; i < SCS.length(); i++) {
+        sum += bufferChar[i];
+      }
+
+      int checkSum = sum % 100;
+
+      // Serial.print(m.sector);
+      // Serial.print(m.event);
+      // Serial.print(';');
+      // Serial.print(m.pinH);
+      // Serial.print(';');
+      // Serial.print(sensorValue);
+      Serial.print(SCS);
+      Serial.println(checkSum);
     }
 
   oldCloseEyesState = closeEyesState;
