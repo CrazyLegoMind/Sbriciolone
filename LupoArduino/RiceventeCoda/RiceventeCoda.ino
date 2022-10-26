@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 #include <PWMServo.h>
 #include <C:\Users\Admin\Documents\worspaces\animatronica\git_repo\Sbriciolone\LupoArduino\common.h>
-#define DEBUG
+//#define DEBUG
 
 
 
@@ -14,7 +14,7 @@ int sweep_delay = 100;
 bool standby = false;
 unsigned long standby_time = 0;
 
-SoftwareSerial BTSerial(2, 3);
+SoftwareSerial BTSerial(3, 2);
 PWMServo tailServo;
 int tailServoPos = 1500;
 int tailSweepValue = 1500;
@@ -85,6 +85,7 @@ void loop() {
   }
 }
 void handleTail(String message) {
+  return;
   String valueString = getValueStringSplitter(message, ';', 2);
   int value = valueString.toInt();
   if (value < 300){
