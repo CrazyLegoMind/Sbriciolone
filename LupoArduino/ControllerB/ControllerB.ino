@@ -1,14 +1,11 @@
 #include <C:\Users\Admin\Documents\worspaces\animatronica\git_repo\Sbriciolone\LupoArduino\common.h>
 
 
-const byte Analogfilter = 6;
+const byte analogFilter = 6;
 const byte delayLettura = 2;
-const byte delayLoop = 50;
+const byte delayLoop = 20;
 int aliveCounter = 0;
 const byte aliveTrigger = 10;
-
-const int parlataDistanceCentrali = 100;
-const int parlataDistanceLaterali = 180;
 
 struct Motor {
   int port;
@@ -28,9 +25,8 @@ const byte howmanyanalog = 7;  //9
 Motor listaMotori[howmanyanalog];
 Motor tailMot;
 
-
-LedSwc eyebagMirrorSwc;  //non deve mai inviare alla testa //pulsante blu
-LedSwc eyebrowsMirrorSwc;   //non deve mai inviare alla testa //pulsante aranci
+LedSwc eyebagMirrorSwc;    //non deve mai inviare alla testa //pulsante blu
+LedSwc eyebrowsMirrorSwc;  //non deve mai inviare alla testa //pulsante aranci
 int tailRightBtn = 2;
 int tailLeftBtn = 3;
 bool rightTrigger = false;
@@ -44,7 +40,6 @@ void setup() {
   eyebrowsMirrorSwc.led = 4;
   eyebrowsMirrorSwc.value = false;
 
-
   eyebagMirrorSwc.pin = 7;
   eyebagMirrorSwc.led = 6;
   eyebagMirrorSwc.value = false;
@@ -56,8 +51,9 @@ void setup() {
   pinMode(tailRightBtn, INPUT_PULLUP);
   pinMode(tailLeftBtn, INPUT_PULLUP);
 
+
   listaMotori[0].sector = eyebrownsC;  //sopracciglio ext sx
-  listaMotori[0].port = A0;            //
+  listaMotori[0].port = A0;
   listaMotori[0].pinH = 0;
 
   listaMotori[1].sector = eyebrownsC;  //sopracciglio int sx
@@ -84,52 +80,49 @@ void setup() {
   listaMotori[6].port = A6;
   listaMotori[6].pinH = 6;
 
-  tailMot.sector = tailC;
+  tailMot.sector = tailC;  //motore coda
   tailMot.pinH = 9;
   tailMot.event = eventsC;
-  
-  readLedSwc(eyebrowsMirrorSwc);
-  readLedSwc(eyebagMirrorSwc);
 }
 
 void loop() {
 
-  for (int i = 0; i < howmanyanalog; i++) {
-    if (eyebagMirrorSwc.value)
-      if (i == 0 || i == 1 || i == 3 || i == 4)
-        continue;
-    if (eyebrowsMirrorSwc.value)
-      if (i == 0 || i == 1)
-        continue;
-    readWriteMotor(listaMotori[i], i);
-  }
-
   handlebtns();
-  readLedSwc(eyebrowsMirrorSwc);   //non invia nulla alla testa
-  readLedSwc(eyebagMirrorSwc);  //non invia nulla alla testa
-  
-  
+  readLedSwc(eyebrowsMirrorSwc);  //non invia nulla alla testa
+  readLedSwc(eyebagMirrorSwc);    //non invia nulla alla testa
+  handleSliders();
   deadManButton();
   delay(delayLoop);
 }
 
 
-void readWriteMotor(Motor& m, int index) {
-  int sensorValue = analogRead(m.port);
-
-  if (abs(m.oldValue - sensorValue) > Analogfilter) {
-    sendMotor(m, sensorValue);
-    if (eyebagMirrorSwc.value && m.pinH == listaMotori[2].pinH) {
-      sendMotor(listaMotori[0], parlataConversion(sensorValue, parlataDistanceLaterali));
-      sendMotor(listaMotori[1], parlataConversion(sensorValue, parlataDistanceCentrali));
-      sendMotor(listaMotori[3], parlataConversion(sensorValue, parlataDistanceCentrali));
-      sendMotor(listaMotori[4], parlataConversion(sensorValue, parlataDistanceLaterali));
-    } else if (eyebrowsMirrorSwc.value)
-      if (index == 3 || index == 4)
-        sendMotor(listaMotori[4 - index], sensorValue);
+void handleSliders() {
+  for (int slider = 0; slider < howmanyanalog; slider++) {
+    if (eyebrowsMirrorSwc.value && (slider == 2 || slider == 3)) {
+      continue;  //skip loop if motors are mirrored
+    }
+    if (eyebagMirrorSwc.value && slider == 5) {
+      continue;  //skip loop if motors are mirrored
+    }
+    int sliderVal = analogRead(listaMotori[slider].port);
+    if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
+      sendMotor(listaMotori[slider], sliderVal);
+      if (eyebrowsMirrorSwc.value) {
+        switch (slider) {
+          case 0:
+            sendMotor(listaMotori[3], sliderVal);
+            break;
+          case 1:
+            sendMotor(listaMotori[2], sliderVal);
+            break;
+        }
+      }
+      if (eyebagMirrorSwc.value && slider == 4) {
+        sendMotor(listaMotori[5], sliderVal);
+      }
+    }
+    listaMotori[slider].oldValue = sliderVal;
   }
-
-  m.oldValue = sensorValue;
 }
 
 
@@ -145,26 +138,23 @@ void readLedSwc(LedSwc& button) {
   }
 }
 
-int parlataConversion(int value, int distanza) {
-  if (value < 512)
-    return value - map(value, 0, 511, 0, distanza);
-  return value - map(value, 512, 1023, distanza, 0);
-}
 
-void handlebtns(){
+void handlebtns() {
   int rightState = !digitalRead(tailRightBtn);
   int leftState = !digitalRead(tailLeftBtn);
-  if(rightState && !rightTrigger){
+  if (rightState && !rightTrigger) {
     rightTrigger = true;
-    sendMotor(tailMot,1023);
-  }else if(!rightState){
+    Serial.println("event--------------------");
+    sendMotor(tailMot, 1023);
+  } else if (!rightState) {
     rightTrigger = false;
   }
 
-  if(leftState && !leftTrigger){
+  if (leftState && !leftTrigger) {
     leftTrigger = true;
-    sendMotor(tailMot,0);
-  }else if(!leftState){
+    sendMotor(tailMot, 0);
+    Serial.println("event--------------------");
+  } else if (!leftState) {
     leftTrigger = false;
   }
 }
@@ -198,12 +188,10 @@ void sendMotor(Motor& m, int sensorValue) {
   Serial.print(sensorValue);
   Serial.print(';');
   Serial.println(checkSum);
-  delay(delayLettura);
 }
 
 void deadManButton() {
   if (aliveCounter % aliveTrigger == 0)
     Serial.println("ALIVE");
-
   aliveCounter++;
 }
