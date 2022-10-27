@@ -73,25 +73,25 @@ void setup() {
   maestroSerial.begin(115200);
   Serial3.setTimeout(20);
 
-  servoList[0].minValue = 5800;
-  servoList[0].maxValue = 9600;
-  servoList[0].channel = 5;
-  servoList[0].servoName = "BoccaS";
+  servoList[0].minValue = 4032;
+  servoList[0].maxValue = 6400;
+  servoList[0].channel = 0;
+  servoList[0].servoName = "LabSupSX";
   servoList[0].mirror = false;
   servoList[0].stopAndGo = true;
   servoList[0].shutDownWhen = 50;
 
-  servoList[1].minValue = 5600;
-  servoList[1].maxValue = 9400;
-  servoList[1].channel = 6;
-  servoList[1].servoName = "BoccaCS";
+  servoList[1].minValue = 4032;
+  servoList[1].maxValue = 6592;
+  servoList[1].channel = 1;
+  servoList[1].servoName = "Naso";
   servoList[1].mirror = false;
   servoList[1].stopAndGo = true;
   servoList[1].shutDownWhen = 50;
 
-  servoList[2].minValue = 5600;
-  servoList[2].maxValue = 9600;
-  servoList[2].channel = 7;
+  servoList[2].minValue = 4032;
+  servoList[2].maxValue = 6400;
+  servoList[2].channel = 2;
   servoList[2].servoName = "BoccaC";
   servoList[2].mirror = false;
   servoList[2].stopAndGo = true;
@@ -99,7 +99,7 @@ void setup() {
 
   servoList[3].minValue = 3200;
   servoList[3].maxValue = 8200;
-  servoList[3].channel = 8;
+  servoList[3].channel = 3;
   servoList[3].servoName = "BoccaCD";
   servoList[3].mirror = true;
   servoList[3].stopAndGo = true;
@@ -107,7 +107,7 @@ void setup() {
 
   servoList[4].minValue = 4400;
   servoList[4].maxValue = 8100;//
-  servoList[4].channel = 9;
+  servoList[4].channel = 4;
   servoList[4].servoName = "BoccaD";
   servoList[4].mirror = true;
   servoList[4].stopAndGo = true;
@@ -115,7 +115,7 @@ void setup() {
 
   servoList[5].minValue = 5000;
   servoList[5].maxValue = 6800;
-  servoList[5].channel = 12;
+  servoList[5].channel = 5;
   servoList[5].servoName = "NasoD";
   servoList[5].mirror = false;
   servoList[5].stopAndGo = true;
@@ -123,7 +123,7 @@ void setup() {
 
   servoList[6].minValue = 3700;
   servoList[6].maxValue = 6600;//
-  servoList[6].channel = 11;
+  servoList[6].channel = 6;
   servoList[6].servoName = "GuanciaS";
   servoList[6].mirror = true;
   servoList[6].stopAndGo = true;
@@ -131,7 +131,7 @@ void setup() {
 
   servoList[7].minValue = 5300;
   servoList[7].maxValue = 7200;
-  servoList[7].channel = 10;
+  servoList[7].channel = 7;
   servoList[7].servoName = "NasoS";
   servoList[7].mirror = true;
   servoList[7].stopAndGo = true;
@@ -139,7 +139,7 @@ void setup() {
 
   servoList[8].minValue = 4800;
   servoList[8].maxValue = 6800;
-  servoList[8].channel = 13;
+  servoList[8].channel = 8;
   servoList[8].servoName = "GuanciaD";
   servoList[8].mirror = true;
   servoList[8].stopAndGo = true;
@@ -147,7 +147,7 @@ void setup() {
 
   servoList[9].minValue = 4000;
   servoList[9].maxValue = 8400;
-  servoList[9].channel = 14;
+  servoList[9].channel = 9;
   servoList[9].servoName = "SopraciglioCS";
   servoList[9].mirror = true;
   servoList[9].stopAndGo = true;
@@ -155,7 +155,7 @@ void setup() {
 
   servoList[10].minValue = 3900;
   servoList[10].maxValue = 8400;
-  servoList[10].channel = 3;
+  servoList[10].channel = 10;
   servoList[10].servoName = "SopraciglioS";
   servoList[10].mirror = true;
   servoList[10].stopAndGo = true;
@@ -163,7 +163,7 @@ void setup() {
 
   servoList[11].minValue = 3700;
   servoList[11].maxValue = 8300;
-  servoList[11].channel = 16;
+  servoList[11].channel = 11;
   servoList[11].servoName = "SopraciglioCD";
   servoList[11].mirror = true;
   servoList[11].stopAndGo = true;
@@ -171,7 +171,7 @@ void setup() {
 
   servoList[12].minValue = 3600;
   servoList[12].maxValue = 8300;
-  servoList[12].channel = 17;
+  servoList[12].channel = 12;
   servoList[12].servoName = "SopraciglioD";
   servoList[12].mirror = true;
   servoList[12].stopAndGo = true;
@@ -179,7 +179,7 @@ void setup() {
 
   servoList[13].minValue = 3200;
   servoList[13].maxValue = 8800;
-  servoList[13].channel = 18;
+  servoList[13].channel = 13;
   servoList[13].servoName = "OcchioSX";
   servoList[13].mirror = true;
   servoList[13].stopAndGo = true;
@@ -187,7 +187,7 @@ void setup() {
 
   servoList[14].minValue = 2700;
   servoList[14].maxValue = 9600;
-  servoList[14].channel = 4;
+  servoList[14].channel = 14;
   servoList[14].servoName = "OcchioSY";
   servoList[14].mirror = true;
   servoList[14].stopAndGo = true;
@@ -195,7 +195,7 @@ void setup() {
 
   servoList[15].minValue = 3200;
   servoList[15].maxValue = 9200;
-  servoList[15].channel = 20;
+  servoList[15].channel = 15;
   servoList[15].servoName = "PalpebraS";
   servoList[15].mirror = true;
   servoList[15].stopAndGo = true;
@@ -203,7 +203,7 @@ void setup() {
 
   servoList[16].minValue = 3200;
   servoList[16].maxValue = 8000;
-  servoList[16].channel = 21;
+  servoList[16].channel = 16;
   servoList[16].servoName = "OcchioDX";
   servoList[16].mirror = true;
   servoList[16].stopAndGo = true;
@@ -211,7 +211,7 @@ void setup() {
 
   servoList[17].minValue = 3200;
   servoList[17].maxValue = 9600;
-  servoList[17].channel = 22;
+  servoList[17].channel = 17;
   servoList[17].servoName = "OcchioDY";
   servoList[17].mirror = false;
   servoList[17].stopAndGo = true;
@@ -219,7 +219,7 @@ void setup() {
 
   servoList[18].minValue = 3200;
   servoList[18].maxValue = 8000;
-  servoList[18].channel = 23;
+  servoList[18].channel = 18;
   servoList[18].servoName = "PalpebraD";
   servoList[18].mirror = false;
   servoList[18].stopAndGo = true;
