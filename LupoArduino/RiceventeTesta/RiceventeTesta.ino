@@ -182,7 +182,7 @@ void setup() {
   servoList[13].maxValue = 7232;
   servoList[13].channel = 13;
   servoList[13].servoName = "MandibolaDX";
-  servoList[13].mirror = true;
+  servoList[13].mirror = false;
   servoList[13].stopAndGo = false;
   servoList[13].shutDownWhen = 60;
 

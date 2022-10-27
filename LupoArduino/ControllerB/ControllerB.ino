@@ -119,6 +119,7 @@ void handleSliders() {
     }
     int sliderVal = analogRead(listaMotori[slider].port);
     if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
+      listaMotori[slider].oldValue = sliderVal;
       sendMotor(listaMotori[slider], sliderVal);
       if(slider == 6){
         sendMotor(mouthDxMot, 1023-sliderVal);
@@ -138,7 +139,7 @@ void handleSliders() {
         sendMotor(listaMotori[5], sliderVal);
       }
     }
-    listaMotori[slider].oldValue = sliderVal;
+    
   }
 }
 
