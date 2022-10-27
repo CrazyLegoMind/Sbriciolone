@@ -30,10 +30,6 @@ ServoValues servoList[howmanyservo];
 unsigned long nextPalpebre = 0;
 byte contatoreOcchi = 0;
 const byte limiteOcchi = 8;
-const int minOcchiValue = 995;
-const int maxOcchiValue = 190;
-
-const int rangeBoccaMediani = 300;
 
 
 enum statiOcchi { APERTI,
@@ -283,7 +279,7 @@ void loop() {
       }
     }
   }
-  gestisciOcchi();
+  //gestisciOcchi();
   deadManButton();
   shutDownMotors();
   //delay(20);
@@ -378,55 +374,55 @@ void eyesMotorMessage(String message) {
 
 
 
-void gestisciOcchi() {
-  if (sitOcchi == MANUAL) {
-    maestro.setSpeed(servoList[15].channel, eyeLidsSpeed);
-    maestro.setSpeed(servoList[18].channel, eyeLidsSpeed);
-    return;
-  }
+// void gestisciOcchi() {
+//   if (sitOcchi == MANUAL) {
+//     maestro.setSpeed(servoList[15].channel, eyeLidsSpeed);
+//     maestro.setSpeed(servoList[18].channel, eyeLidsSpeed);
+//     return;
+//   }
 
-  if (sitOcchi == APERTI) {
-    maestro.setSpeed(servoList[15].channel, eyeLidsSpeed);
-    maestro.setSpeed(servoList[18].channel, eyeLidsSpeed);
-    if (millis() > nextPalpebre) {
-      nextPalpebre = random(2000, 10000) + millis();
-      sitOcchi = INCHIUSURA;
-      contatoreOcchi = 0;
-      maestro.setSpeed(servoList[15].channel, 0);
-      maestro.setSpeed(servoList[18].channel, 0);
-      maestro.setAcceleration(servoList[15].channel, 0);
-      maestro.setAcceleration(servoList[18].channel, 0);
-      servoList[15].counterShutDown = 0;
-      servoList[18].counterShutDown = 0;
-      maestro.setTarget(servoList[15].channel, analogServoConversion(minOcchiValue, servoList[15]));
-      maestro.setTarget(servoList[18].channel, analogServoConversion(minOcchiValue, servoList[18]));
-    }
-    return;
-  }
-  if (sitOcchi == INCHIUSURA) {
-    contatoreOcchi++;
-    if (contatoreOcchi == limiteOcchi) {
-      servoList[15].counterShutDown = 0;
-      servoList[18].counterShutDown = 0;
-      maestro.setTarget(servoList[15].channel, analogServoConversion(maxOcchiValue, servoList[15]));
-      maestro.setTarget(servoList[18].channel, analogServoConversion(maxOcchiValue, servoList[18]));
-      sitOcchi = APERTI;
-    }
-    return;
-  }
+//   if (sitOcchi == APERTI) {
+//     maestro.setSpeed(servoList[15].channel, eyeLidsSpeed);
+//     maestro.setSpeed(servoList[18].channel, eyeLidsSpeed);
+//     if (millis() > nextPalpebre) {
+//       nextPalpebre = random(2000, 10000) + millis();
+//       sitOcchi = INCHIUSURA;
+//       contatoreOcchi = 0;
+//       maestro.setSpeed(servoList[15].channel, 0);
+//       maestro.setSpeed(servoList[18].channel, 0);
+//       maestro.setAcceleration(servoList[15].channel, 0);
+//       maestro.setAcceleration(servoList[18].channel, 0);
+//       servoList[15].counterShutDown = 0;
+//       servoList[18].counterShutDown = 0;
+//       maestro.setTarget(servoList[15].channel, analogServoConversion(minOcchiValue, servoList[15]));
+//       maestro.setTarget(servoList[18].channel, analogServoConversion(minOcchiValue, servoList[18]));
+//     }
+//     return;
+//   }
+//   if (sitOcchi == INCHIUSURA) {
+//     contatoreOcchi++;
+//     if (contatoreOcchi == limiteOcchi) {
+//       servoList[15].counterShutDown = 0;
+//       servoList[18].counterShutDown = 0;
+//       maestro.setTarget(servoList[15].channel, analogServoConversion(maxOcchiValue, servoList[15]));
+//       maestro.setTarget(servoList[18].channel, analogServoConversion(maxOcchiValue, servoList[18]));
+//       sitOcchi = APERTI;
+//     }
+//     return;
+//   }
 
-  if (sitOcchi == CHIUSMANUAL) {
-    contatoreOcchi++;
-    if (contatoreOcchi == limiteOcchi) {
-      servoList[15].counterShutDown = 0;
-      servoList[18].counterShutDown = 0;
-      maestro.setTarget(servoList[15].channel, analogServoConversion(maxOcchiValue, servoList[15]));
-      maestro.setTarget(servoList[18].channel, analogServoConversion(maxOcchiValue, servoList[18]));
-      sitOcchi = MANUAL;
-    }
-    return;
-  }
-}
+//   if (sitOcchi == CHIUSMANUAL) {
+//     contatoreOcchi++;
+//     if (contatoreOcchi == limiteOcchi) {
+//       servoList[15].counterShutDown = 0;
+//       servoList[18].counterShutDown = 0;
+//       maestro.setTarget(servoList[15].channel, analogServoConversion(maxOcchiValue, servoList[15]));
+//       maestro.setTarget(servoList[18].channel, analogServoConversion(maxOcchiValue, servoList[18]));
+//       sitOcchi = MANUAL;
+//     }
+//     return;
+//   }
+// }
 
 
 int analogServoConversion(int analogValue, ServoValues& servo) {

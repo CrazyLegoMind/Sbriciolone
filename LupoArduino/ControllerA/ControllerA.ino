@@ -17,7 +17,7 @@ struct Motor {
   int oldValue = 0;
 };
 
-struct ButtonLed {
+struct LedSwc {
   int pin;
   int led;
   char sector;
@@ -37,26 +37,22 @@ int aliveCounter = 0;
 const byte aliveTrigger = 10;
 
 
-const byte howmanyanalog = 9;//Sono 8 invero
+const byte howmanyanalog = 9;  //Sono 8 invero
 Motor listaMotori[howmanyanalog];
 Motor eyeSXX;
-Motor eyeSXY;
-ButtonLed mirrorButton;
-ButtonLed palpebreButton;
+Motor eyelidBottom;
+LedSwc labbraSingleSwc; // verde
+LedSwc labbraSinchroSwc; //rosso
 
 int checkSumForEvent1;
 int checkSumForEvent0;
 
-int chesumTail = (eyeLidsC + eventsC + ';') % 100;
-
-int checkSumFunction(String SCS)
-{
+int checkSumFunction(String SCS) {
   char bufferChar[SCS.length()];
   SCS.toCharArray(bufferChar, SCS.length());
 
   int sum = 0;
-  for (int i = 0; i <  SCS.length(); i++)
-  {
+  for (int i = 0; i < SCS.length(); i++) {
     sum += bufferChar[i];
   }
 
@@ -64,74 +60,76 @@ int checkSumFunction(String SCS)
 }
 
 
-void setup()
-{
+void setup() {
 
 
   checkSumForEvent1 = checkSumFunction("LC;1;");
   checkSumForEvent0 = checkSumFunction("LC;0;");
-  chesumTail = checkSumFunction("Te;");
 
 
-  mirrorButton.pin = 3;
-  mirrorButton.led = 4;
-  mirrorButton.sector = eyesC;
-  mirrorButton.value = false;
+  labbraSingleSwc.pin = 3;
+  labbraSingleSwc.led = 4;
+  labbraSingleSwc.sector = eyesC;
+  labbraSingleSwc.value = false;
 
 
-  palpebreButton.pin = 5;
-  palpebreButton.led = 6;
-  palpebreButton.sector = eyeLidsC;
-  palpebreButton.value = false;
+  labbraSinchroSwc.pin = 5;
+  labbraSinchroSwc.led = 6;
+  labbraSinchroSwc.sector = eyeLidsC;
+  labbraSinchroSwc.value = false;
 
-  pinMode(mirrorButton.pin, INPUT);
-  pinMode(mirrorButton.led, OUTPUT);
-  pinMode(palpebreButton.pin, INPUT);
-  pinMode(palpebreButton.led, OUTPUT);
+  pinMode(labbraSingleSwc.pin, INPUT);
+  pinMode(labbraSingleSwc.led, OUTPUT);
+  pinMode(labbraSinchroSwc.pin, INPUT);
+  pinMode(labbraSinchroSwc.led, OUTPUT);
   pinMode(closeEyesButtonPin, INPUT);
 
-  listaMotori[0].sector = eyesC; //OcchiY
-  listaMotori[0].port = A1;//
+  listaMotori[0].sector = eyesC;  //OcchiY
+  listaMotori[0].port = A1;       //
   listaMotori[0].pinH = 14;
 
-  listaMotori[1].sector = eyesC; //OcchioDXX
+  listaMotori[1].sector = eyesC;  //OcchioDXX
   listaMotori[1].port = A0;
   listaMotori[1].pinH = 16;
 
-  listaMotori[2].sector = eyeLidsC; //labbra inf sx
+  listaMotori[2].sector = mouthC;  //labbra sup sx
   listaMotori[2].port = A2;
-  listaMotori[2].pinH = 5;
+  listaMotori[2].pinH = 0;
 
-  listaMotori[3].sector = eyebrownsC; //labbra sup sx
-  listaMotori[3].port = A3;//
-  listaMotori[3].pinH = 2;
+  listaMotori[3].sector = eyebrownsC;  //labbra inf sx
+  listaMotori[3].port = A3;            //
+  listaMotori[3].pinH = 3;
 
-  listaMotori[4].sector = eyebrownsC; //labbra sup dx
+  listaMotori[4].sector = eyebrownsC;  //labbra inf dx
   listaMotori[4].port = A4;
-  listaMotori[4].pinH = 0;
+  listaMotori[4].pinH = 5;
 
-  listaMotori[5].sector = eyebrownsC; //labbra inf dx
-  listaMotori[5].port = A5;//
-  listaMotori[5].pinH = 3;
+  listaMotori[5].sector = eyebrownsC;  //labbra sup dx
+  listaMotori[5].port = A5;            //
+  listaMotori[5].pinH = 2;
 
-  listaMotori[6].sector = eyelidsC; //palpebre sup
+  listaMotori[6].sector = noseC;  //palpebre sup
   listaMotori[6].port = A6;
-  listaMotori[6].pinH = 17; // anche 18
+  listaMotori[6].pinH = 1;
 
-  listaMotori[7].sector = noseC;//narici
+  listaMotori[7].sector = eyebrownsC;  //orecchie
   listaMotori[7].port = A7;
-  listaMotori[7].pinH = 1;
+  listaMotori[7].pinH =5;
 
-  listaMotori[8].sector = eyebrownsC; //orecchie
+  listaMotori[8].sector = eyeLidsC;  //palpebre sup
   listaMotori[8].port = A8;
-  listaMotori[8].pinH = 4;
+  listaMotori[8].pinH = 17; //anchen 19
 
   eyeSXX.sector = eyesC;
   eyeSXX.port = -1;
   eyeSXX.pinH = 15;
 
-  readButtonLed(mirrorButton);
-  readButtonLedAndSend(palpebreButton);
+  eyelidBottom.sector = eyeLidsC;
+  eyelidBottom.port = -1;
+  eyelidBottom.pinH = 18;
+
+  readLedSwc(labbraSingleSwc);
+  readLedSwc(labbraSinchroSwc);
 
   Serial.begin(115200);
 }
@@ -139,158 +137,57 @@ void setup()
 
 void loop() {
 
-  for (int i = 0; i < howmanyanalog; i++)
-  {
-    if (listaMotori[i].sector == eyeLidsC)
-      if (palpebreButton.value)
-        if (i == 2)
-          continue;
-
+  for (int i = 0; i < howmanyanalog; i++) {
 
     readWriteMotor(listaMotori[i]);
   }
 
 
 
-  readCloseEyesButton();
-  readButtonLed(mirrorButton);
-  readButtonLedAndSend(palpebreButton);
+  readLedSwc(labbraSingleSwc);
+  readLedSwc(labbraSinchroSwc);
 
   deadManButton();
   delay(delayLoop);
 }
 
 
-void readCloseEyesButton() {
-  closeEyesState = digitalRead(closeEyesButtonPin);
-
-  if (closeEyesState != oldCloseEyesState)
-    if (closeEyesState == LOW) {
-      String SCS = "";
-      SCS += 'T';
-      SCS += 'e';
-      SCS += ';';
-      SCS += 0;
-      SCS += ';';
-      SCS += 1023;
-      SCS += ';';
-
-      char bufferChar[SCS.length()];
-      SCS.toCharArray(bufferChar, SCS.length());
-
-      int sum = 0;
-      for (int i = 0; i < SCS.length(); i++) {
-        sum += bufferChar[i];
-      }
-
-      int checkSum = sum % 100;
-
-      // Serial.print(m.sector);
-      // Serial.print(m.event);
-      // Serial.print(';');
-      // Serial.print(m.pinH);
-      // Serial.print(';');
-      // Serial.print(sensorValue);
-      Serial.print(SCS);
-      Serial.println(checkSum);
-    }
-
-  oldCloseEyesState = closeEyesState;
-}
-
-void readWriteMotor(Motor& m)
-{
+void readWriteMotor(Motor& m) {
   int sensorValue = analogRead(m.port);
 
-  if (abs(m.oldValue - sensorValue) > Analogfilter)
-  {
-    if (m.pinH == listaMotori[0].pinH)
-      sendMotor(eyeSXY, sensorValue);
-    else if (m.pinH == listaMotori[1].pinH)
-    {
-      if (mirrorButton.value)
-        sendMotor(eyeSXX, mirrorEye(sensorValue));
-      else
-        sendMotor(eyeSXX, sensorValue);
-    }
+  if (abs(m.oldValue - sensorValue) > Analogfilter) {
+    if (m.pinH == listaMotori[1].pinH)
+      sendMotor(eyeSXX, sensorValue);
 
-    if (m.pinH == listaMotori[7].pinH && palpebreButton.value)
-      sendMotor(listaMotori[2], sensorValue);
-      
+    if (m.pinH == listaMotori[8].pinH)
+      sendMotor(eyelidBottom, 1023-sensorValue);
+
     sendMotor(m, sensorValue);
-
   }
   m.oldValue = sensorValue;
-  
 }
 
-void readButtonLed(ButtonLed& button)
-{
+void readLedSwc(LedSwc& button) {
   int lettura = digitalRead(button.pin);
 
 
-  if (lettura == HIGH)
-  {
+  if (lettura == HIGH) {
     button.value = true;
     digitalWrite(button.led, HIGH);
-  }
-  else
-  {
+  } else {
     button.value = false;
     digitalWrite(button.led, LOW);
   }
 }
 
 
-
-void readButtonLedAndSend(ButtonLed& button)
-{
-  int lettura = digitalRead(button.pin);
-  if (lettura == HIGH && button.value != true)
-  {
-    button.value = true;
-    digitalWrite(button.led, HIGH);
-    /*
-      Serial.print(button.sector);
-      Serial.print(button.event);
-      Serial.print(';');
-      Serial.print('1');
-      Serial.print(';');
-      Serial.println(checkSumForEvent1);
-      delay(delayLettura);
-    */
-  }
-  else if (lettura == LOW && button.value != false)
-  {
-    button.value = false;
-    digitalWrite(button.led, LOW);
-    /*
-      Serial.print(button.sector);
-      Serial.print(button.event);
-      Serial.print(';');
-      Serial.print('0');
-      Serial.print(';');
-      Serial.println(checkSumForEvent0);
-      delay(delayLettura);
-    */
-  }
-}
-
-
-int mirrorEye(int value)
-{
-  return map(value, 0, 1023, 1023, 0);
-}
-
-
-void sendMotor(Motor& m, int sensorValue)
-{
+void sendMotor(Motor& m, int sensorValue) {
   String SCS = "";
   SCS += m.sector;
-  SCS +=  m.event;
-  SCS +=  ';';
-  SCS +=  m.pinH;
-  SCS +=  ';';
+  SCS += m.event;
+  SCS += ';';
+  SCS += m.pinH;
+  SCS += ';';
   SCS += sensorValue;
   SCS += ';';
 
@@ -300,8 +197,7 @@ void sendMotor(Motor& m, int sensorValue)
   SCS.toCharArray(bufferChar, SCS.length());
 
   int sum = 0;
-  for (int i = 0; i <  SCS.length(); i++)
-  {
+  for (int i = 0; i < SCS.length(); i++) {
     sum += bufferChar[i];
   }
 
@@ -316,13 +212,9 @@ void sendMotor(Motor& m, int sensorValue)
   Serial.print(';');
   Serial.println(checkSum);
   delay(delayLettura);
-
-
-
 }
 
-void deadManButton()
-{
+void deadManButton() {
   if (aliveCounter % aliveTrigger == 0)
     Serial.println("ALIVE");
 
