@@ -32,6 +32,7 @@ struct LedSwc {
 const byte howmanyanalog = 7;  //9
 Motor listaMotori[howmanyanalog];
 Motor tailMot;
+Motor mouthDxMot;
 
 LedSwc eyebagMirrorSwc;    //non deve mai inviare alla testa //pulsante blu
 LedSwc eyebrowsMirrorSwc;  //non deve mai inviare alla testa //pulsante aranci
@@ -84,12 +85,16 @@ void setup() {
   listaMotori[5].port = A5;
   listaMotori[5].pinH = 10;
 
-  listaMotori[6].sector = mouthC;  //bocca apertura
+  listaMotori[6].sector = mouthC;  //bocca apertura SX
   listaMotori[6].port = A6;
-  listaMotori[6].pinH = 12; //serve anche 13 o da testa si sdoppia
+  listaMotori[6].pinH = 12;
+
+  mouthDxMot.sector = mouthC; //bocca apertura DX
+  mouthDxMot.port = -1;
+  mouthDxMot.pinH = 13;
 
   tailMot.sector = tailC;  //motore coda
-  tailMot.pinH = 9;
+  tailMot.pinH = -1;
   tailMot.event = eventsC;
 }
 
@@ -115,6 +120,10 @@ void handleSliders() {
     int sliderVal = analogRead(listaMotori[slider].port);
     if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
       sendMotor(listaMotori[slider], sliderVal);
+      if(slider == 6){
+        sendMotor(mouthDxMot, 1023-sliderVal);
+      }
+
       if (eyebrowsMirrorSwc.value) {
         switch (slider) {
           case 0:
@@ -152,7 +161,7 @@ void handlebtns() {
   int leftState = !digitalRead(tailLeftBtn);
   if (rightState && !rightTrigger) {
     rightTrigger = true;
-    Serial.println("event--------------------");
+    //Serial.println("event--------------------");
     sendMotor(tailMot, 1023);
   } else if (!rightState) {
     rightTrigger = false;
@@ -161,7 +170,7 @@ void handlebtns() {
   if (leftState && !leftTrigger) {
     leftTrigger = true;
     sendMotor(tailMot, 0);
-    Serial.println("event--------------------");
+    //Serial.println("event--------------------");
   } else if (!leftState) {
     leftTrigger = false;
   }
