@@ -27,7 +27,7 @@ struct LedSwc {
 
 const byte delayLettura = 7;
 const byte delayLoop = 20;
-const byte Analogfilter = 6;
+const byte analogFilter = 6;
 const byte closeEyesButtonPin = 7;
 int closeEyesState = 0;
 int oldCloseEyesState = 0;
@@ -41,8 +41,8 @@ const byte howmanyanalog = 9;  //Sono 8 invero
 Motor listaMotori[howmanyanalog];
 Motor eyeSXX;
 Motor eyelidBottom;
-LedSwc labbraSingleSwc; // verde
-LedSwc labbraSinchroSwc; //rosso
+LedSwc labbraSingleSwc;   // verde
+LedSwc labbraSinchroSwc;  //rosso
 
 int checkSumForEvent1;
 int checkSumForEvent0;
@@ -67,14 +67,14 @@ void setup() {
   checkSumForEvent0 = checkSumFunction("LC;0;");
 
 
-  labbraSingleSwc.pin = 3;
-  labbraSingleSwc.led = 4;
+  labbraSingleSwc.pin = 5;
+  labbraSingleSwc.led = 6;
   labbraSingleSwc.sector = eyesC;
   labbraSingleSwc.value = false;
 
 
-  labbraSinchroSwc.pin = 5;
-  labbraSinchroSwc.led = 6;
+  labbraSinchroSwc.pin = 3;
+  labbraSinchroSwc.led = 4;
   labbraSinchroSwc.sector = eyeLidsC;
   labbraSinchroSwc.value = false;
 
@@ -114,11 +114,11 @@ void setup() {
 
   listaMotori[7].sector = eyebrownsC;  //orecchie
   listaMotori[7].port = A7;
-  listaMotori[7].pinH =4;
+  listaMotori[7].pinH = 4;
 
   listaMotori[8].sector = eyeLidsC;  //palpebre sup
   listaMotori[8].port = A8;
-  listaMotori[8].pinH = 17; //anchen 19
+  listaMotori[8].pinH = 17;  //anchen 19
 
   eyeSXX.sector = eyesC;
   eyeSXX.port = -1;
@@ -127,45 +127,60 @@ void setup() {
   eyelidBottom.sector = eyeLidsC;
   eyelidBottom.port = -1;
   eyelidBottom.pinH = 18;
-
-  readLedSwc(labbraSingleSwc);
-  readLedSwc(labbraSinchroSwc);
-
   Serial.begin(115200);
 }
 
 
 void loop() {
 
-  for (int i = 0; i < howmanyanalog; i++) {
-
-    readWriteMotor(listaMotori[i]);
-  }
-
-
-
   readLedSwc(labbraSingleSwc);
   readLedSwc(labbraSinchroSwc);
+  handleSliders();
 
   deadManButton();
   delay(delayLoop);
 }
 
+void handleSliders() {
+  for (int slider = 0; slider < howmanyanalog; slider++) {
+    volatile Motor linkedMot = listaMotori[slider];
+    int sliderch = linkedMot.pinH;
 
-void readWriteMotor(Motor& m) {
-  int sensorValue = analogRead(m.port);
+    if (labbraSingleSwc.value && (sliderch == 0 || sliderch == 3 || sliderch == 5)) {
+      continue;  //skip loop if motors are mirrored
+    }
+    if (labbraSinchroSwc.value && (sliderch == 3 || sliderch == 0)) {
+      continue;  //skip loop if motors are mirrored
+    }
+    int sliderVal = analogRead(linkedMot.port);
 
-  if (abs(m.oldValue - sensorValue) > Analogfilter) {
-    if (m.pinH == listaMotori[1].pinH)
-      sendMotor(eyeSXX, sensorValue);
+    if (abs(sliderVal - linkedMot.oldValue) > analogFilter) {
+      
+      sendMotor(listaMotori[slider], sliderVal);
+      if (sliderch == listaMotori[1].pinH)
+        sendMotor(eyeSXX, sliderVal);
 
-    if (m.pinH == listaMotori[8].pinH)
-      sendMotor(eyelidBottom, sensorValue);
-
-    sendMotor(m, sensorValue);
+      if (sliderch == listaMotori[8].pinH)
+        sendMotor(eyelidBottom, sliderVal);
+      
+      if (labbraSingleSwc.value && sliderch == 2) {
+        sendMotor(listaMotori[5], sliderVal);
+        sendMotor(listaMotori[3], 1023-sliderVal);
+        sendMotor(listaMotori[2], sliderVal);
+      }else if (labbraSinchroSwc.value) {
+        switch (sliderch) {
+          case 2:
+            sendMotor(listaMotori[2], sliderVal);
+            break;
+          case 5:
+            sendMotor(listaMotori[3], 1023-sliderVal);
+            break;
+        }
+      }
+    }
   }
-  m.oldValue = sensorValue;
 }
+
 
 void readLedSwc(LedSwc& button) {
   int lettura = digitalRead(button.pin);
@@ -211,6 +226,7 @@ void sendMotor(Motor& m, int sensorValue) {
   Serial.print(sensorValue);
   Serial.print(';');
   Serial.println(checkSum);
+  m.oldValue = sensorValue;
 }
 
 void deadManButton() {
