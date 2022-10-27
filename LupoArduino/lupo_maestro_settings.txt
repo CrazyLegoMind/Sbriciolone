@@ -21,7 +21,7 @@
     <!--Channel 4-->
     <Channel name="Orecchie" mode="Servo" min="4032" max="8384" homemode="Off" home="4032" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 5-->
-    <Channel name="LabInfDX" mode="Servo" min="6016" max="8000" homemode="Off" home="6784" speed="100" acceleration="0" neutral="6784" range="1905" />
+    <Channel name="LabInfDX" mode="Servo" min="6016" max="8000" homemode="Off" home="6016" speed="100" acceleration="0" neutral="6784" range="1905" />
     <!--Channel 6-->
     <Channel name="SopracSS" mode="Servo" min="4032" max="6784" homemode="Off" home="4032" speed="100" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 7-->
@@ -35,9 +35,9 @@
     <!--Channel 11-->
     <Channel name="BorsaD" mode="Servo" min="5184" max="8000" homemode="Off" home="5184" speed="100" acceleration="0" neutral="5184" range="1905" />
     <!--Channel 12-->
-    <Channel name="MandibolaSX" mode="Servo" min="3712" max="6656" homemode="Off" home="5184" speed="100" acceleration="0" neutral="6016" range="1905" />
+    <Channel name="MandibolaSX" mode="Servo" min="3712" max="6656" homemode="Off" home="3712" speed="100" acceleration="0" neutral="6016" range="1905" />
     <!--Channel 13-->
-    <Channel name="MandibolaDX" mode="Servo" min="4032" max="7232" homemode="Off" home="5632" speed="100" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="MandibolaDX" mode="Servo" min="4032" max="7232" homemode="Off" home="4032" speed="100" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 14-->
     <Channel name="OcchiY" mode="Servo" min="4352" max="7296" homemode="Off" home="4352" speed="100" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 15-->
@@ -45,7 +45,7 @@
     <!--Channel 16-->
     <Channel name="OcchioDX" mode="Servo" min="4736" max="6272" homemode="Off" home="4736" speed="100" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 17-->
-    <Channel name="PalpebreSup" mode="Servo" min="4032" max="6656" homemode="Off" home="5760" speed="100" acceleration="0" neutral="5760" range="1905" />
+    <Channel name="PalpebreSup" mode="Servo" min="4032" max="6656" homemode="Off" home="4032" speed="100" acceleration="0" neutral="5760" range="1905" />
     <!--Channel 18-->
     <Channel name="PalpebreInf" mode="Servo" min="5184" max="5952" homemode="Off" home="5184" speed="100" acceleration="0" neutral="5184" range="1905" />
     <!--Channel 19-->
