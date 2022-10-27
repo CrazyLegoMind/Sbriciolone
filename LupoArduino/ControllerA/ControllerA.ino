@@ -26,7 +26,7 @@ struct LedSwc {
 };
 
 const byte delayLettura = 7;
-const byte delayLoop = 52;
+const byte delayLoop = 20;
 const byte Analogfilter = 6;
 const byte closeEyesButtonPin = 7;
 int closeEyesState = 0;
@@ -92,21 +92,21 @@ void setup() {
   listaMotori[1].port = A0;
   listaMotori[1].pinH = 16;
 
-  listaMotori[2].sector = mouthC;  //labbra sup sx
-  listaMotori[2].port = A2;
+  listaMotori[2].sector = mouthC;  //labbra sup dx
+  listaMotori[2].port = A5;
   listaMotori[2].pinH = 0;
 
-  listaMotori[3].sector = eyebrownsC;  //labbra inf sx
-  listaMotori[3].port = A3;            //
+  listaMotori[3].sector = eyebrownsC;  //labbra inf dx
+  listaMotori[3].port = A4;            //
   listaMotori[3].pinH = 3;
 
-  listaMotori[4].sector = eyebrownsC;  //labbra inf dx
-  listaMotori[4].port = A4;
-  listaMotori[4].pinH = 5;
+  listaMotori[4].sector = eyebrownsC;  //labbra inf sx
+  listaMotori[4].port = A3;
+  listaMotori[4].pinH = 2;
 
-  listaMotori[5].sector = eyebrownsC;  //labbra sup dx
-  listaMotori[5].port = A5;            //
-  listaMotori[5].pinH = 2;
+  listaMotori[5].sector = eyebrownsC;  //labbra sup sx
+  listaMotori[5].port = A2;            //
+  listaMotori[5].pinH = 5;
 
   listaMotori[6].sector = noseC;  //palpebre sup
   listaMotori[6].port = A6;
@@ -114,7 +114,7 @@ void setup() {
 
   listaMotori[7].sector = eyebrownsC;  //orecchie
   listaMotori[7].port = A7;
-  listaMotori[7].pinH =5;
+  listaMotori[7].pinH =4;
 
   listaMotori[8].sector = eyeLidsC;  //palpebre sup
   listaMotori[8].port = A8;
@@ -160,7 +160,7 @@ void readWriteMotor(Motor& m) {
       sendMotor(eyeSXX, sensorValue);
 
     if (m.pinH == listaMotori[8].pinH)
-      sendMotor(eyelidBottom, 1023-sensorValue);
+      sendMotor(eyelidBottom, sensorValue);
 
     sendMotor(m, sensorValue);
   }
@@ -211,7 +211,6 @@ void sendMotor(Motor& m, int sensorValue) {
   Serial.print(sensorValue);
   Serial.print(';');
   Serial.println(checkSum);
-  delay(delayLettura);
 }
 
 void deadManButton() {
