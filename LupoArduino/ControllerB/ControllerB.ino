@@ -1,5 +1,13 @@
-#include <C:\Users\Admin\Documents\worspaces\animatronica\git_repo\Sbriciolone\LupoArduino\common.h>
+const char eventsC = 'e';
+const char statusChangeC = 'C';
+const char servoC = 'S';
 
+const char eyesC = 'E';
+const char eyeLidsC = 'L';
+const char eyebrownsC = 'B';
+const char mouthC = 'M';
+const char noseC = 'N';
+const char tailC = 'T';
 
 const byte analogFilter = 6;
 const byte delayLettura = 2;
@@ -54,31 +62,31 @@ void setup() {
 
   listaMotori[0].sector = eyebrownsC;  //sopracciglio ext sx
   listaMotori[0].port = A0;
-  listaMotori[0].pinH = 0;
+  listaMotori[0].pinH = 9;
 
   listaMotori[1].sector = eyebrownsC;  //sopracciglio int sx
   listaMotori[1].port = A1;
-  listaMotori[1].pinH = 1;
+  listaMotori[1].pinH = 8;
 
   listaMotori[2].sector = eyebrownsC;  //sopracciglio int dx
   listaMotori[2].port = A2;
-  listaMotori[2].pinH = 2;
+  listaMotori[2].pinH = 7;
 
   listaMotori[3].sector = eyebrownsC;  //sopracciglio ext dx
   listaMotori[3].port = A3;
-  listaMotori[3].pinH = 3;
+  listaMotori[3].pinH = 6;
 
   listaMotori[4].sector = noseC;  //borsa sx
   listaMotori[4].port = A4;
-  listaMotori[4].pinH = 4;
+  listaMotori[4].pinH = 11;
 
   listaMotori[5].sector = noseC;  //borsa dx
   listaMotori[5].port = A5;
-  listaMotori[5].pinH = 5;
+  listaMotori[5].pinH = 10;
 
   listaMotori[6].sector = mouthC;  //bocca apertura
   listaMotori[6].port = A6;
-  listaMotori[6].pinH = 6;
+  listaMotori[6].pinH = 12; //serve anche 13 o da testa si sdoppia
 
   tailMot.sector = tailC;  //motore coda
   tailMot.pinH = 9;

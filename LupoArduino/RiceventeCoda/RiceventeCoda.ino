@@ -1,9 +1,17 @@
 #include <SoftwareSerial.h>
 #include <PWMServo.h>
-#include <C:\Users\Admin\Documents\worspaces\animatronica\git_repo\Sbriciolone\LupoArduino\common.h>
 //#define DEBUG
 
+const char eventsC = 'e';
+const char statusChangeC = 'C';
+const char servoC = 'S';
 
+const char eyesC = 'E';
+const char eyeLidsC = 'L';
+const char eyebrownsC = 'B';
+const char mouthC = 'M';
+const char noseC = 'N';
+const char tailC = 'T';
 
 int aliveCounter = 0;
 const byte aliveTrigger = 10;

@@ -1,4 +1,13 @@
-#include <C:\Users\Admin\Documents\worspaces\animatronica\git_repo\Sbriciolone\LupoArduino\common.h>
+const char eventsC = 'e';
+const char statusChangeC = 'C';
+const char servoC = 'S';
+
+const char eyesC = 'E';
+const char eyeLidsC = 'L';
+const char eyebrownsC = 'B';
+const char mouthC = 'M';
+const char noseC = 'N';
+const char tailC = 'T';
 
 struct Motor {
   int port;
@@ -28,7 +37,7 @@ int aliveCounter = 0;
 const byte aliveTrigger = 10;
 
 
-const byte howmanyanalog = 8;//Sono 8 invero
+const byte howmanyanalog = 9;//Sono 8 invero
 Motor listaMotori[howmanyanalog];
 Motor eyeSXX;
 Motor eyeSXY;
@@ -81,45 +90,45 @@ void setup()
   pinMode(palpebreButton.led, OUTPUT);
   pinMode(closeEyesButtonPin, INPUT);
 
-  listaMotori[0].sector = eyesC;//OcchioDXY
+  listaMotori[0].sector = eyesC; //OcchiY
   listaMotori[0].port = A1;//
-  listaMotori[0].pinH = 17;
+  listaMotori[0].pinH = 14;
 
-  listaMotori[1].sector = eyesC;//OcchioDXX
+  listaMotori[1].sector = eyesC; //OcchioDXX
   listaMotori[1].port = A0;
   listaMotori[1].pinH = 16;
 
-  listaMotori[2].sector = eyeLidsC;//PalpebraSinistra
-  listaMotori[2].port = A3;
-  listaMotori[2].pinH = 18;
+  listaMotori[2].sector = eyeLidsC; //labbra inf sx
+  listaMotori[2].port = A2;
+  listaMotori[2].pinH = 5;
 
-  listaMotori[3].sector = eyebrownsC;//Sopraciglio DXD
-  listaMotori[3].port = A4;//
-  listaMotori[3].pinH = 10;
+  listaMotori[3].sector = eyebrownsC; //labbra sup sx
+  listaMotori[3].port = A3;//
+  listaMotori[3].pinH = 2;
 
-  listaMotori[4].sector = eyebrownsC;//Sopraciglio DXC
-  listaMotori[4].port = A5;
-  listaMotori[4].pinH = 9;
+  listaMotori[4].sector = eyebrownsC; //labbra sup dx
+  listaMotori[4].port = A4;
+  listaMotori[4].pinH = 0;
 
-  listaMotori[5].sector = eyebrownsC;//Sopraciglio SXS
-  listaMotori[5].port = A6;//
-  listaMotori[5].pinH = 12;
+  listaMotori[5].sector = eyebrownsC; //labbra inf dx
+  listaMotori[5].port = A5;//
+  listaMotori[5].pinH = 3;
 
-  listaMotori[6].sector = eyebrownsC;//Sopraciglio SXC
-  listaMotori[6].port = A7;
-  listaMotori[6].pinH = 11;
+  listaMotori[6].sector = eyelidsC; //palpebre sup
+  listaMotori[6].port = A6;
+  listaMotori[6].pinH = 17; // anche 18
 
-  listaMotori[7].sector = tailC;//PalpebraDestra
-  listaMotori[7].port = A2;
-  listaMotori[7].pinH = 15;
+  listaMotori[7].sector = noseC;//narici
+  listaMotori[7].port = A7;
+  listaMotori[7].pinH = 1;
+
+  listaMotori[8].sector = eyebrownsC; //orecchie
+  listaMotori[8].port = A8;
+  listaMotori[8].pinH = 4;
 
   eyeSXX.sector = eyesC;
   eyeSXX.port = -1;
-  eyeSXX.pinH = 13;
-
-  eyeSXY.sector = eyesC;
-  eyeSXY.port = -1;
-  eyeSXY.pinH = 14;
+  eyeSXX.pinH = 15;
 
   readButtonLed(mirrorButton);
   readButtonLedAndSend(palpebreButton);
