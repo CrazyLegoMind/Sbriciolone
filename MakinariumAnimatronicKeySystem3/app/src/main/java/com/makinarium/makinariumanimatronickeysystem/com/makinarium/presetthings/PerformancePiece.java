@@ -23,8 +23,7 @@ public class PerformancePiece <T>{
         this.millisToAction = millisToAction;
     }
 
-    public PerformancePiece(T action, int millisToAction, String message)
-    {
+    public PerformancePiece(T action, int millisToAction, String message){
         this.action = action;
         this.millisToAction = millisToAction;
         this.stringVersion = message;

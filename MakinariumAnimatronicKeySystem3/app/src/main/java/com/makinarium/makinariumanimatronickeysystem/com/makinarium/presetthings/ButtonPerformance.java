@@ -13,6 +13,7 @@ import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.Co
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ import java.util.List;
 public class ButtonPerformance extends AbstractPerformance{
 
     private List<PerformancePiece<byte[]>> performance;
-
+    private HashSet<Integer> channels;
     public ButtonPerformance(int id, Button button, FaceSector faceSector, ProgressBar progressBar, TextView textView, int activeColor, int performToRecColor)
     {
         super(id, button,faceSector,progressBar, textView, activeColor, performToRecColor);
@@ -34,6 +35,7 @@ public class ButtonPerformance extends AbstractPerformance{
     {
         super.deletePerformance();
         performance = new ArrayList<>();
+        channels = new HashSet<>();
     }
 
 
@@ -60,6 +62,7 @@ public class ButtonPerformance extends AbstractPerformance{
         return new ArrayList<>(performance);
     }
 
+    public HashSet<Integer> getChannels(){ return channels;}
 
     public void compressMessage()
     {
@@ -67,111 +70,59 @@ public class ButtonPerformance extends AbstractPerformance{
         Log.i("PFGZ","performance size : " + String.valueOf(performance.size()));
         Log.i("PFGZ" , "performance duration : " +String.valueOf(super.getDuration()));
         int pIndex = 0;
-        HashMap<Integer,Boolean> first = new HashMap<>();
 
-        //init an array to ignore the first packet for each channel
+        //keep track of channel alst packet info:
+        //direction: 0, not init 1 increasing -1 decreasing
+        //time: epoch of last packet
+        //value: value of lack packet
+        HashMap<Integer,Integer> channelDirectionDict = new HashMap<>();
+        HashMap<Integer,Long> channelTimeDict = new HashMap<>();
+        HashMap<Integer,Integer> channelValueDict = new HashMap<>();
+
+        //memorize channels affected by this performance, useful for precise filtering
         for(PerformancePiece<byte[]> p : performance) {
-            first.put(p.getChannelPin(), true);
+            channels.add(p.getChannelPin());
         }
-        Log.i("PFGZ" , "channels recorded: " + first.toString());
+        Log.i("PFGZ" , "channels recorded: " + channels.toString());
+        long curentMessageTime = 0;
 
         for(PerformancePiece<byte[]> p : performance) {
             int pChannel = p.getChannelPin();
+            long pTime = p.getMillisToAction();
+            int pValue = p.getAnalogValue();
 
-            Log.i("PFGZ_piece", "PIECE: " + p.toString()+ "- of length: "+String.valueOf(p.getMillisToAction()));
+            Log.i("PFGZ_piece", "PIECE: " + p.toString()+ "- of length: "+String.valueOf(pTime));
+            if (channelValueDict.containsKey(pChannel)){
 
-            //ignore only if first packet
-            if (first.get(pChannel)) {
-                first.put(pChannel, false);
-                pIndex++;
-                Log.i("PFGZ_piece","failed mask");
-                continue;
-            }
-
-            //if this piece is to erase or not a servo command skip to next piece
-            if(p.isToErase() || !(p.getType() == MessageTypes.SERVO)) {
-                pIndex++;
-                Log.i("PFGZ_piece","erased");
-                continue;
-            }
-
-            PerformancePiece<byte[]> y = null;
-            PerformancePiece<byte[]> z = null;
-
-            int millisFuture = 0;
-            AnalogDirection direction = AnalogDirection.UP;
-            //compress from the second packet of a channel to the end of animation
-            //check only packet after this one
-            for(int i = pIndex + 1; i < performance.size(); i++) {
-                PerformancePiece piece = performance.get(i);
-
-
-
-                //keep track of the timings
-                millisFuture += piece.getMillisToAction();
-
-                //if the piece is not from this own channel
-                //is to be clear or is not a servo command
-                //skip it so analyze next piece
-                if(!(piece.getType() == MessageTypes.SERVO) ||
-                        piece.getChannelPin() != pChannel ||
-                        piece.isToErase())
-                    continue;
-                //now the piece is good
-                Log.i("PFGZ_piece",  "- loop with: " + piece.toString());
-                //when enough time is passed from the last good piece
-                //exit the for and modify the performance
-
-                if(millisFuture > Constants.DELAYTOERASEFORBTE)
-                    if(piece.getMillisToAction() > Constants.LITTLEDELAY)
-                        break;
-
-                //if not enough time is passed i keep track of direction changes
-                if(y == null) {
-                    //if no packet is set i memorize it and init the direction
-                    y = piece;
-                    y.eraseThis();
-                    int diff = p.getAnalogValue() - piece.getAnalogValue();
-                    if(diff < 0)
-                        direction = AnalogDirection.UP; // diff is negative
-                    else
-                        direction = AnalogDirection.DOWN; //diff is positive
-
-                } else {
-                    //if I already have a packet check for direction changes
-                    //if direction changes exit the loop
-                    int diff = y.getAnalogValue() - piece.getAnalogValue();
-                    if(direction == AnalogDirection.UP && diff > 0)
-                        break;
-                    if(direction == AnalogDirection.DOWN && diff < 0)
-                        break;
-                    //erase only if there was no direction change
-                    z = piece;
-                    z.eraseThis();
+                int prevDirection = channelDirectionDict.get(pChannel);
+                long prevTime = channelTimeDict.get(pChannel);
+                int prevValue = channelValueDict.get(pChannel);
+                int currentDir = 0;
+                if (pValue != prevValue) {
+                    currentDir = (pValue - prevValue) / Math.abs(pValue - prevValue);
                 }
+                boolean dirChange = prevDirection != currentDir;
+                if(!dirChange){
+                    if(curentMessageTime + pTime - prevTime < Constants.DELAYTOERASEFORBTE){
+                        p.eraseThis();
+                    }
+                }
+                channelValueDict.put(pChannel,pValue);
+                channelDirectionDict.put(pChannel,currentDir);
+                channelTimeDict.put(pChannel,curentMessageTime);
+            }else{
+                channelValueDict.put(pChannel,pValue);
+                channelDirectionDict.put(pChannel,0);
+                channelTimeDict.put(pChannel,curentMessageTime);
             }
-            //after the for loop
-
-            Log.i("PFGZ_piece",  "PIECE: " + p.toString()+ "for loop passed");
-            if(z!= null) {
-                Log.i("PFGZ_piece",  "PIECE: " + p.toString()+ "overwriting with z");
-                p.setAnalogStringAndChecksum(z.getAnalogValue(), z.getStringVersion(), z.getCheckSum());
-                p.setAction(z.getBytes());
-            } else if(y != null) {
-                Log.i("PFGZ_piece",  "PIECE: " + p.toString()+ "overwriting with y");
-                p.setAnalogStringAndChecksum(y.getAnalogValue(), y.getStringVersion(), y.getCheckSum());
-                p.setAction(y.getBytes());
-            }
-
-            pIndex++;
+            Log.i("PFGZ_dicts", String.valueOf(channelValueDict));
+            Log.i("PFGZ_dicts", String.valueOf(channelDirectionDict));
+            Log.i("PFGZ_dicts", String.valueOf(channelTimeDict));
+            curentMessageTime += pTime;
         }
 
 
-
-
         int timeToAddToOthers = 0;
-
-        //Log.i("MILLIS", "AHUAHSUGFHKDKGFHSGSF \n\n");
 
         for(PerformancePiece<byte[]> p : performance) {
             if(p.isToErase()) {

@@ -85,7 +85,7 @@ void setup() {
   pinMode(closeEyesButtonPin, INPUT);
 
   listaMotori[0].sector = eyesC;  //OcchiY
-  listaMotori[0].port = A1;       //
+  listaMotori[0].port = A1;
   listaMotori[0].pinH = 14;
 
   listaMotori[1].sector = eyesC;  //OcchioDXX
@@ -96,19 +96,19 @@ void setup() {
   listaMotori[2].port = A5;
   listaMotori[2].pinH = 0;
 
-  listaMotori[3].sector = eyebrownsC;  //labbra inf dx
-  listaMotori[3].port = A4;            //
+  listaMotori[3].sector = mouthC;  //labbra inf dx
+  listaMotori[3].port = A4;
   listaMotori[3].pinH = 3;
 
-  listaMotori[4].sector = eyebrownsC;  //labbra inf sx
+  listaMotori[4].sector = mouthC;  //labbra inf sx
   listaMotori[4].port = A3;
   listaMotori[4].pinH = 2;
 
-  listaMotori[5].sector = eyebrownsC;  //labbra sup sx
-  listaMotori[5].port = A2;            //
+  listaMotori[5].sector = mouthC;  //labbra sup sx
+  listaMotori[5].port = A2;
   listaMotori[5].pinH = 5;
 
-  listaMotori[6].sector = noseC;  //palpebre sup
+  listaMotori[6].sector = noseC;  //naso
   listaMotori[6].port = A6;
   listaMotori[6].pinH = 1;
 

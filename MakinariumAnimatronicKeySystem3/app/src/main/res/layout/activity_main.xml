@@ -54,7 +54,7 @@
                     android:layout_width="15dp"
                     android:layout_height="17dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
+                    android:layout_below="@+id/eyesStatus"
                     android:text="✓"
                     android:textColor="@color/activePerform" />
 
@@ -62,14 +62,15 @@
                     android:id="@+id/mouthTextS"
                     android:layout_width="80dp"
                     android:layout_height="17dp"
+                    android:layout_below="@+id/eyesTextS"
                     android:layout_toRightOf="@+id/mouthStatus"
-                    android:text="Mouth ctrl" />
+                    android:text="Remote B" />
 
                 <TextView
                     android:id="@+id/eyesStatus"
                     android:layout_width="15dp"
                     android:layout_height="17dp"
-                    android:layout_below="@+id/mouthStatus"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:text="✓"
                     android:textColor="@color/activePerform" />
@@ -78,9 +79,9 @@
                     android:id="@+id/eyesTextS"
                     android:layout_width="80dp"
                     android:layout_height="17dp"
-                    android:layout_below="@+id/mouthTextS"
+                    android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/eyesStatus"
-                    android:text="Eyes ctrl" />
+                    android:text="Remote A" />
 
                 <TextView
                     android:id="@+id/headStatus"
@@ -131,14 +132,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Mouth" />
+                android:text="Remote B" />
 
             <Switch
                 android:id="@+id/eyesSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Eyes" />
+                android:text="Remote A" />
 
 
         </LinearLayout>
