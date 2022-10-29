@@ -164,8 +164,9 @@ void handleSliders() {
         sendMotor(eyelidBottom, sliderVal);
       
       if (labbraSingleSwc.value && sliderch == 2) {
-        sendMotor(listaMotori[5], sliderVal);
-        sendMotor(listaMotori[3], 1023-sliderVal);
+        sendMotor(listaMotori[5], 1023-sliderVal);
+        sendMotor(listaMotori[3], sliderVal);
+        
         sendMotor(listaMotori[2], sliderVal);
       }else if (labbraSinchroSwc.value) {
         switch (sliderch) {
