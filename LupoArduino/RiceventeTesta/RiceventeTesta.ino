@@ -79,8 +79,8 @@ void setup() {
   servoList[0].channel = 0;
   servoList[0].servoName = "LabSupSX";
   servoList[0].mirror = false;
-  servoList[0].stopAndGo = false;
-  servoList[0].shutDownWhen = 50;
+  servoList[0].stopAndGo = true;
+  servoList[0].shutDownWhen = 1000;
 
   servoList[1].minValue = 4032;
   servoList[1].maxValue = 6592;
@@ -88,23 +88,23 @@ void setup() {
   servoList[1].servoName = "Naso";
   servoList[1].mirror = false;
   servoList[1].stopAndGo = true;
-  servoList[1].shutDownWhen = 50;
+  servoList[1].shutDownWhen = 1000;
 
   servoList[2].minValue = 4032;
   servoList[2].maxValue = 6400;
   servoList[2].channel = 2;
   servoList[2].servoName = "LabSupDX";
   servoList[2].mirror = false;
-  servoList[2].stopAndGo = false;
-  servoList[2].shutDownWhen = 50;
+  servoList[2].stopAndGo = true;
+  servoList[2].shutDownWhen = 1000;
 
   servoList[3].minValue = 5632;
   servoList[3].maxValue = 8000;
   servoList[3].channel = 3;
   servoList[3].servoName = "LabInfSX";
   servoList[3].mirror = true;
-  servoList[3].stopAndGo = false;
-  servoList[3].shutDownWhen = 50;
+  servoList[3].stopAndGo = true;
+  servoList[3].shutDownWhen = 1000;
 
   servoList[4].minValue = 4032;
   servoList[4].maxValue = 8384;  //
@@ -112,47 +112,47 @@ void setup() {
   servoList[4].servoName = "Orecchie";
   servoList[4].mirror = true;
   servoList[4].stopAndGo = true;
-  servoList[4].shutDownWhen = 50;
+  servoList[4].shutDownWhen = 1000;
 
   servoList[5].minValue = 6016;
   servoList[5].maxValue = 8000;
   servoList[5].channel = 5;
   servoList[5].servoName = "LabInfDX";
   servoList[5].mirror = false;
-  servoList[5].stopAndGo = false;
-  servoList[5].shutDownWhen = 150;
+  servoList[5].stopAndGo = true;
+  servoList[5].shutDownWhen = 1000;
 
   servoList[6].minValue = 4032;
   servoList[6].maxValue = 6784;  //
   servoList[6].channel = 6;
   servoList[6].servoName = "SopracSS";
   servoList[6].mirror = false;
-  servoList[6].stopAndGo = false;
-  servoList[6].shutDownWhen = 150;
+  servoList[6].stopAndGo = true;
+  servoList[6].shutDownWhen = 1000;
 
   servoList[7].minValue = 4224;
   servoList[7].maxValue = 6400;
   servoList[7].channel = 7;
   servoList[7].servoName = "SopracSC";
   servoList[7].mirror = false;
-  servoList[7].stopAndGo = false;
-  servoList[7].shutDownWhen = 150;
+  servoList[7].stopAndGo = true;
+  servoList[7].shutDownWhen = 1000;
 
   servoList[8].minValue = 5824;
   servoList[8].maxValue = 8000;
   servoList[8].channel = 8;
   servoList[8].servoName = "SopracDC";
   servoList[8].mirror = true;
-  servoList[8].stopAndGo = false;
-  servoList[8].shutDownWhen = 150;
+  servoList[8].stopAndGo = true;
+  servoList[8].shutDownWhen = 1000;
 
   servoList[9].minValue = 6208;
   servoList[9].maxValue = 8000;
   servoList[9].channel = 9;
   servoList[9].servoName = "SopracDD";
   servoList[9].mirror = true;
-  servoList[9].stopAndGo = false;
-  servoList[9].shutDownWhen = 3;
+  servoList[9].stopAndGo = true;
+  servoList[9].shutDownWhen = 1000;
 
   servoList[10].minValue = 4032;
   servoList[10].maxValue = 6400;
@@ -160,7 +160,7 @@ void setup() {
   servoList[10].servoName = "BorsaS";
   servoList[10].mirror = false;
   servoList[10].stopAndGo = true;
-  servoList[10].shutDownWhen = 35;
+  servoList[10].shutDownWhen = 1000;
 
   servoList[11].minValue = 5184;
   servoList[11].maxValue = 8000;
@@ -168,7 +168,7 @@ void setup() {
   servoList[11].servoName = "BorsaD";
   servoList[11].mirror = true;
   servoList[11].stopAndGo = true;
-  servoList[11].shutDownWhen = 35;
+  servoList[11].shutDownWhen = 1000;
 
   servoList[12].minValue = 3712;
   servoList[12].maxValue = 6656;
@@ -176,7 +176,7 @@ void setup() {
   servoList[12].servoName = "MandibolaSX";
   servoList[12].mirror = false;
   servoList[12].stopAndGo = false;
-  servoList[12].shutDownWhen = 35;
+  servoList[12].shutDownWhen = 1000;
 
   servoList[13].minValue = 4032;
   servoList[13].maxValue = 7232;
@@ -184,7 +184,7 @@ void setup() {
   servoList[13].servoName = "MandibolaDX";
   servoList[13].mirror = false;
   servoList[13].stopAndGo = false;
-  servoList[13].shutDownWhen = 60;
+  servoList[13].shutDownWhen = 1000;
 
   servoList[14].minValue = 4352;
   servoList[14].maxValue = 7296;
@@ -192,7 +192,7 @@ void setup() {
   servoList[14].servoName = "OcchiY";
   servoList[14].mirror = true;
   servoList[14].stopAndGo = true;
-  servoList[14].shutDownWhen = 60;
+  servoList[14].shutDownWhen = 1000;
 
   servoList[15].minValue = 5696;
   servoList[15].maxValue = 7040;
@@ -200,7 +200,7 @@ void setup() {
   servoList[15].servoName = "OcchioSX";
   servoList[15].mirror = true;
   servoList[15].stopAndGo = true;
-  servoList[15].shutDownWhen = 120;
+  servoList[15].shutDownWhen = 1000;
 
   servoList[16].minValue = 4736;
   servoList[16].maxValue = 6272;
@@ -208,7 +208,7 @@ void setup() {
   servoList[16].servoName = "OcchioDX";
   servoList[16].mirror = true;
   servoList[16].stopAndGo = true;
-  servoList[16].shutDownWhen = 60;
+  servoList[16].shutDownWhen = 1000;
 
   servoList[17].minValue = 4032;
   servoList[17].maxValue = 6656;
@@ -216,7 +216,7 @@ void setup() {
   servoList[17].servoName = "PalpebreSup";
   servoList[17].mirror = true;
   servoList[17].stopAndGo = true;
-  servoList[17].shutDownWhen = 60;
+  servoList[17].shutDownWhen = 1000;
 
   servoList[18].minValue = 5184;
   servoList[18].maxValue = 5952;
@@ -224,10 +224,10 @@ void setup() {
   servoList[18].servoName = "PalpebreInf";
   servoList[18].mirror = true;
   servoList[18].stopAndGo = true;
-  servoList[18].shutDownWhen = 120;
+  servoList[18].shutDownWhen = 1000;
 
   for (int i = 0; i < howmanyservo; i++)
-    maestro.setTarget(servoList[i].channel, analogServoConversion(servoList[i].lastPosition, servoList[i]));
+    maestro.setTarget(servoList[i].channel,0);
 }
 
 
@@ -358,6 +358,7 @@ void mouthMessage(String message) {
     String valueString = getValueStringSplitter(message, ';', 2);
     int value = valueString.toInt();
     servoList[index].lastPosition = value;
+    servoList[index].counterShutDown = 0;
     maestro.setTarget(servoList[index].channel, analogServoConversion(value, servoList[index]));
   }
 }
