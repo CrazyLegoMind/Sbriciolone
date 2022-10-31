@@ -47,7 +47,7 @@
     <!--Channel 17-->
     <Channel name="PalpebreSup" mode="Servo" min="4800" max="6400" homemode="Off" home="4800" speed="100" acceleration="0" neutral="5760" range="1905" />
     <!--Channel 18-->
-    <Channel name="PalpebreInf" mode="Servo" min="5184" max="6016" homemode="Off" home="5184" speed="100" acceleration="0" neutral="5632" range="1905" />
+    <Channel name="PalpebreInf" mode="Servo" min="5184" max="5632" homemode="Off" home="5184" speed="100" acceleration="0" neutral="5632" range="1905" />
     <!--Channel 19-->
     <Channel name="" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="100" acceleration="0" neutral="5504" range="1905" />
     <!--Channel 20-->
