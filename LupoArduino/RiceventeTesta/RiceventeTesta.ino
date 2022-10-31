@@ -75,7 +75,7 @@ void setup() {
   Serial3.setTimeout(20);
 
   servoList[0].minValue = 4032;
-  servoList[0].maxValue = 6400;
+  servoList[0].maxValue = 6208;
   servoList[0].channel = 0;
   servoList[0].servoName = "LabSupSX";
   servoList[0].mirror = false;
@@ -98,7 +98,7 @@ void setup() {
   servoList[2].stopAndGo = true;
   servoList[2].shutDownWhen = 1000;
 
-  servoList[3].minValue = 5632;
+  servoList[3].minValue = 6784;
   servoList[3].maxValue = 8000;
   servoList[3].channel = 3;
   servoList[3].servoName = "LabInfSX";
@@ -107,14 +107,14 @@ void setup() {
   servoList[3].shutDownWhen = 1000;
 
   servoList[4].minValue = 4032;
-  servoList[4].maxValue = 8384;  //
+  servoList[4].maxValue = 8000;  //
   servoList[4].channel = 4;
   servoList[4].servoName = "Orecchie";
   servoList[4].mirror = true;
   servoList[4].stopAndGo = true;
   servoList[4].shutDownWhen = 1000;
 
-  servoList[5].minValue = 6016;
+  servoList[5].minValue = 4416;
   servoList[5].maxValue = 8000;
   servoList[5].channel = 5;
   servoList[5].servoName = "LabInfDX";
@@ -130,7 +130,7 @@ void setup() {
   servoList[6].stopAndGo = true;
   servoList[6].shutDownWhen = 1000;
 
-  servoList[7].minValue = 4224;
+  servoList[7].minValue = 4032;
   servoList[7].maxValue = 6400;
   servoList[7].channel = 7;
   servoList[7].servoName = "SopracSC";
@@ -146,7 +146,7 @@ void setup() {
   servoList[8].stopAndGo = true;
   servoList[8].shutDownWhen = 1000;
 
-  servoList[9].minValue = 6208;
+  servoList[9].minValue = 4032;
   servoList[9].maxValue = 8000;
   servoList[9].channel = 9;
   servoList[9].servoName = "SopracDD";
@@ -155,7 +155,7 @@ void setup() {
   servoList[9].shutDownWhen = 1000;
 
   servoList[10].minValue = 4032;
-  servoList[10].maxValue = 6400;
+  servoList[10].maxValue = 6208;
   servoList[10].channel = 10;
   servoList[10].servoName = "BorsaS";
   servoList[10].mirror = false;
@@ -186,32 +186,32 @@ void setup() {
   servoList[13].stopAndGo = false;
   servoList[13].shutDownWhen = 1000;
 
-  servoList[14].minValue = 4352;
-  servoList[14].maxValue = 7296;
+  servoList[14].minValue = 4224;
+  servoList[14].maxValue = 7616;
   servoList[14].channel = 14;
   servoList[14].servoName = "OcchiY";
   servoList[14].mirror = true;
   servoList[14].stopAndGo = true;
   servoList[14].shutDownWhen = 1000;
 
-  servoList[15].minValue = 5696;
-  servoList[15].maxValue = 7040;
+  servoList[15].minValue = 5184;
+  servoList[15].maxValue = 6784;
   servoList[15].channel = 15;
   servoList[15].servoName = "OcchioSX";
   servoList[15].mirror = true;
   servoList[15].stopAndGo = true;
   servoList[15].shutDownWhen = 1000;
 
-  servoList[16].minValue = 4736;
-  servoList[16].maxValue = 6272;
+  servoList[16].minValue = 4800;
+  servoList[16].maxValue = 6400;
   servoList[16].channel = 16;
   servoList[16].servoName = "OcchioDX";
   servoList[16].mirror = true;
   servoList[16].stopAndGo = true;
   servoList[16].shutDownWhen = 1000;
 
-  servoList[17].minValue = 4032;
-  servoList[17].maxValue = 6656;
+  servoList[17].minValue = 4800;
+  servoList[17].maxValue = 6400;
   servoList[17].channel = 17;
   servoList[17].servoName = "PalpebreSup";
   servoList[17].mirror = true;
@@ -219,7 +219,7 @@ void setup() {
   servoList[17].shutDownWhen = 1000;
 
   servoList[18].minValue = 5184;
-  servoList[18].maxValue = 5952;
+  servoList[18].maxValue = 6016;
   servoList[18].channel = 18;
   servoList[18].servoName = "PalpebreInf";
   servoList[18].mirror = true;
@@ -320,14 +320,6 @@ void palpebraMotorMessage(String message) {
 
 void eyeBrowMessage(String message) {
   if (message.charAt(1) == servoC) {
-    // maestro.setTarget(servoList[9].channel, analogServoConversion(servoList[9].lastPosition, servoList[9]));
-    // maestro.setTarget(servoList[10].channel, analogServoConversion(servoList[10].lastPosition, servoList[10]));
-    // maestro.setTarget(servoList[11].channel, analogServoConversion(servoList[11].lastPosition, servoList[11]));
-    // maestro.setTarget(servoList[12].channel, analogServoConversion(servoList[12].lastPosition, servoList[12]));
-    // servoList[9].counterShutDown = 0;
-    // servoList[10].counterShutDown = 0;
-    // servoList[11].counterShutDown = 0;
-    // servoList[12].counterShutDown = 0;
     String indexString = getValueStringSplitter(message, ';', 1);
     int index = indexString.toInt();
     String valueString = getValueStringSplitter(message, ';', 2);
@@ -341,18 +333,6 @@ void eyeBrowMessage(String message) {
 
 void mouthMessage(String message) {
   if (message.charAt(1) == servoC) {
-    // if (servoList[2].stopAndGo) {
-    //   maestro.setTarget(servoList[0].channel, analogServoConversion(servoList[0].lastPosition, servoList[0]));
-    //   maestro.setTarget(servoList[1].channel, analogServoConversion(servoList[1].lastPosition, servoList[1]));
-    //   maestro.setTarget(servoList[2].channel, analogServoConversion(servoList[2].lastPosition, servoList[2]));
-    //   maestro.setTarget(servoList[3].channel, analogServoConversion(servoList[3].lastPosition, servoList[3]));
-    //   maestro.setTarget(servoList[4].channel, analogServoConversion(servoList[4].lastPosition, servoList[4]));
-    //   servoList[0].counterShutDown = 0;
-    //   servoList[1].counterShutDown = 0;
-    //   servoList[2].counterShutDown = 0;
-    //   servoList[3].counterShutDown = 0;
-    //   servoList[4].counterShutDown = 0;
-    // }
     String indexString = getValueStringSplitter(message, ';', 1);
     int index = indexString.toInt();
     String valueString = getValueStringSplitter(message, ';', 2);

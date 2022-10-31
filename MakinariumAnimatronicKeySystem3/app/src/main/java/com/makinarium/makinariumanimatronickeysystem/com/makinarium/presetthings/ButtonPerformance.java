@@ -115,9 +115,10 @@ public class ButtonPerformance extends AbstractPerformance{
                 channelDirectionDict.put(pChannel,0);
                 channelTimeDict.put(pChannel,curentMessageTime);
             }
-            Log.i("PFGZ_dicts", String.valueOf(channelValueDict));
-            Log.i("PFGZ_dicts", String.valueOf(channelDirectionDict));
-            Log.i("PFGZ_dicts", String.valueOf(channelTimeDict));
+            Log.i("PFGZ_EPOCH", String.valueOf(curentMessageTime));
+            Log.i("PFGZ_d_val", String.valueOf(channelValueDict));
+            Log.i("PFGZ_d_dir", String.valueOf(channelDirectionDict));
+            Log.i("PFGZ_d_time", String.valueOf(channelTimeDict));
             curentMessageTime += pTime;
         }
 

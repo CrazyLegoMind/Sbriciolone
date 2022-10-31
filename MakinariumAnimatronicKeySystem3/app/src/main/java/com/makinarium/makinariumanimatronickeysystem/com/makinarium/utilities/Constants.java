@@ -34,6 +34,6 @@ public class Constants {
     public static final String YesICAN = "buttons names are now editable";
     public static final String NOICAN = "buttons names are now locked";
     public static final char SEPARATOR = ';';
-    public static final int DELAYTOERASEFORBTE = 50;
+    public static final int DELAYTOERASEFORBTE = 25;
     public static final int LITTLEDELAY = 105;
 }
