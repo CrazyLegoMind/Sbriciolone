@@ -1,5 +1,7 @@
 package com.makinarium.makinariumanimatronickeysystem.com.makinarium.presetthings;
 
+import static com.makinarium.makinariumanimatronickeysystem.MessageTypes.SERVO;
+
 import com.makinarium.makinariumanimatronickeysystem.MessageTypes;
 import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.Constants;
 
@@ -57,6 +59,27 @@ public class PerformancePiece <T>{
             default:
                 break;
         }
+    }
+    public static int getChannelFromPacket(String packetString)
+    {
+        MessageTypes packetType = MessageTypes.fromChar(packetString.charAt(1));
+        int channel = -1;
+        switch(packetType)
+        {
+            case SERVO:
+                String[] array = packetString.split(""+Constants.SEPARATOR);
+                try{
+                    channel = Integer.valueOf(array[1]);
+                }
+                catch(Exception e)
+                {
+                    return -1;
+                }
+                return channel;
+            default:
+                break;
+        }
+        return channel;
     }
 
     public PerformancePiece(PerformancePiece<T> toCopy)

@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private ButtonPerformance bInRec;
     private PresetPerformance presetInRec;
     private long timePresetRec = 0;
-    private HashSet<FaceSector> performanceFilter;
+    private HashSet<Integer> performanceFilter;
 
     private long previousPerformancePieceTime = 0;
     private String headMac;
@@ -457,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
             timePresetRec = System.currentTimeMillis();
         }
 
-        performanceFilter.add(clickedButton.getFaceSector());
+        performanceFilter.addAll(clickedButton.getChannels());
         performanceThread pt = new performanceThread();
         pt.executeOnExecutor(myExecutor,clickedButton);
         //pt.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, bp);
@@ -832,7 +832,8 @@ public class MainActivity extends AppCompatActivity {
             byte[] bytes;
 
             FaceSector f = FaceSector.fromChar(text.charAt(0));
-            if(performanceFilter.contains(f))
+            int packetChannel = PerformancePiece.getChannelFromPacket(text);
+            if(performanceFilter.contains(packetChannel))
                 return;
 
             Log.i("BT_REC: ",text);
@@ -952,7 +953,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(ButtonPerformance bp) {
 
             container.activatesButtonSectorButton(bp.getFaceSector());
-            performanceFilter.remove(bp.getFaceSector());
+            performanceFilter.removeAll(bp.getChannels());
             bpThread.getProgressBar().setProgress(0);
         }
 
