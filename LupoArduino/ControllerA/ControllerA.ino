@@ -25,13 +25,8 @@ struct LedSwc {
   boolean value;
 };
 
-const byte delayLettura = 7;
 const byte delayLoop = 20;
-const byte analogFilter = 6;
-const byte closeEyesButtonPin = 7;
-int closeEyesState = 0;
-int oldCloseEyesState = 0;
-
+const byte analogFilter = 10;
 
 int aliveCounter = 0;
 const byte aliveTrigger = 10;
@@ -82,7 +77,6 @@ void setup() {
   pinMode(labbraSingleSwc.led, OUTPUT);
   pinMode(labbraSinchroSwc.pin, INPUT);
   pinMode(labbraSinchroSwc.led, OUTPUT);
-  pinMode(closeEyesButtonPin, INPUT);
 
   listaMotori[0].sector = eyesC;  //OcchiY
   listaMotori[0].port = A1;

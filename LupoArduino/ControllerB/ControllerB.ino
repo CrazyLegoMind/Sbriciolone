@@ -9,7 +9,7 @@ const char mouthC = 'M';
 const char noseC = 'N';
 const char tailC = 'T';
 
-const byte analogFilter = 6;
+const byte analogFilter = 10;
 const byte delayLettura = 2;
 const byte delayLoop = 20;
 int aliveCounter = 0;
@@ -89,9 +89,9 @@ void setup() {
   listaMotori[6].port = A6;
   listaMotori[6].pinH = 12;
 
-  mouthDxMot.sector = mouthC; //bocca apertura DX
-  mouthDxMot.port = -1;
-  mouthDxMot.pinH = 13;
+  // mouthDxMot.sector = mouthC; //bocca apertura DX
+  // mouthDxMot.port = -1;
+  // mouthDxMot.pinH = 13;
 
   tailMot.sector = tailC;  //motore coda
   tailMot.pinH = -1;
@@ -121,9 +121,9 @@ void handleSliders() {
     if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
       listaMotori[slider].oldValue = sliderVal;
       sendMotor(listaMotori[slider], sliderVal);
-      if(slider == 6){
-        sendMotor(mouthDxMot, 1023-sliderVal);
-      }
+      // if(slider == 6){
+      //   sendMotor(mouthDxMot, 1023-sliderVal);
+      // }
 
       if (eyebrowsMirrorSwc.value) {
         switch (slider) {

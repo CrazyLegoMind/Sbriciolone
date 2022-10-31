@@ -340,6 +340,10 @@ void mouthMessage(String message) {
     servoList[index].lastPosition = value;
     servoList[index].counterShutDown = 0;
     maestro.setTarget(servoList[index].channel, analogServoConversion(value, servoList[index]));
+    if(index == 12){
+      delay(2);
+      maestro.setTarget(servoList[13].channel, analogServoConversion(1023-value, servoList[13]));
+    }    
   }
 }
 
