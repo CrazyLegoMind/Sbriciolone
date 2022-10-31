@@ -218,7 +218,7 @@ void setup() {
   servoList[17].stopAndGo = true;
   servoList[17].shutDownWhen = 1000;
 
-  servoList[18].minValue = 5184;
+  servoList[18].minValue = 4800;
   servoList[18].maxValue = 6016;
   servoList[18].channel = 18;
   servoList[18].servoName = "PalpebreInf";
@@ -455,10 +455,12 @@ void shutDownMotors() {
   for (int i = 0; i < howmanyservo; i++) {
     if (!servoList[i].stopAndGo)
       continue;
-    if (servoList[i].counterShutDown > servoList[i].shutDownWhen)
+    if (servoList[i].counterShutDown >= servoList[i].shutDownWhen){
       maestro.setTarget(servoList[i].channel, 0);
-    else
+      servoList[i].counterShutDown = servoList[i].shutDownWhen;
+    }else{
       servoList[i].counterShutDown = servoList[i].counterShutDown + 1;
+    }
   }
 }
 
