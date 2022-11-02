@@ -1,6 +1,8 @@
 const char eventsC = 'e';
 const char statusChangeC = 'C';
 const char servoC = 'S';
+const char globalC = 'A';
+
 
 const char eyesC = 'E';
 const char eyeLidsC = 'L';
@@ -8,6 +10,7 @@ const char eyebrownsC = 'B';
 const char mouthC = 'M';
 const char noseC = 'N';
 const char tailC = 'T';
+
 
 struct Motor {
   int port;
@@ -58,8 +61,7 @@ int checkSumFunction(String SCS) {
 void setup() {
 
 
-  checkSumForEvent1 = checkSumFunction("LC;1;");
-  checkSumForEvent0 = checkSumFunction("LC;0;");
+  
 
 
   labbraSingleSwc.pin = 5;
@@ -106,7 +108,7 @@ void setup() {
   listaMotori[6].port = A6;
   listaMotori[6].pinH = 1;
 
-  listaMotori[7].sector = eyebrownsC;  //orecchie
+  listaMotori[7].sector = eyeLidsC;  //orecchie
   listaMotori[7].port = A7;
   listaMotori[7].pinH = 4;
 
@@ -122,6 +124,9 @@ void setup() {
   eyelidBottom.port = -1;
   eyelidBottom.pinH = 18;
   Serial.begin(115200);
+  checkSumForEvent1 = checkSumFunction("LC;1;");
+  checkSumForEvent0 = checkSumFunction("A;0;");
+  //Serial.println(checkSumForEvent0); //72
 }
 
 

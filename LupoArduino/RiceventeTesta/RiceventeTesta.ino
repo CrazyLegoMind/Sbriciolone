@@ -1,6 +1,7 @@
 const char eventsC = 'e';
 const char statusChangeC = 'C';
 const char servoC = 'S';
+const char globalC = 'A';
 
 const char eyesC = 'E';
 const char eyeLidsC = 'L';
@@ -33,6 +34,7 @@ const byte limiteOcchi = 8;
 const int minOcchiValue = 995;
 const int maxOcchiValue = 190;
 
+
 const int rangeBoccaMediani = 300;
 
 
@@ -47,6 +49,7 @@ const int eyeLidsSpeed = 64;
 
 int aliveCounter = 0;
 const byte aliveTrigger = 10;
+bool standby = false;
 /* On boards with a hardware serial port available for use, use
   that port to communicate with the Maestro. For other boards,
   create a SoftwareSerial object using pin 10 to receive (RX) and
@@ -79,7 +82,7 @@ void setup() {
   servoList[0].channel = 0;
   servoList[0].servoName = "LabSupSX";
   servoList[0].mirror = false;
-  servoList[0].stopAndGo = true;
+  servoList[0].stopAndGo = false;
   servoList[0].shutDownWhen = 1000;
 
   servoList[1].minValue = 4032;
@@ -87,7 +90,7 @@ void setup() {
   servoList[1].channel = 1;
   servoList[1].servoName = "Naso";
   servoList[1].mirror = false;
-  servoList[1].stopAndGo = true;
+  servoList[1].stopAndGo = false;
   servoList[1].shutDownWhen = 1000;
 
   servoList[2].minValue = 4032;
@@ -95,7 +98,7 @@ void setup() {
   servoList[2].channel = 2;
   servoList[2].servoName = "LabSupDX";
   servoList[2].mirror = false;
-  servoList[2].stopAndGo = true;
+  servoList[2].stopAndGo = false;
   servoList[2].shutDownWhen = 1000;
 
   servoList[3].minValue = 6784;
@@ -103,7 +106,7 @@ void setup() {
   servoList[3].channel = 3;
   servoList[3].servoName = "LabInfSX";
   servoList[3].mirror = true;
-  servoList[3].stopAndGo = true;
+  servoList[3].stopAndGo = false;
   servoList[3].shutDownWhen = 1000;
 
   servoList[4].minValue = 4032;
@@ -111,7 +114,7 @@ void setup() {
   servoList[4].channel = 4;
   servoList[4].servoName = "Orecchie";
   servoList[4].mirror = true;
-  servoList[4].stopAndGo = true;
+  servoList[4].stopAndGo = false;
   servoList[4].shutDownWhen = 1000;
 
   servoList[5].minValue = 4416;
@@ -119,7 +122,7 @@ void setup() {
   servoList[5].channel = 5;
   servoList[5].servoName = "LabInfDX";
   servoList[5].mirror = false;
-  servoList[5].stopAndGo = true;
+  servoList[5].stopAndGo = false;
   servoList[5].shutDownWhen = 1000;
 
   servoList[6].minValue = 4032;
@@ -127,7 +130,7 @@ void setup() {
   servoList[6].channel = 6;
   servoList[6].servoName = "SopracSS";
   servoList[6].mirror = false;
-  servoList[6].stopAndGo = true;
+  servoList[6].stopAndGo = false;
   servoList[6].shutDownWhen = 1000;
 
   servoList[7].minValue = 4032;
@@ -135,7 +138,7 @@ void setup() {
   servoList[7].channel = 7;
   servoList[7].servoName = "SopracSC";
   servoList[7].mirror = false;
-  servoList[7].stopAndGo = true;
+  servoList[7].stopAndGo = false;
   servoList[7].shutDownWhen = 1000;
 
   servoList[8].minValue = 5824;
@@ -143,7 +146,7 @@ void setup() {
   servoList[8].channel = 8;
   servoList[8].servoName = "SopracDC";
   servoList[8].mirror = true;
-  servoList[8].stopAndGo = true;
+  servoList[8].stopAndGo = false;
   servoList[8].shutDownWhen = 1000;
 
   servoList[9].minValue = 4032;
@@ -151,7 +154,7 @@ void setup() {
   servoList[9].channel = 9;
   servoList[9].servoName = "SopracDD";
   servoList[9].mirror = true;
-  servoList[9].stopAndGo = true;
+  servoList[9].stopAndGo = false;
   servoList[9].shutDownWhen = 1000;
 
   servoList[10].minValue = 4032;
@@ -159,7 +162,7 @@ void setup() {
   servoList[10].channel = 10;
   servoList[10].servoName = "BorsaS";
   servoList[10].mirror = false;
-  servoList[10].stopAndGo = true;
+  servoList[10].stopAndGo = false;
   servoList[10].shutDownWhen = 1000;
 
   servoList[11].minValue = 5184;
@@ -167,7 +170,7 @@ void setup() {
   servoList[11].channel = 11;
   servoList[11].servoName = "BorsaD";
   servoList[11].mirror = true;
-  servoList[11].stopAndGo = true;
+  servoList[11].stopAndGo = false;
   servoList[11].shutDownWhen = 1000;
 
   servoList[12].minValue = 3712;
@@ -191,7 +194,7 @@ void setup() {
   servoList[14].channel = 14;
   servoList[14].servoName = "OcchiY";
   servoList[14].mirror = true;
-  servoList[14].stopAndGo = true;
+  servoList[14].stopAndGo = false;
   servoList[14].shutDownWhen = 1000;
 
   servoList[15].minValue = 5184;
@@ -199,7 +202,7 @@ void setup() {
   servoList[15].channel = 15;
   servoList[15].servoName = "OcchioSX";
   servoList[15].mirror = true;
-  servoList[15].stopAndGo = true;
+  servoList[15].stopAndGo = false;
   servoList[15].shutDownWhen = 1000;
 
   servoList[16].minValue = 4800;
@@ -207,7 +210,7 @@ void setup() {
   servoList[16].channel = 16;
   servoList[16].servoName = "OcchioDX";
   servoList[16].mirror = true;
-  servoList[16].stopAndGo = true;
+  servoList[16].stopAndGo = false;
   servoList[16].shutDownWhen = 1000;
 
   servoList[17].minValue = 4800;
@@ -215,7 +218,7 @@ void setup() {
   servoList[17].channel = 17;
   servoList[17].servoName = "PalpebreSup";
   servoList[17].mirror = true;
-  servoList[17].stopAndGo = true;
+  servoList[17].stopAndGo = false;
   servoList[17].shutDownWhen = 1000;
 
   servoList[18].minValue = 4800;
@@ -223,7 +226,7 @@ void setup() {
   servoList[18].channel = 18;
   servoList[18].servoName = "PalpebreInf";
   servoList[18].mirror = true;
-  servoList[18].stopAndGo = true;
+  servoList[18].stopAndGo = false;
   servoList[18].shutDownWhen = 1000;
 
   for (int i = 0; i < howmanyservo; i++)
@@ -280,6 +283,9 @@ void loop() {
         } else if (message.charAt(0) == mouthC) {
           mouthMessage(message);
         }
+        else if (message.charAt(0) == globalC) {
+          globalMessage(message);
+        }
       }
     }
   }
@@ -287,6 +293,20 @@ void loop() {
   deadManButton();
   shutDownMotors();
   //delay(20);
+}
+
+void globalMessage(String message){
+  String indexString = getValueStringSplitter(message, ';', 1);
+  int index = indexString.toInt();
+  switch(index){
+    case 0:
+      delay(20);
+      for (int i = 0; i < howmanyservo; i++){
+        delay(5);
+        maestro.setTarget(servoList[i].channel,0);
+      }
+      break;
+  }
 }
 
 void noseMessage(String message) {

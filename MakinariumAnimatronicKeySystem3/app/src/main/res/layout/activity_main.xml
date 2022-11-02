@@ -141,6 +141,16 @@
                 android:layout_gravity="center_vertical"
                 android:text="Remote A" />
 
+            <Button
+                android:id="@+id/shutdownServo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="SERVO OFF"
+                android:clickable="true"
+                android:onClick="shutdownServo"/>
+
 
         </LinearLayout>
 
@@ -287,7 +297,6 @@
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textColor="#212121"
                         android:textSize="@dimen/textsize"
                         app:layout_constraintBottom_toTopOf="@+id/preset_04"
                         app:layout_constraintStart_toEndOf="@+id/presetText03" />
@@ -756,6 +765,8 @@
                         android:layout_height="15dp"
                         android:layout_marginStart="@dimen/mleft"
                         android:text="Name"
+                        android:clickable="true"
+                        android:onClick="changeName"
                         android:textSize="@dimen/textsize" />
 
                     <Button

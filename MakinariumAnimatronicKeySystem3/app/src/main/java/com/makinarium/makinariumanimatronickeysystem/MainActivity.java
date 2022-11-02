@@ -1053,4 +1053,12 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    public void shutdownServo(final View v) {
+        String messageToSend = "A;0;72\n";
+        messageToSend = "r" + messageToSend;
+        byte[] bytesToSend = messageToSend.getBytes(Charset.defaultCharset());
+        Log.i("SERVO_STOP","sending: "+ messageToSend);
+        mBluetoothConnectionHead.write(bytesToSend);
+    }
+
 }
