@@ -1053,6 +1053,8 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+
+
     public void shutdownServo(final View v) {
         String messageToSend = "A;0;72\n";
         messageToSend = "r" + messageToSend;
