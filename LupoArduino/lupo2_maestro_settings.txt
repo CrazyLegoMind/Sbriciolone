@@ -29,7 +29,7 @@
     <!--Channel 8-->
     <Channel name="SopracDC" mode="Servo" min="5824" max="8000" homemode="Off" home="5824" speed="100" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 9-->
-    <Channel name="SopracDD" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="100" acceleration="0" neutral="6208" range="1905" />
+    <Channel name="SopracDD" mode="Servo" min="5632" max="8000" homemode="Off" home="5632" speed="100" acceleration="0" neutral="6208" range="1905" />
     <!--Channel 10-->
     <Channel name="BorsaS" mode="Servo" min="4032" max="6208" homemode="Off" home="4032" speed="100" acceleration="0" neutral="5632" range="1905" />
     <!--Channel 11-->
@@ -47,7 +47,7 @@
     <!--Channel 17-->
     <Channel name="PalpebreSup" mode="Servo" min="4800" max="6400" homemode="Off" home="4800" speed="100" acceleration="0" neutral="5760" range="1905" />
     <!--Channel 18-->
-    <Channel name="PalpebreInf" mode="Servo" min="4800" max="5632" homemode="Off" home="5184" speed="100" acceleration="0" neutral="5632" range="1905" />
+    <Channel name="PalpebreInf" mode="Servo" min="4800" max="5632" homemode="Off" home="4800" speed="100" acceleration="0" neutral="5632" range="1905" />
     <!--Channel 19-->
     <Channel name="" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="100" acceleration="0" neutral="5504" range="1905" />
     <!--Channel 20-->

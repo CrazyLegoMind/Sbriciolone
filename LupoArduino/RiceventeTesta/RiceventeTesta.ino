@@ -73,6 +73,7 @@ void setup() {
     the target position in units of 1/4 microseconds. A typical
     RC hobby servo responds to pulses between 1 ms (4000) and 2
     ms (8000). */
+  //Serial.begin(115200);
   Serial3.begin(115200);
   maestroSerial.begin(115200);
   Serial3.setTimeout(20);
@@ -149,7 +150,7 @@ void setup() {
   servoList[8].stopAndGo = false;
   servoList[8].shutDownWhen = 1000;
 
-  servoList[9].minValue = 4032;
+  servoList[9].minValue = 5600;
   servoList[9].maxValue = 8000;
   servoList[9].channel = 9;
   servoList[9].servoName = "SopracDD";
@@ -197,8 +198,8 @@ void setup() {
   servoList[14].stopAndGo = false;
   servoList[14].shutDownWhen = 1000;
 
-  servoList[15].minValue = 5184;
-  servoList[15].maxValue = 6784;
+  servoList[15].minValue = 5200;
+  servoList[15].maxValue = 6650;
   servoList[15].channel = 15;
   servoList[15].servoName = "OcchioSX";
   servoList[15].mirror = true;
@@ -222,7 +223,7 @@ void setup() {
   servoList[17].shutDownWhen = 1000;
 
   servoList[18].minValue = 4800;
-  servoList[18].maxValue = 6016;
+  servoList[18].maxValue = 5632;
   servoList[18].channel = 18;
   servoList[18].servoName = "PalpebreInf";
   servoList[18].mirror = true;
@@ -284,6 +285,7 @@ void loop() {
           mouthMessage(message);
         }
         else if (message.charAt(0) == globalC) {
+          //Serial.println("got global cmd");
           globalMessage(message);
         }
       }
