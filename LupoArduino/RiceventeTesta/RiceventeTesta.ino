@@ -111,7 +111,7 @@ void setup() {
   servoList[3].shutDownWhen = 1000;
 
   servoList[4].minValue = 4032;
-  servoList[4].maxValue = 8000;  //
+  servoList[4].maxValue = 6848;  //
   servoList[4].channel = 4;
   servoList[4].servoName = "Orecchie";
   servoList[4].mirror = true;
@@ -158,7 +158,7 @@ void setup() {
   servoList[9].stopAndGo = false;
   servoList[9].shutDownWhen = 1000;
 
-  servoList[10].minValue = 4032;
+  servoList[10].minValue = 4992;
   servoList[10].maxValue = 6208;
   servoList[10].channel = 10;
   servoList[10].servoName = "BorsaS";

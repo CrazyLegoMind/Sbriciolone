@@ -19,7 +19,7 @@
     <!--Channel 3-->
     <Channel name="LabInfSX" mode="Servo" min="6784" max="8000" homemode="Off" home="6784" speed="0" acceleration="0" neutral="6784" range="1905" />
     <!--Channel 4-->
-    <Channel name="Orecchie" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="Orecchie" mode="Servo" min="4032" max="6848" homemode="Off" home="4032" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 5-->
     <Channel name="LabInfDX" mode="Servo" min="4416" max="8000" homemode="Off" home="4416" speed="100" acceleration="0" neutral="6784" range="1905" />
     <!--Channel 6-->
@@ -31,7 +31,7 @@
     <!--Channel 9-->
     <Channel name="SopracDD" mode="Servo" min="5632" max="8000" homemode="Off" home="5632" speed="100" acceleration="0" neutral="6208" range="1905" />
     <!--Channel 10-->
-    <Channel name="BorsaS" mode="Servo" min="4032" max="6208" homemode="Off" home="4032" speed="100" acceleration="0" neutral="5632" range="1905" />
+    <Channel name="BorsaS" mode="Servo" min="4992" max="6208" homemode="Off" home="4992" speed="100" acceleration="0" neutral="5632" range="1905" />
     <!--Channel 11-->
     <Channel name="BorsaD" mode="Servo" min="5184" max="8000" homemode="Off" home="5184" speed="100" acceleration="0" neutral="5184" range="1905" />
     <!--Channel 12-->
