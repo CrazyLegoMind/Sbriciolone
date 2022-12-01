@@ -31,16 +31,16 @@ public class PresetPerformance extends AbstractPerformance{
     {
         switch (bp.getFaceSector())
         {
-            case EYEBROWS:
+            case ANTENNAS:
                 eyebrowns = bp;
                 break;
-            case EYELIDS:
+            case TONGUE:
                 eyelids = bp;
                 break;
             case EYES:
                 eyes = bp;
                 break;
-            case NOSE:
+            case JAWS:
                 nose = bp;
                 break;
             case MOUTH:

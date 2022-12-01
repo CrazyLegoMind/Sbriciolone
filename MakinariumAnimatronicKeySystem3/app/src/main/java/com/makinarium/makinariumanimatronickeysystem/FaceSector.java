@@ -1,8 +1,8 @@
 package com.makinarium.makinariumanimatronickeysystem;
 
 public enum FaceSector {
-    MOUTH('M'),NOSE('N'),EYES('E'),EYELIDS('L'), EYEBROWS('B'),PRESET('P'),ERROR('0'),TAIL('T');
-
+    MOUTH('M'),JAWS('J'),EYES('E'),TONGUE('T'), ANTENNAS('A'),PRESET('P'),ERROR('0');
+    //MOUTH('M'),NOSE('N'),EYES('E'),EYELIDS('L'), EYEBROWS('B'),PRESET('P'),ERROR('0'),TAIL('T');
 
     private char str;
     /**

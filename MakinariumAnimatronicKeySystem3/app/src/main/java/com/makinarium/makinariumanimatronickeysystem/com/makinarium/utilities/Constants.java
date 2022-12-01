@@ -4,7 +4,7 @@ public class Constants {
 
     public static final String macMouthBT = "98:D3:51:F5:C4:D1";
     public static final String macEyesBT = "98:D3:61:F5:CF:AC";
-    public static final String macHead01BT = "00:14:03:06:80:64";
+    public static final String macHead01BT = "C8:C9:A3:CB:9E:56";
     public static final String macHead02BT = "98:D3:21:F7:4C:D7";
     public static final String macTailBT = "00:22:04:00:1B:62";
     public static final String incomingMessageIntent = "incomingMessage";

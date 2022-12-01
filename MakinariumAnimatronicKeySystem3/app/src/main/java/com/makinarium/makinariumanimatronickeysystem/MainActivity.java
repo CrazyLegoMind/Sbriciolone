@@ -263,31 +263,31 @@ public class MainActivity extends AppCompatActivity {
         initilializePresetButton(R.id.preset_11,R.id.presetPB11, R.id.presetText11);
         initilializePresetButton(R.id.preset_12,R.id.presetPB12, R.id.presetText12);
 
-        initilializeButton(R.id.eyebrow_01 , FaceSector.EYEBROWS, R.id.eyebrowPB01, R.id.eyebrowText01);
-        initilializeButton(R.id.eyebrow_02 , FaceSector.EYEBROWS, R.id.eyebrowPB02, R.id.eyebrowText02);
-        initilializeButton(R.id.eyebrow_03 , FaceSector.EYEBROWS, R.id.eyebrowPB03, R.id.eyebrowText03);
-        initilializeButton(R.id.eyebrow_04 , FaceSector.EYEBROWS, R.id.eyebrowPB04, R.id.eyebrowText04);
-        initilializeButton(R.id.eyebrow_05 , FaceSector.EYEBROWS, R.id.eyebrowPB05, R.id.eyebrowText05);
-        initilializeButton(R.id.eyebrow_06 , FaceSector.EYEBROWS, R.id.eyebrowPB06, R.id.eyebrowText06);
-        initilializeButton(R.id.eyebrow_07 , FaceSector.EYEBROWS, R.id.eyebrowPB07, R.id.eyebrowText07);
-        initilializeButton(R.id.eyebrow_08 , FaceSector.EYEBROWS, R.id.eyebrowPB08, R.id.eyebrowText08);
-        initilializeButton(R.id.eyebrow_09 , FaceSector.EYEBROWS, R.id.eyebrowPB09, R.id.eyebrowText09);
-        initilializeButton(R.id.eyebrow_10 , FaceSector.EYEBROWS, R.id.eyebrowPB10, R.id.eyebrowText10);
-        initilializeButton(R.id.eyebrow_11 , FaceSector.EYEBROWS, R.id.eyebrowPB11, R.id.eyebrowText11);
-        initilializeButton(R.id.eyebrow_12 , FaceSector.EYEBROWS, R.id.eyebrowPB12, R.id.eyebrowText12);
+        initilializeButton(R.id.eyebrow_01 , FaceSector.ANTENNAS, R.id.eyebrowPB01, R.id.eyebrowText01);
+        initilializeButton(R.id.eyebrow_02 , FaceSector.ANTENNAS, R.id.eyebrowPB02, R.id.eyebrowText02);
+        initilializeButton(R.id.eyebrow_03 , FaceSector.ANTENNAS, R.id.eyebrowPB03, R.id.eyebrowText03);
+        initilializeButton(R.id.eyebrow_04 , FaceSector.ANTENNAS, R.id.eyebrowPB04, R.id.eyebrowText04);
+        initilializeButton(R.id.eyebrow_05 , FaceSector.ANTENNAS, R.id.eyebrowPB05, R.id.eyebrowText05);
+        initilializeButton(R.id.eyebrow_06 , FaceSector.ANTENNAS, R.id.eyebrowPB06, R.id.eyebrowText06);
+        initilializeButton(R.id.eyebrow_07 , FaceSector.ANTENNAS, R.id.eyebrowPB07, R.id.eyebrowText07);
+        initilializeButton(R.id.eyebrow_08 , FaceSector.ANTENNAS, R.id.eyebrowPB08, R.id.eyebrowText08);
+        initilializeButton(R.id.eyebrow_09 , FaceSector.ANTENNAS, R.id.eyebrowPB09, R.id.eyebrowText09);
+        initilializeButton(R.id.eyebrow_10 , FaceSector.ANTENNAS, R.id.eyebrowPB10, R.id.eyebrowText10);
+        initilializeButton(R.id.eyebrow_11 , FaceSector.ANTENNAS, R.id.eyebrowPB11, R.id.eyebrowText11);
+        initilializeButton(R.id.eyebrow_12 , FaceSector.ANTENNAS, R.id.eyebrowPB12, R.id.eyebrowText12);
 
-        initilializeButton(R.id.eyelid_01 , FaceSector.EYELIDS, R.id.eyelidPB01, R.id.eyelidText01);
-        initilializeButton(R.id.eyelid_02 , FaceSector.EYELIDS, R.id.eyelidPB02, R.id.eyelidText02);
-        initilializeButton(R.id.eyelid_03 , FaceSector.EYELIDS, R.id.eyelidPB03, R.id.eyelidText03);
-        initilializeButton(R.id.eyelid_04 , FaceSector.EYELIDS, R.id.eyelidPB04, R.id.eyelidText04);
-        initilializeButton(R.id.eyelid_05 , FaceSector.EYELIDS, R.id.eyelidPB05, R.id.eyelidText05);
-        initilializeButton(R.id.eyelid_06 , FaceSector.EYELIDS, R.id.eyelidPB06, R.id.eyelidText06);
-        initilializeButton(R.id.eyelid_07 , FaceSector.EYELIDS, R.id.eyelidPB07, R.id.eyelidText07);
-        initilializeButton(R.id.eyelid_08 , FaceSector.EYELIDS, R.id.eyelidPB08, R.id.eyelidText08);
-        initilializeButton(R.id.eyelid_09 , FaceSector.EYELIDS, R.id.eyelidPB09, R.id.eyelidText09);
-        initilializeButton(R.id.eyelid_10 , FaceSector.EYELIDS, R.id.eyelidPB10, R.id.eyelidText10);
-        initilializeButton(R.id.eyelid_11 , FaceSector.EYELIDS, R.id.eyelidPB11, R.id.eyelidText11);
-        initilializeButton(R.id.eyelid_12 , FaceSector.EYELIDS, R.id.eyelidPB12, R.id.eyelidText12);
+        initilializeButton(R.id.eyelid_01 , FaceSector.TONGUE, R.id.eyelidPB01, R.id.eyelidText01);
+        initilializeButton(R.id.eyelid_02 , FaceSector.TONGUE, R.id.eyelidPB02, R.id.eyelidText02);
+        initilializeButton(R.id.eyelid_03 , FaceSector.TONGUE, R.id.eyelidPB03, R.id.eyelidText03);
+        initilializeButton(R.id.eyelid_04 , FaceSector.TONGUE, R.id.eyelidPB04, R.id.eyelidText04);
+        initilializeButton(R.id.eyelid_05 , FaceSector.TONGUE, R.id.eyelidPB05, R.id.eyelidText05);
+        initilializeButton(R.id.eyelid_06 , FaceSector.TONGUE, R.id.eyelidPB06, R.id.eyelidText06);
+        initilializeButton(R.id.eyelid_07 , FaceSector.TONGUE, R.id.eyelidPB07, R.id.eyelidText07);
+        initilializeButton(R.id.eyelid_08 , FaceSector.TONGUE, R.id.eyelidPB08, R.id.eyelidText08);
+        initilializeButton(R.id.eyelid_09 , FaceSector.TONGUE, R.id.eyelidPB09, R.id.eyelidText09);
+        initilializeButton(R.id.eyelid_10 , FaceSector.TONGUE, R.id.eyelidPB10, R.id.eyelidText10);
+        initilializeButton(R.id.eyelid_11 , FaceSector.TONGUE, R.id.eyelidPB11, R.id.eyelidText11);
+        initilializeButton(R.id.eyelid_12 , FaceSector.TONGUE, R.id.eyelidPB12, R.id.eyelidText12);
 
         /*
         initilializeButton(R.id.eyes_01 , FaceSector.EYES, R.id.eyesPB01, R.id.eyesText01);
@@ -304,18 +304,18 @@ public class MainActivity extends AppCompatActivity {
         initilializeButton(R.id.eyes_12 , FaceSector.EYES, R.id.eyesPB12, R.id.eyesText12);
         */
 
-        initilializeButton(R.id.nose_01 , FaceSector.NOSE, R.id.nosePB01, R.id.noseText01);
-        initilializeButton(R.id.nose_02 , FaceSector.NOSE, R.id.nosePB02, R.id.noseText02);
-        initilializeButton(R.id.nose_03 , FaceSector.NOSE, R.id.nosePB03, R.id.noseText03);
-        initilializeButton(R.id.nose_04 , FaceSector.NOSE, R.id.nosePB04, R.id.noseText04);
-        initilializeButton(R.id.nose_05 , FaceSector.NOSE, R.id.nosePB05, R.id.noseText05);
-        initilializeButton(R.id.nose_06 , FaceSector.NOSE, R.id.nosePB06, R.id.noseText06);
-        initilializeButton(R.id.nose_07 , FaceSector.NOSE, R.id.nosePB07, R.id.noseText07);
-        initilializeButton(R.id.nose_08 , FaceSector.NOSE, R.id.nosePB08, R.id.noseText08);
-        initilializeButton(R.id.nose_09 , FaceSector.NOSE, R.id.nosePB09, R.id.noseText09);
-        initilializeButton(R.id.nose_10 , FaceSector.NOSE, R.id.nosePB10, R.id.noseText10);
-        initilializeButton(R.id.nose_11 , FaceSector.NOSE, R.id.nosePB11, R.id.noseText11);
-        initilializeButton(R.id.nose_12 , FaceSector.NOSE, R.id.nosePB12, R.id.noseText12);
+        initilializeButton(R.id.nose_01 , FaceSector.JAWS, R.id.nosePB01, R.id.noseText01);
+        initilializeButton(R.id.nose_02 , FaceSector.JAWS, R.id.nosePB02, R.id.noseText02);
+        initilializeButton(R.id.nose_03 , FaceSector.JAWS, R.id.nosePB03, R.id.noseText03);
+        initilializeButton(R.id.nose_04 , FaceSector.JAWS, R.id.nosePB04, R.id.noseText04);
+        initilializeButton(R.id.nose_05 , FaceSector.JAWS, R.id.nosePB05, R.id.noseText05);
+        initilializeButton(R.id.nose_06 , FaceSector.JAWS, R.id.nosePB06, R.id.noseText06);
+        initilializeButton(R.id.nose_07 , FaceSector.JAWS, R.id.nosePB07, R.id.noseText07);
+        initilializeButton(R.id.nose_08 , FaceSector.JAWS, R.id.nosePB08, R.id.noseText08);
+        initilializeButton(R.id.nose_09 , FaceSector.JAWS, R.id.nosePB09, R.id.noseText09);
+        initilializeButton(R.id.nose_10 , FaceSector.JAWS, R.id.nosePB10, R.id.noseText10);
+        initilializeButton(R.id.nose_11 , FaceSector.JAWS, R.id.nosePB11, R.id.noseText11);
+        initilializeButton(R.id.nose_12 , FaceSector.JAWS, R.id.nosePB12, R.id.noseText12);
 
         initilializeButton(R.id.mouth_01 , FaceSector.MOUTH, R.id.mouthPB01, R.id.mouthText01);
         initilializeButton(R.id.mouth_02 , FaceSector.MOUTH, R.id.mouthPB02, R.id.mouthText02);
@@ -838,29 +838,10 @@ public class MainActivity extends AppCompatActivity {
 
             Log.i("BT_REC: ",text);
             switch (id){
-                case Constants.MouthID:
-                    if(!mouthActiveController)
-                        return;
-
-                    bytes = text.getBytes(Charset.defaultCharset());
-
-                    if(performRegistrationMode)
-                    {
-                        if(f == bInRec.getFaceSector()) {
-                            addPerforamancePieceToRec(bytes, text);
-                        }
-                    }
-                    if(f != FaceSector.TAIL){
-                        mBluetoothConnectionHead.write(bytes);
-                    }else{
-                        mBluetoothConnectionTail.write(bytes);
-                    }
-                    break;
-
                 case Constants.eyesID:
                     if(!eyesActiveController)
                         return;
-
+                    text = text + "\n";
                     bytes = text.getBytes(Charset.defaultCharset());
 
                     if(performRegistrationMode)
@@ -868,11 +849,7 @@ public class MainActivity extends AppCompatActivity {
                         if(f == bInRec.getFaceSector())
                             addPerforamancePieceToRec(bytes, text);
                     }
-                    if(f != FaceSector.TAIL){
-                        mBluetoothConnectionHead.write(bytes);
-                    }else{
-                        mBluetoothConnectionTail.write(bytes);
-                    }
+                    mBluetoothConnectionHead.write(bytes);
                     break;
                 case Constants.HeadID:
                     //IMPOSSIBLE

@@ -638,7 +638,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Eyebrows"
+                    android:text="Antennas"
                     android:textSize="@dimen/textsize"
                     android:textStyle="bold" />
 
@@ -1114,7 +1114,7 @@
                     android:layout_width="37dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Eyelid"
+                    android:text="Tongue"
                     android:textSize="@dimen/textsize"
                     android:textStyle="bold" />
 
@@ -2058,6 +2058,494 @@
             </TableRow>
             -->
 
+
+            <!-- mouth row -->
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Mouth"
+                    android:textSize="@dimen/textsize"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText01"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/firstleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_01"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/mouth_01"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/firstleft"
+                        android:text="01"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toStartOf="@+id/nose_01"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_01" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB01"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/firstleft"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_01" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText02"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_02"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText01" />
+
+                    <Button
+                        android:id="@+id/mouth_02"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="02"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_01"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_02" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB02"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB01"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_02" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText03"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_03"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText02" />
+
+                    <Button
+                        android:id="@+id/mouth_03"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="03"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_02"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_03" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB03"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB02"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_03" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText04"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_04"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText03" />
+
+                    <Button
+                        android:id="@+id/mouth_04"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="04"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_03"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_04" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB04"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB03"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_04" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText05"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_05"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText04" />
+
+                    <Button
+                        android:id="@+id/mouth_05"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="05"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_04"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_05" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB05"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB04"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_05" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText06"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_06"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText05" />
+
+                    <Button
+                        android:id="@+id/mouth_06"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="06"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_05"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_06" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB06"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB05"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_06" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText07"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_07"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText06" />
+
+                    <Button
+                        android:id="@+id/mouth_07"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="07"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_06"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_07" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB07"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB06"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_07" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText08"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_08"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText07" />
+
+                    <Button
+                        android:id="@+id/mouth_08"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="08"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_07"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_08" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB08"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB07"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_08" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText09"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_09"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText08" />
+
+                    <Button
+                        android:id="@+id/mouth_09"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="09"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_08"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_09" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB09"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB08"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_09" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText10"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_10"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText09" />
+
+                    <Button
+                        android:id="@+id/mouth_10"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="10"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_09"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_10" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB10"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB09"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText11"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_11"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText10" />
+
+                    <Button
+                        android:id="@+id/mouth_11"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="11"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_10"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_11" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB11"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB10"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_11" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mouthText12"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"
+                        app:layout_constraintBottom_toTopOf="@+id/mouth_12"
+                        app:layout_constraintStart_toEndOf="@+id/mouthText11" />
+
+                    <Button
+                        android:id="@+id/mouth_12"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:layout_marginStart="@dimen/mleft"
+
+                        android:text="12"
+                        android:theme="@style/AppTheme.PerformToRec"
+                        app:layout_constraintStart_toEndOf="@+id/mouth_11"
+                        app:layout_constraintTop_toBottomOf="@+id/nose_12" />
+
+                    <ProgressBar
+                        android:id="@+id/mouthPB12"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"
+                        android:layout_marginStart="@dimen/mleft"
+                        app:layout_constraintStart_toEndOf="@+id/mouthPB11"
+                        app:layout_constraintTop_toBottomOf="@+id/mouth_12" />
+                </LinearLayout>
+            </TableRow>
+
             <!-- nose row -->
             <TableRow
                 android:layout_width="wrap_content"
@@ -2068,7 +2556,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Nose"
+                    android:text="Jaw"
                     android:textSize="@dimen/textsize"
                     android:textStyle="bold" />
 
@@ -2543,494 +3031,6 @@
                 </LinearLayout>
 
             </TableRow>
-
-            <!-- mouth row -->
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="Mouth"
-                    android:textSize="@dimen/textsize"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText01"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/firstleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_01"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <Button
-                        android:id="@+id/mouth_01"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        android:text="01"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toStartOf="@+id/nose_01"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_01" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB01"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_01" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText02"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_02"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText01" />
-
-                    <Button
-                        android:id="@+id/mouth_02"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="02"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_01"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_02" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB02"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB01"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_02" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText03"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_03"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText02" />
-
-                    <Button
-                        android:id="@+id/mouth_03"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="03"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_02"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_03" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB03"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB02"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_03" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText04"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_04"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText03" />
-
-                    <Button
-                        android:id="@+id/mouth_04"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="04"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_03"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_04" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB04"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB03"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_04" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText05"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_05"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText04" />
-
-                    <Button
-                        android:id="@+id/mouth_05"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="05"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_04"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_05" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB05"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB04"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_05" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText06"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_06"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText05" />
-
-                    <Button
-                        android:id="@+id/mouth_06"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="06"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_05"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_06" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB06"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB05"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_06" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText07"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_07"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText06" />
-
-                    <Button
-                        android:id="@+id/mouth_07"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="07"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_06"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_07" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB07"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB06"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_07" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText08"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_08"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText07" />
-
-                    <Button
-                        android:id="@+id/mouth_08"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="08"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_07"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_08" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB08"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB07"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_08" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText09"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_09"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText08" />
-
-                    <Button
-                        android:id="@+id/mouth_09"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="09"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_08"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_09" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB09"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB08"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_09" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText10"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_10"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText09" />
-
-                    <Button
-                        android:id="@+id/mouth_10"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="10"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_09"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_10" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB10"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB09"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_10" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText11"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_11"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText10" />
-
-                    <Button
-                        android:id="@+id/mouth_11"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="11"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_10"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_11" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB11"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB10"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_11" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText12"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_12"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText11" />
-
-                    <Button
-                        android:id="@+id/mouth_12"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="12"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_11"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_12" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB12"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB11"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_12" />
-                </LinearLayout>
-            </TableRow>
-
 
             <!--
             android:clickable="true"
