@@ -3,6 +3,7 @@ package com.makinarium.makinariumanimatronickeysystem;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -10,7 +11,7 @@ import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.Co
 
 public class CheckConnectionsThread extends Thread {
 
-    private static final long timeToDeclareDeath = 10000;
+    private static final long timeToDeclareDeath = 5000;
 
     private Context mContext;
 
@@ -25,11 +26,18 @@ public class CheckConnectionsThread extends Thread {
 
     private boolean threadAlive = true;
 
-    public TextView headStatusView;
-    public TextView eyesStatusView;
+    private TextView headStatusView;
+    private TextView eyesStatusView;
 
-    public CheckConnectionsThread(Context mContext) {
+    private int aliveColor = 0;
+    private int deadColor = 0;
+    
+    public CheckConnectionsThread(Context mContext,TextView eyesView,TextView headView, int aliveColor,int deadColor) {
         this.mContext = mContext;
+        this.eyesStatusView = eyesView;
+        this.headStatusView = headView;
+        this.aliveColor = aliveColor;
+        this.deadColor = deadColor;
     }
 
     public void run(){
@@ -43,66 +51,26 @@ public class CheckConnectionsThread extends Thread {
             }
 
             long currentTime = System.currentTimeMillis();
-
-            checkAndSend(currentTime,lastTimeMouthAlive,Constants.mouthStatus,mouthStatus);
-            checkAndSend(currentTime,lastTimeEyesAlive,Constants.eyesStatus,eyesStatus);
-            checkAndSend(currentTime,lastTimeHeadAlive,Constants.headStatus,headStatus);
-            checkAndSend(currentTime,lastTimeTailAlive,Constants.tailStatus,tailStatus);
+            
+            checkAndSend(currentTime,lastTimeEyesAlive,eyesStatusView);
+            checkAndSend(currentTime,lastTimeHeadAlive,headStatusView);
         }
 
     }
 
-
-    private void sendNews(String who, boolean status)
+    private void checkAndSend(long currentTime, long lastTime, TextView statusView)
     {
-        Intent incomingMessageIntent = new Intent(Constants.deathBT);
-        incomingMessageIntent.putExtra(Constants.changeStatus, who);
-        incomingMessageIntent.putExtra(Constants.valueStatus, status);
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(incomingMessageIntent);
-    }
+        if(currentTime - lastTime < timeToDeclareDeath) {
 
-
-    private void checkAndSend(long currentTime, long lastTime, String who, boolean status)
-    {
-        if(currentTime - lastTime > timeToDeclareDeath)
-        {
-            if(status)
-            {
-                status = false;
-                sendNews(who, status);
-                updateStatus(who, status);
-            }
-
+            statusView.setText(Constants.connectionOK);
+            statusView.setTextColor(aliveColor);
+            return;
         }
-        else
-        {
-            if(!status)
-            {
-                status = true;
-                sendNews(who, status);
-                updateStatus(who, status);
-            }
-        }
+        statusView.setText(Constants.connectionNO);
+        statusView.setTextColor(deadColor);
+
     }
-
-
-    private void updateStatus(String who, boolean status)
-    {
-        if(who.equals(Constants.mouthStatus))
-            mouthStatus = status;
-        if(who.equals(Constants.eyesStatus))
-            eyesStatus = status;
-        if(who.equals(Constants.headStatus))
-            headStatus = status;
-        if(who.equals(Constants.tailStatus))
-            tailStatus = status;
-    }
-
-
-    public void setLastTimeMouthAlive(long lastTimeMouthAlive) {
-        this.lastTimeMouthAlive = lastTimeMouthAlive;
-    }
-
+    
     public void setLastTimeEyesAlive(long lastTimeEyesAlive) {
         this.lastTimeEyesAlive = lastTimeEyesAlive;
     }
