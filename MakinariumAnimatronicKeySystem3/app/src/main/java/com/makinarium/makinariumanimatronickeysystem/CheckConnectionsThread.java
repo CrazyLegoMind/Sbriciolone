@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.Constants;
 
@@ -24,6 +25,8 @@ public class CheckConnectionsThread extends Thread {
 
     private boolean threadAlive = true;
 
+    public TextView headStatusView;
+    public TextView eyesStatusView;
 
     public CheckConnectionsThread(Context mContext) {
         this.mContext = mContext;
@@ -34,7 +37,7 @@ public class CheckConnectionsThread extends Thread {
         while(threadAlive)
         {
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean eyesActiveController = true;
     private boolean canIChangeNames = false;
 
-    private Switch mouthSwitch;
     private Switch eyesSwitch;
     private Switch nameSwitch;
 
@@ -81,26 +80,19 @@ public class MainActivity extends AppCompatActivity {
     private long previousPerformancePieceTime = 0;
     private String headMac;
     private BluetoothAdapter mBluetoothAdapter;
-    private BluetoothConnectionService mBluetoothConnectionMouth;
     private BluetoothConnectionService mBluetoothConnectionHead;
     private BluetoothConnectionService mBluetoothConnectionEyes;
-    private BluetoothConnectionService mBluetoothConnectionTail;
-
-    private BluetoothDevice mBTMouthDevice;
+    
     private BluetoothDevice mBTDeviceHead;
     private BluetoothDevice mBTDeviceEyes;
-    private BluetoothDevice mBTDeviceTail;
 
+    //playback speed slider
     private double multiplicator = 1;
     private SeekBar multBar;
-    private Button resetM;
     private TextView multText;
-    private static final int minValueMult = 3;
 
-    private TextView mouthStatus;
     private TextView eyesStatus;
     private TextView headStatus;
-    private TextView tailStatus;
 
     private Gson gson;
 
@@ -160,28 +152,23 @@ public class MainActivity extends AppCompatActivity {
         stopButton = findViewById(R.id.stopButton);
         stopButton.setClickable(false);
         stopButton.setEnabled(false);
-
-
-        mouthSwitch = findViewById(R.id.mouthSwitch);
+        
         eyesSwitch = findViewById(R.id.eyesSwitch);
         nameSwitch = findViewById(R.id.nameSwitch);
-        mouthSwitch.setChecked(true);
+
         eyesSwitch.setChecked(true);
-        mouthSwitch.setOnCheckedChangeListener(this::onCheckMouth);
         eyesSwitch.setOnCheckedChangeListener(this::onCheckEyes);
         nameSwitch.setOnCheckedChangeListener(this::onCheckNames);
 
         multBar = findViewById(R.id.seekBar);
-        resetM = findViewById(R.id.resetM);
-        resetM.setOnClickListener(v -> resetSBButton());
         multText = findViewById(R.id.multText);
 
         multBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                multiplicator = (progress + minValueMult) / 10.0;
-                multText.setText(String.valueOf(multiplicator));
+                multiplicator = progress / 10.0;
+                multText.setText(" ×"+ String.valueOf(multiplicator)+" ");
             }
 
             @Override
@@ -194,11 +181,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        mouthStatus = findViewById(R.id.mouthStatus);
+        
         eyesStatus = findViewById(R.id.eyesStatus);
         headStatus = findViewById(R.id.headStatus);
-        tailStatus = findViewById(R.id.tailStatus);
 
         checkThread = new CheckConnectionsThread(this);
 
@@ -207,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
         myExecutor = Executors.newFixedThreadPool(7);
 
         checkThread.start();
-        //testButton();
     }
 
 
@@ -223,26 +207,12 @@ public class MainActivity extends AppCompatActivity {
                 startBTConnection(mBTDeviceEyes, mBluetoothConnectionEyes);
             }
 
-
-            if (bt.getAddress().equals(Constants.macMouthBT)) {
-                mBTMouthDevice = bt;
-                mBluetoothConnectionMouth = new BluetoothConnectionService(MainActivity.this, Constants.MouthID);
-                startBTConnection(mBTMouthDevice, mBluetoothConnectionMouth);
-            }
-
             if (bt.getAddress().equals(headMac)) {
                 Log.d(TAG, bt.getName());
 
                 mBTDeviceHead = bt;
                 mBluetoothConnectionHead = new BluetoothConnectionService(MainActivity.this, Constants.HeadID);
                 startBTConnection(mBTDeviceHead, mBluetoothConnectionHead);
-            }
-            if (bt.getAddress().equals(Constants.macTailBT)) {
-                Log.d(TAG, bt.getName());
-
-                mBTDeviceTail = bt;
-                mBluetoothConnectionTail = new BluetoothConnectionService(MainActivity.this, Constants.TailID);
-                startBTConnection(mBTDeviceTail, mBluetoothConnectionTail);
             }
 
         }
@@ -432,7 +402,6 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(mDeathOrAlive);
         checkThread.stopChecking();
         mBluetoothConnectionEyes.stopClient();
-        mBluetoothConnectionMouth.stopClient();
         mBluetoothConnectionHead.stopClient();
 
     }
@@ -526,9 +495,8 @@ public class MainActivity extends AppCompatActivity {
         //pt.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, bp);
     }
 
-    public void resetSBButton()
-    {
-        multBar.setProgress(10 - minValueMult);
+    public void speedBtnClick(View v){
+        multBar.setProgress(Integer.valueOf((String) v.getTag()));
     }
 
 
@@ -739,16 +707,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, Constants.controllerDisactived, Toast.LENGTH_LONG).show();
         }
     }
-
-    public void onCheckMouth(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            mouthActiveController = true;
-            Toast.makeText(this, Constants.controllerActived, Toast.LENGTH_LONG).show();
-        } else {
-            mouthActiveController = false;
-            Toast.makeText(this, Constants.controllerDisactived, Toast.LENGTH_LONG).show();
-        }
-    }
+    
 
     public void onCheckNames(CompoundButton buttonView, boolean isChecked) {
         if(isChecked) {
@@ -766,12 +725,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             boolean status = intent.getBooleanExtra(Constants.valueStatus, true);
             String who = intent.getStringExtra(Constants.changeStatus);
-
-            if(who.equals(Constants.mouthStatus))
-            {
-                setTextViewStatus(mouthStatus, status);
-                return;
-            }
+            
 
             if(who.equals(Constants.eyesStatus))
             {
@@ -782,10 +736,6 @@ public class MainActivity extends AppCompatActivity {
             if(who.equals(Constants.headStatus))
             {
                 setTextViewStatus(headStatus,status);
-            }
-            if(who.equals(Constants.tailStatus))
-            {
-                setTextViewStatus(tailStatus,status);
             }
         }
 
@@ -811,9 +761,6 @@ public class MainActivity extends AppCompatActivity {
             String text = intent.getStringExtra("Message");
             long currentTime = System.currentTimeMillis();
             switch (id){
-                case Constants.MouthID:
-                    checkThread.setLastTimeMouthAlive(currentTime);
-                    break;
                 case Constants.eyesID:
                     checkThread.setLastTimeEyesAlive(currentTime);
                     break;

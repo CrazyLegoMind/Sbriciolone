@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp">
-
+<!--
                 <TextView
                     android:id="@+id/mouthStatus"
                     android:layout_width="15dp"
@@ -65,7 +65,7 @@
                     android:layout_below="@+id/eyesTextS"
                     android:layout_toRightOf="@+id/mouthStatus"
                     android:text="Remote B" />
-
+-->
                 <TextView
                     android:id="@+id/eyesStatus"
                     android:layout_width="15dp"
@@ -87,8 +87,8 @@
                     android:id="@+id/headStatus"
                     android:layout_width="15dp"
                     android:layout_height="17dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/mouthTextS"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/eyesStatus"
                     android:text="✓"
                     android:textColor="@color/activePerform" />
 
@@ -97,10 +97,9 @@
                     android:layout_width="80dp"
                     android:layout_height="17dp"
                     android:layout_below="@+id/eyesTextS"
-                    android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/headStatus"
                     android:text="Head rec" />
-
+<!--
                 <TextView
                     android:id="@+id/tailStatus"
                     android:layout_width="15dp"
@@ -117,7 +116,7 @@
                     android:layout_below="@+id/headStatus"
                     android:layout_toRightOf="@+id/tailStatus"
                     android:text="Tail rec" />
-
+-->
             </RelativeLayout>
 
             <Switch
@@ -126,14 +125,14 @@
                 android:layout_height="13dp"
                 android:layout_gravity="center_vertical"
                 android:text="Names" />
-
+<!--
             <Switch
                 android:id="@+id/mouthSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="Remote B" />
-
+-->
             <Switch
                 android:id="@+id/eyesSwitch"
                 android:layout_width="wrap_content"
@@ -2158,8 +2157,8 @@
 
                     <TextView
                         android:id="@+id/mouthText03"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
+                        android:layout_width="@dimen/bheight"
+                        android:layout_height="15dp"
                         android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
@@ -3052,23 +3051,44 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/backsquare"
-                android:text=" 1.0 " />
+                android:text=" ×1.0 "
+                android:textSize="24dp" />
 
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="250dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
-                android:max="27"
-                android:min="3"
-                android:progress="7" />
+                android:max="30"
+                android:min="5"
+                android:progress="10" />
 
             <Button
-                android:id="@+id/resetM"
+                android:id="@+id/speedBtn10"
                 android:layout_width="80dp"
                 android:layout_height="39dp"
                 android:layout_gravity="center_vertical"
-                android:text="Reset" />
+                android:onClick="speedBtnClick"
+                android:tag="10"
+                android:text="1.0" />
+
+            <Button
+                android:id="@+id/speedBtn15"
+                android:layout_width="80dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical"
+                android:onClick="speedBtnClick"
+                android:tag="15"
+                android:text="1.5" />
+
+            <Button
+                android:id="@+id/speedBtn20"
+                android:layout_width="80dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical"
+                android:onClick="speedBtnClick"
+                android:tag="20"
+                android:text="2.0" />
 
         </LinearLayout>
 
