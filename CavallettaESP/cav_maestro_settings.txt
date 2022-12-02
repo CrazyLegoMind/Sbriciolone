@@ -10,23 +10,23 @@
   <Channels MiniMaestroServoPeriod="80000" ServoMultiplier="1">
     <!--Period = 20 ms-->
     <!--Channel 0-->
-    <Channel name="AntennaR" mode="Servo" min="1216" max="12800" homemode="Off" home="1216" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="AntennaR" mode="Servo" min="4992" max="8000" homemode="Off" home="4992" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 1-->
-    <Channel name="AntennaL" mode="Servo" min="3136" max="4992" homemode="Off" home="3136" speed="0" acceleration="0" neutral="4992" range="1905" />
+    <Channel name="AntennaL" mode="Servo" min="3968" max="7232" homemode="Off" home="3968" speed="0" acceleration="0" neutral="4992" range="1905" />
     <!--Channel 2-->
-    <Channel name="LinguaYd" mode="Servo" min="4992" max="8000" homemode="Off" home="4992" speed="92" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="LinguaYd" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="92" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 3-->
     <Channel name="LinguaXd" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="92" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 4-->
-    <Channel name="LinguaZ" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="LinguaZ" mode="Servo" min="5376" max="8000" homemode="Off" home="5376" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 5-->
-    <Channel name="LabbroSup" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="LabbroSup" mode="Servo" min="3968" max="4288" homemode="Off" home="3968" speed="0" acceleration="0" neutral="4288" range="1905" />
     <!--Channel 6-->
-    <Channel name="LabbroInf" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="LabbroInf" mode="Servo" min="4800" max="8000" homemode="Off" home="4800" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 7-->
-    <Channel name="MascellaR" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="MascellaR" mode="Servo" min="3968" max="5632" homemode="Off" home="3968" speed="0" acceleration="0" neutral="5632" range="1905" />
     <!--Channel 8-->
-    <Channel name="MascellaL" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="MascellaL" mode="Servo" min="6400" max="8000" homemode="Off" home="6400" speed="0" acceleration="0" neutral="6400" range="1905" />
     <!--Channel 9-->
     <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 10-->
