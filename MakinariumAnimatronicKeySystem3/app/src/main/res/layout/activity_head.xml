@@ -61,14 +61,6 @@
                 android:layout_gravity="center_vertical"
                 android:focusableInTouchMode="true">
 
-                <EditText
-                    android:id="@+id/editMouthMac"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:fontFamily="casual"
-                    android:inputType="textPersonName"
-                    android:text="Mouth" />
 
                 <EditText
                     android:id="@+id/editHeadMac"
@@ -79,10 +71,10 @@
                     android:ems="10"
                     android:fontFamily="casual"
                     android:inputType="textPersonName"
-                    android:text="Head" />
+                    android:hint="secondary head mac" />
 
                 <EditText
-                    android:id="@+id/editEyesMac"
+                    android:id="@+id/editRemoteMac"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
@@ -90,7 +82,8 @@
                     android:ems="10"
                     android:fontFamily="casual"
                     android:inputType="textPersonName"
-                    android:text="Eyes" />
+                    android:hint="secondary remote mac" />
+
             </LinearLayout>
 
         </LinearLayout>

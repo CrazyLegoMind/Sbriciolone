@@ -1,8 +1,10 @@
 package com.makinarium.makinariumanimatronickeysystem;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,9 +17,8 @@ public class headActivity extends AppCompatActivity {
 
     private Button continueButton;
     private String headMac;
-    private MacAddressFactory macFactory;
-    private EditText mouthEdit;
-    private EditText eyesEdit;
+    private String remoteMac = Constants.macEyesBT;
+    private EditText remoteEdit;
     private EditText headEdit;
 
 
@@ -26,6 +27,8 @@ public class headActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head);
         continueButton = (Button)findViewById(R.id.continuebutton);
+        remoteEdit = findViewById(R.id.editRemoteMac);
+        headEdit = findViewById(R.id.editHeadMac);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +55,6 @@ public class headActivity extends AppCompatActivity {
             if (checked)
             {
                 headMac = Constants.macHead01BT;
-                //continueButton.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
             }
 
         } else if (i == R.id.head02button) {
@@ -68,8 +70,22 @@ public class headActivity extends AppCompatActivity {
 
         Intent mainActivityIntent = new Intent(headActivity.this, MainActivity.class);
 
-        mainActivityIntent.putExtra(Intent.EXTRA_TEXT, headMac);
 
+        String headMacStr = headEdit.getText().toString();
+        if (BluetoothAdapter.checkBluetoothAddress(headMacStr)){
+            headMac = headMacStr;
+            Log.i("MACS","got head: "+headMacStr);
+        }
+        mainActivityIntent.putExtra("head_mac", headMac);
+
+        String remoteMacStr = remoteEdit.getText().toString();
+        if (BluetoothAdapter.checkBluetoothAddress(remoteMacStr)){
+            remoteMac = remoteMacStr;
+
+            Log.i("MACS","got remote: "+remoteMacStr);
+        }
+        mainActivityIntent.putExtra("remote_mac", remoteMac);
+        Log.i("MACS",  "head: '"+headMac+"' remote:'"+remoteMac+"'");
         startActivity(mainActivityIntent);
     }
 }

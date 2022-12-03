@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     private long previousPerformancePieceTime = 0;
     private String headMac;
+    private String remoteMac;
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothConnectionService mBluetoothConnectionHead;
     private BluetoothConnectionService mBluetoothConnectionEyes;
@@ -100,8 +101,9 @@ public class MainActivity extends AppCompatActivity {
     private int presetColor = 0;
 
     private Executor myExecutor;
-
     private CheckConnectionsThread checkThread;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent headIntent = getIntent();
-        headMac = headIntent.getStringExtra(Intent.EXTRA_TEXT);
+        headMac = headIntent.getStringExtra("head_mac");
+        remoteMac = headIntent.getStringExtra("remote_mac");
 
         readyColor = ResourcesCompat.getColor(getResources(), R.color.activePerform, null);
 
@@ -200,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         for(BluetoothDevice bt : pairedDevices)
         {
-            if (bt.getAddress().equals(Constants.macEyesBT)) {
+            if (bt.getAddress().equals(remoteMac)) {
                 mBTDeviceEyes = bt;
                 mBluetoothConnectionEyes = new BluetoothConnectionService(MainActivity.this, Constants.eyesID);
                 startBTConnection(mBTDeviceEyes, mBluetoothConnectionEyes);

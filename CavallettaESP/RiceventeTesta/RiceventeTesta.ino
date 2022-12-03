@@ -76,7 +76,7 @@ void setup() {
   //Serial.begin(115200);
 
   ESP32MaestroSerial.begin(115200, SERIAL_8N1, -1, maestro_pin);  //rx - tx
-  SerialBT.begin("Testa1");
+  SerialBT.begin("MNK-Head2");
   SerialBT.setTimeout(20);
   Serial.begin(115200);
 
