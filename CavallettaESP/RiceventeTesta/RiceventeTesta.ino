@@ -159,23 +159,9 @@ String bt_msg;
 bool bt_msg_ready;
 
 void loop() {
-    if (SerialBT.available()) {
-    char incomingChar = SerialBT.read();
-    if (incomingChar != '\n') {
-      if (bt_msg_ready) {
+  String bt_msg = SerialBT.readStringUntil('\n');
 
-        bt_msg = String(incomingChar);
-        bt_msg_ready = false;
-      } else {
-        bt_msg += String(incomingChar);
-      }
-    } else if(!bt_msg_ready) {
-      bt_msg_ready = true;
-      Serial.println(bt_msg);
-    }
-    //Serial.write(incomingChar);
-  }
-  if (bt_msg.length()>0 && bt_msg_ready) {
+  if (bt_msg.length()>0) {
 
     bool doIt = true;
     if (bt_msg.charAt(0) == 'r') {
