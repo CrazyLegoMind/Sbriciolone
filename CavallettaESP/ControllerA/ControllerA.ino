@@ -89,11 +89,11 @@ void setup() {
 
   listaMotori[2].sector = jawsC;  //labbra sup dx -> antenna l
   listaMotori[2].port = A5;
-  listaMotori[2].pinH = 7;
+  listaMotori[2].pinH = 8;
 
   listaMotori[3].sector = jawsC;  //labbra inf dx -> antenna r
   listaMotori[3].port = A4;
-  listaMotori[3].pinH = 8;
+  listaMotori[3].pinH = 7;
 
   listaMotori[4].sector = antennasC;  //labbra inf sx ->mascella r
   listaMotori[4].port = A3;
@@ -137,6 +137,7 @@ void handleSliders() {
     volatile Motor linkedMot = listaMotori[slider];
     int sliderch = linkedMot.pinH;
 
+
     if (antennasSinchroSwc.value && (sliderch == 1)) {
       continue;  //skip loop if motors are mirrored
     }
@@ -146,11 +147,11 @@ void handleSliders() {
     int sliderVal = analogRead(linkedMot.port);
 
     if (abs(sliderVal - linkedMot.oldValue) > analogFilter) {
-
+      delay(5);
       sendMotor(listaMotori[slider], sliderVal);
 
       if (antennasSinchroSwc.value && sliderch == 0) {
-        sendMotor(listaMotori[5], sliderVal);
+        sendMotor(listaMotori[5], 1023 - sliderVal);
       }
       if (labbraSinchroSwc.value && sliderch == 5) {
 
@@ -159,7 +160,6 @@ void handleSliders() {
     }
   }
 }
-
 
 
 void readLedSwc(LedSwc& button) {

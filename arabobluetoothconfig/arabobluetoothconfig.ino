@@ -1,13 +1,13 @@
-#include <SoftwareSerial.h>
+#include <HardwareSerial.h>
 
-SoftwareSerial mySerial(3, 2);  // RX, TX
+HardwareSerial mySerial(1);
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(7, OUTPUT);  // questo pin è connesso al relativo pin 34 (pin KEY) del HC-05
+  pinMode(32, OUTPUT);  // questo pin è connesso al relativo pin 34 (pin KEY) del HC-05
   // che portato a HIGH permette di passare alla modalità AT
-  digitalWrite(7, HIGH);
-  mySerial.begin(38400);
+  digitalWrite(32, HIGH);
+  mySerial.begin(9600, SERIAL_8N1, 16, 17);  //rx - tx
   Serial.begin(9600);
   /*
   sendCommand("AT");

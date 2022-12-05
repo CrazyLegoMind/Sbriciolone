@@ -54,7 +54,6 @@ unsigned long alive_ms = 0;
 bool standby = false;
 const char maestro_pin = 22;
 
-#include <HardwareSerial.h>
 #include "BluetoothSerial.h"
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
@@ -62,8 +61,8 @@ const char maestro_pin = 22;
 #endif
 
 BluetoothSerial SerialBT;
-
 HardwareSerial ESP32MaestroSerial(2);
+
 
 MicroMaestro maestro(ESP32MaestroSerial, Maestro::noResetPin, 12, true);
 
@@ -76,11 +75,11 @@ void setup() {
   //Serial.begin(115200);
 
   ESP32MaestroSerial.begin(115200, SERIAL_8N1, -1, maestro_pin);  //rx - tx
+
   SerialBT.begin("MNK-Head2");
-  SerialBT.setTimeout(20);
   Serial.begin(115200);
 
-  servoList[0].minValue = 4000;
+  servoList[0].minValue = 4992;
   servoList[0].maxValue = 8000;
   servoList[0].channel = 0;
   servoList[0].servoName = "AntennaR";
@@ -89,7 +88,7 @@ void setup() {
   servoList[0].shutDownWhen = 1000;
 
   servoList[1].minValue = 4000;
-  servoList[1].maxValue = 8000;
+  servoList[1].maxValue = 7232;
   servoList[1].channel = 1;
   servoList[1].servoName = "AntennaL";
   servoList[1].mirror = false;
@@ -112,7 +111,7 @@ void setup() {
   servoList[3].stopAndGo = false;
   servoList[3].shutDownWhen = 1000;
 
-  servoList[4].minValue = 4000;
+  servoList[4].minValue = 5376;
   servoList[4].maxValue = 8000;  //
   servoList[4].channel = 4;
   servoList[4].servoName = "LinguaZ";
@@ -121,14 +120,14 @@ void setup() {
   servoList[4].shutDownWhen = 1000;
 
   servoList[5].minValue = 4000;
-  servoList[5].maxValue = 8000;
+  servoList[5].maxValue = 4300;
   servoList[5].channel = 5;
   servoList[5].servoName = "LabbroSup";
-  servoList[5].mirror = false;
+  servoList[5].mirror = true;
   servoList[5].stopAndGo = false;
   servoList[5].shutDownWhen = 1000;
 
-  servoList[6].minValue = 4000;
+  servoList[6].minValue = 4800;
   servoList[6].maxValue = 8000;  //
   servoList[6].channel = 6;
   servoList[6].servoName = "LabbroInf";
@@ -137,14 +136,14 @@ void setup() {
   servoList[6].shutDownWhen = 1000;
 
   servoList[7].minValue = 4000;
-  servoList[7].maxValue = 8000;
+  servoList[7].maxValue = 5632;
   servoList[7].channel = 7;
   servoList[7].servoName = "MascellaR";
   servoList[7].mirror = false;
   servoList[7].stopAndGo = false;
   servoList[7].shutDownWhen = 1000;
 
-  servoList[8].minValue = 4000;
+  servoList[8].minValue = 6400;
   servoList[8].maxValue = 8000;
   servoList[8].channel = 8;
   servoList[8].servoName = "MascellaL";
@@ -160,7 +159,7 @@ String bt_msg;
 bool bt_msg_ready;
 
 void loop() {
-  if (SerialBT.available()) {
+    if (SerialBT.available()) {
     char incomingChar = SerialBT.read();
     if (incomingChar != '\n') {
       if (bt_msg_ready) {
@@ -170,30 +169,21 @@ void loop() {
       } else {
         bt_msg += String(incomingChar);
       }
-    } else {
+    } else if(!bt_msg_ready) {
       bt_msg_ready = true;
       Serial.println(bt_msg);
     }
     //Serial.write(incomingChar);
   }
-
-  if (bt_msg.length() > 0 and bt_msg_ready) {
+  if (bt_msg.length()>0 && bt_msg_ready) {
 
     bool doIt = true;
-    if (bt_msg.charAt(0) != 'r') {
-
-      long randNumber = random(100);
-
-      if (randNumber < 20) {
-        doIt = false;
-      }
-    } else {
+    if (bt_msg.charAt(0) == 'r') {
       bt_msg = bt_msg.substring(1);
     }
     if (doIt) {
-
       //delay(30);
-      int lenghtMessage= getLenghtBeforeCheckSum(bt_msg, ';');
+      int lenghtMessage = getLenghtBeforeCheckSum(bt_msg, ';');
       int numberSeparators = homManySeparator(bt_msg, ';');
       int checksum = getValueStringSplitter(bt_msg, ';', numberSeparators).toInt();
 
@@ -230,15 +220,16 @@ void loop() {
       }
     }
   }
-  gestisciOcchi();
   deadManButton();
   shutDownMotors();
-  //delay(20);
+  //delay();
 }
 
 void globalMessage(String message) {
   String indexString = getValueStringSplitter(message, ';', 1);
   int index = indexString.toInt();
+
+  Serial.println("got global");
   switch (index) {
     case 0:
       delay(20);
@@ -321,60 +312,6 @@ void eyesMotorMessage(String message) {
 }
 
 
-
-
-
-void gestisciOcchi() {
-  if (sitOcchi == MANUAL) {
-    maestro.setSpeed(servoList[15].channel, eyeLidsSpeed);
-    maestro.setSpeed(servoList[18].channel, eyeLidsSpeed);
-    return;
-  }
-
-  if (sitOcchi == APERTI) {
-    maestro.setSpeed(servoList[15].channel, eyeLidsSpeed);
-    maestro.setSpeed(servoList[18].channel, eyeLidsSpeed);
-    if (millis() > nextPalpebre) {
-      nextPalpebre = random(2000, 10000) + millis();
-      sitOcchi = INCHIUSURA;
-      contatoreOcchi = 0;
-      maestro.setSpeed(servoList[15].channel, 0);
-      maestro.setSpeed(servoList[18].channel, 0);
-      maestro.setAcceleration(servoList[15].channel, 0);
-      maestro.setAcceleration(servoList[18].channel, 0);
-      servoList[15].counterShutDown = 0;
-      servoList[18].counterShutDown = 0;
-      maestro.setTarget(servoList[15].channel, analogServoConversion(minOcchiValue, servoList[15]));
-      maestro.setTarget(servoList[18].channel, analogServoConversion(minOcchiValue, servoList[18]));
-    }
-    return;
-  }
-  if (sitOcchi == INCHIUSURA) {
-    contatoreOcchi++;
-    if (contatoreOcchi == limiteOcchi) {
-      servoList[15].counterShutDown = 0;
-      servoList[18].counterShutDown = 0;
-      maestro.setTarget(servoList[15].channel, analogServoConversion(maxOcchiValue, servoList[15]));
-      maestro.setTarget(servoList[18].channel, analogServoConversion(maxOcchiValue, servoList[18]));
-      sitOcchi = APERTI;
-    }
-    return;
-  }
-
-  if (sitOcchi == CHIUSMANUAL) {
-    contatoreOcchi++;
-    if (contatoreOcchi == limiteOcchi) {
-      servoList[15].counterShutDown = 0;
-      servoList[18].counterShutDown = 0;
-      maestro.setTarget(servoList[15].channel, analogServoConversion(maxOcchiValue, servoList[15]));
-      maestro.setTarget(servoList[18].channel, analogServoConversion(maxOcchiValue, servoList[18]));
-      sitOcchi = MANUAL;
-    }
-    return;
-  }
-}
-
-
 int analogServoConversion(int analogValue, ServoValues& servo) {
   if (servo.mirror)
     return map(analogValue, 0, 1023, servo.maxValue, servo.minValue);
@@ -431,13 +368,13 @@ void shutDownMotors() {
 
 
 void deadManButton() {
-  if (!alive_waiting){
+  if (!alive_waiting) {
     alive_ms = millis();
-    alive_waiting = true;    
-  }else{
-    if(millis()- alive_ms > alive_trigger * 100){
+    alive_waiting = true;
+  } else {
+    if (millis() - alive_ms > alive_trigger * 100) {
       SerialBT.println("ALIVE");
-      alive_waiting = false;      
+      alive_waiting = false;
     }
   }
 }
