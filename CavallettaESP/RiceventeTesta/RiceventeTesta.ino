@@ -76,7 +76,7 @@ void setup() {
 
   ESP32MaestroSerial.begin(115200, SERIAL_8N1, -1, maestro_pin);  //rx - tx
 
-  SerialBT.begin("MNK-Head2");
+  SerialBT.begin("MNK-Head1");
   Serial.begin(115200);
 
   servoList[0].minValue = 4992;
@@ -160,7 +160,10 @@ bool bt_msg_ready;
 
 void loop() {
   String bt_msg = SerialBT.readStringUntil('\n');
-
+  Serial.print("got: '");
+  Serial.print(bt_msg);
+  Serial.println("' ");
+  
   if (bt_msg.length()>0) {
 
     bool doIt = true;

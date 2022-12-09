@@ -81,11 +81,11 @@ void setup() {
 
   listaMotori[0].sector = tongueC;  // lingua y
   listaMotori[0].port = A1;
-  listaMotori[0].pinH = 2;
+  listaMotori[0].pinH = 3;
 
   listaMotori[1].sector = tongueC;  // lingua x
   listaMotori[1].port = A0;
-  listaMotori[1].pinH = 3;
+  listaMotori[1].pinH = 2;
 
   listaMotori[2].sector = jawsC;  //labbra sup dx -> antenna l
   listaMotori[2].port = A5;

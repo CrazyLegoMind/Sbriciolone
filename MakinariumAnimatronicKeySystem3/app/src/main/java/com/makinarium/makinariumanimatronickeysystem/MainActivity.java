@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothDevice mBTDeviceEyes;
 
     //playback speed slider
-    private double multiplicator = 1;
+    private double multiplicator = 1.0;
     private SeekBar multBar;
     private TextView multText;
 
@@ -497,7 +497,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void speedBtnClick(View v){
-        multBar.setProgress(Integer.valueOf((String) v.getTag()));
+        int progress = Integer.valueOf((String) v.getTag());
+        multiplicator = (double) progress / 10.0;
+        multBar.setProgress(progress);
     }
 
 
