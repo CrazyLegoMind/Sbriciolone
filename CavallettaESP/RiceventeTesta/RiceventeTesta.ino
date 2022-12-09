@@ -1,7 +1,14 @@
+#include <PololuMaestro.h>
+#include "BluetoothSerial.h"
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
+
+//globals
 const char eventsC = 'e';
 const char statusChangeC = 'C';
 const char servoC = 'S';
-const char globalC = 'A';
+const char globalC = 'G';
 
 const char eyesC = 'E';
 const char tongueC = 'T';
@@ -22,49 +29,42 @@ struct ServoValues {
   int shutDownWhen;
 };
 
+enum statiOcchi {
+  APERTI,
+  INCHIUSURA,
+  MANUAL,
+  CHIUSMANUAL
+};
 
-
+//pins and const
+const char maestro_pin = 22;
 const byte howmanyservo = 9;
-ServoValues servoList[howmanyservo];
-#include <PololuMaestro.h>
-unsigned long nextPalpebre = 0;
-byte contatoreOcchi = 0;
 const byte limiteOcchi = 8;
 const int minOcchiValue = 995;
 const int maxOcchiValue = 190;
-
-
 const int rangeBoccaMediani = 300;
-
-
-enum statiOcchi { APERTI,
-                  INCHIUSURA,
-                  MANUAL,
-                  CHIUSMANUAL };
-
-statiOcchi sitOcchi = MANUAL;
-
 const int eyeLidsSpeed = 64;
-
-
 const byte alive_trigger = 10;
+
+
+//scripts vars
+ServoValues servoList[howmanyservo];
+unsigned long nextPalpebre = 0;
+byte contatoreOcchi = 0;
+statiOcchi sitOcchi = MANUAL;
 bool alive_waiting = false;
 unsigned long alive_ms = 0;
-
 bool standby = false;
-const char maestro_pin = 22;
+unsigned long loop_us = 0;
+unsigned long time_us = 0;
 
-#include "BluetoothSerial.h"
-
-#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
-#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
-#endif
-
+//library vars
 BluetoothSerial SerialBT;
 HardwareSerial ESP32MaestroSerial(2);
-
-
 MicroMaestro maestro(ESP32MaestroSerial, Maestro::noResetPin, 12, true);
+
+
+
 
 void setup() {
 
@@ -72,11 +72,9 @@ void setup() {
     the target position in units of 1/4 microseconds. A typical
     RC hobby servo responds to pulses between 1 ms (4000) and 2
     ms (8000). */
-  //Serial.begin(115200);
 
   ESP32MaestroSerial.begin(115200, SERIAL_8N1, -1, maestro_pin);  //rx - tx
-
-  SerialBT.begin("MNK-Head1");
+  SerialBT.begin("MNK-Head3");
   Serial.begin(115200);
 
   servoList[0].minValue = 4992;
@@ -155,16 +153,19 @@ void setup() {
   for (int i = 0; i < howmanyservo; i++)
     maestro.setTarget(servoList[i].channel, 0);
 }
-String bt_msg;
-bool bt_msg_ready;
 
 void loop() {
+  loop_us = micros();
   String bt_msg = SerialBT.readStringUntil('\n');
   Serial.print("got: '");
   Serial.print(bt_msg);
   Serial.println("' ");
-  
-  if (bt_msg.length()>0) {
+  Serial.print("bt took: ");
+  time_us = micros();
+  Serial.print(time_us - loop_us);
+  loop_us = time_us;
+
+  if (bt_msg.length() > 0) {
 
     bool doIt = true;
     if (bt_msg.charAt(0) == 'r') {
@@ -196,14 +197,11 @@ void loop() {
 
         } else if (bt_msg.charAt(0) == antennasC) {
           eyeBrowMessage(bt_msg);
-
         } else if (bt_msg.charAt(0) == jawsC) {
           noseMessage(bt_msg);
-
         } else if (bt_msg.charAt(0) == mouthC) {
           mouthMessage(bt_msg);
         } else if (bt_msg.charAt(0) == globalC) {
-          //Serial.println("got global cmd");
           globalMessage(bt_msg);
         }
       }
@@ -211,6 +209,9 @@ void loop() {
   }
   deadManButton();
   shutDownMotors();
+  Serial.print("  loop took: ");
+  time_us = micros();
+  Serial.println(time_us - loop_us);
   //delay();
 }
 
@@ -218,7 +219,7 @@ void globalMessage(String message) {
   String indexString = getValueStringSplitter(message, ';', 1);
   int index = indexString.toInt();
 
-  Serial.println("got global");
+
   switch (index) {
     case 0:
       delay(20);

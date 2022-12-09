@@ -2,7 +2,7 @@ package com.makinarium.makinariumanimatronickeysystem;
 
 public enum MessageTypes {
 
-    SERVO('S'),STATUSCHANGE('C'),GLOBAL('A') ,EVENT('e'), ERROR('0');
+    SERVO('S'),STATUSCHANGE('C'),GLOBAL('G') ,EVENT('e'), ERROR('0');
     private char str;
     /**
      *

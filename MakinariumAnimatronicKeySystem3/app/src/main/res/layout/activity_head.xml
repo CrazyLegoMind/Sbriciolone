@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,20 +24,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="fill">
 
             <RadioGroup
-                android:layout_width="167dp"
-                android:layout_height="211dp"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1">
 
                 <RadioButton
                     android:id="@+id/head01button"
                     android:layout_width="140dp"
                     android:layout_height="37dp"
-                    android:layout_weight="1"
                     android:fontFamily="casual"
                     android:onClick="onRadioButtonClicked"
                     android:text="Head 01" />
@@ -46,7 +44,6 @@
                     android:id="@+id/head02button"
                     android:layout_width="140dp"
                     android:layout_height="37dp"
-                    android:layout_weight="1"
                     android:fontFamily="casual"
                     android:onClick="onRadioButtonClicked"
                     android:text="Head 02"
@@ -61,7 +58,6 @@
                 android:layout_gravity="center_vertical"
                 android:focusableInTouchMode="true">
 
-
                 <EditText
                     android:id="@+id/editHeadMac"
                     android:layout_width="wrap_content"
@@ -73,6 +69,12 @@
                     android:inputType="textPersonName"
                     android:hint="secondary head mac" />
 
+                <Spinner
+                    android:id="@+id/receivermacspinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Receiver Mac" />
+
                 <EditText
                     android:id="@+id/editRemoteMac"
                     android:layout_width="wrap_content"
@@ -83,6 +85,13 @@
                     android:fontFamily="casual"
                     android:inputType="textPersonName"
                     android:hint="secondary remote mac" />
+
+                <Spinner
+                    android:id="@+id/remotemacspinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Remote Mac" />
+
 
             </LinearLayout>
 
@@ -98,7 +107,8 @@
             android:fontFamily="casual"
             android:text="Continue"
             android:theme="@style/AppTheme.PerformToRec"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:onClick="ctnBtn"/>
 
     </LinearLayout>
 

@@ -395,7 +395,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if(timeTask != null)
             timeTask.cancel(true);
 
@@ -404,6 +403,7 @@ public class MainActivity extends AppCompatActivity {
         checkThread.stopChecking();
         mBluetoothConnectionEyes.stopClient();
         mBluetoothConnectionHead.stopClient();
+        super.onDestroy();
 
     }
 
@@ -757,7 +757,6 @@ public class MainActivity extends AppCompatActivity {
                 case Constants.eyesID:
                     if(!eyesActiveController)
                         return;
-                    text = text + "\n";
                     bytes = text.getBytes(Charset.defaultCharset());
 
                     if(performRegistrationMode)
@@ -949,7 +948,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void shutdownServo(final View v) {
-        String messageToSend = "A;0;72\n";
+        String messageToSend = "G;0;78\n";
         messageToSend = "r" + messageToSend;
         byte[] bytesToSend = messageToSend.getBytes(Charset.defaultCharset());
         Log.i("SERVO_STOP","sending: "+ messageToSend);
