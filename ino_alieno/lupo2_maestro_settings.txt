@@ -1,0 +1,187 @@
+<!--Pololu Maestro servo controller settings file, http://www.pololu.com/catalog/product/1350-->
+<UscSettings version="1">
+  <NeverSuspend>false</NeverSuspend>
+  <SerialMode>UART_FIXED_BAUD_RATE</SerialMode>
+  <FixedBaudRate>115385</FixedBaudRate>
+  <SerialTimeout>0</SerialTimeout>
+  <EnableCrc>false</EnableCrc>
+  <SerialDeviceNumber>12</SerialDeviceNumber>
+  <SerialMiniSscOffset>0</SerialMiniSscOffset>
+  <EnablePullups>false</EnablePullups>
+  <Channels MiniMaestroServoPeriod="80000" ServoMultiplier="1">
+    <!--Period = 20 ms-->
+    <!--Channel 0-->
+    <Channel name="LabSupSX" mode="Servo" min="4032" max="6208" homemode="Off" home="4032" speed="0" acceleration="0" neutral="4032" range="635" />
+    <!--Channel 1-->
+    <Channel name="Naso" mode="Servo" min="4032" max="6592" homemode="Off" home="4032" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 2-->
+    <Channel name="LabSupDX" mode="Servo" min="4032" max="6400" homemode="Off" home="4032" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 3-->
+    <Channel name="LabInfSX" mode="Servo" min="6784" max="8000" homemode="Off" home="6784" speed="0" acceleration="0" neutral="6784" range="1905" />
+    <!--Channel 4-->
+    <Channel name="Orecchie" mode="Servo" min="4032" max="6848" homemode="Off" home="4032" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 5-->
+    <Channel name="LabInfDX" mode="Servo" min="4416" max="8000" homemode="Off" home="4416" speed="100" acceleration="0" neutral="6784" range="1905" />
+    <!--Channel 6-->
+    <Channel name="SopracSS" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="100" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 7-->
+    <Channel name="SopracSC" mode="Servo" min="4032" max="6400" homemode="Off" home="4032" speed="100" acceleration="0" neutral="4224" range="1905" />
+    <!--Channel 8-->
+    <Channel name="SopracDC" mode="Servo" min="5824" max="8000" homemode="Off" home="5824" speed="100" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 9-->
+    <Channel name="SopracDD" mode="Servo" min="5632" max="8000" homemode="Off" home="5632" speed="100" acceleration="0" neutral="6208" range="1905" />
+    <!--Channel 10-->
+    <Channel name="BorsaS" mode="Servo" min="4992" max="6208" homemode="Off" home="4992" speed="100" acceleration="0" neutral="5632" range="1905" />
+    <!--Channel 11-->
+    <Channel name="BorsaD" mode="Servo" min="5184" max="8000" homemode="Off" home="5184" speed="100" acceleration="0" neutral="5184" range="1905" />
+    <!--Channel 12-->
+    <Channel name="MandibolaSX" mode="Servo" min="3712" max="6656" homemode="Off" home="3712" speed="100" acceleration="0" neutral="6016" range="1905" />
+    <!--Channel 13-->
+    <Channel name="MandibolaDX" mode="Servo" min="4032" max="7232" homemode="Off" home="4032" speed="100" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 14-->
+    <Channel name="OcchiY" mode="Servo" min="4224" max="7616" homemode="Off" home="4224" speed="100" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 15-->
+    <Channel name="OcchioSX" mode="Servo" min="5184" max="6784" homemode="Off" home="5184" speed="100" acceleration="0" neutral="5696" range="1905" />
+    <!--Channel 16-->
+    <Channel name="OcchioDX" mode="Servo" min="4800" max="6400" homemode="Off" home="4800" speed="100" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 17-->
+    <Channel name="PalpebreSup" mode="Servo" min="4800" max="6400" homemode="Off" home="4800" speed="100" acceleration="0" neutral="5760" range="1905" />
+    <!--Channel 18-->
+    <Channel name="PalpebreInf" mode="Servo" min="4800" max="5632" homemode="Off" home="4800" speed="100" acceleration="0" neutral="5632" range="1905" />
+    <!--Channel 19-->
+    <Channel name="" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="100" acceleration="0" neutral="5504" range="1905" />
+    <!--Channel 20-->
+    <Channel name="" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="64" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 21-->
+    <Channel name="" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="100" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 22-->
+    <Channel name="" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="100" acceleration="0" neutral="6000" range="1905" />
+    <!--Channel 23-->
+    <Channel name="" mode="Servo" min="4032" max="8000" homemode="Off" home="4032" speed="64" acceleration="0" neutral="6016" range="1905" />
+  </Channels>
+  <Sequences>
+    <Sequence name="Parlata">
+      <Frame name="aperto" duration="200">0 0 0 0 0 5973 4676 6760 5059 5334 6424 4327 5960 6636 8000 3968 4032 8384 5652 6784 8000 7655 6624 4416</Frame>
+      <Frame name="chiuso" duration="400">0 0 0 0 0 4692 9408 3520 2496 6272 6424 4327 5960 6636 8000 3968 4032 8384 5652 6784 8000 7655 6624 4416</Frame>
+    </Sequence>
+    <Sequence name="Sequence 3">
+      <Frame name="Base" duration="750">0 0 0 0 0 0 0 0 0 0 0 0 0 0 5952 5921 5786 4800 5184 0 0 0 0 0</Frame>
+      <Frame name="Blink" duration="200">0 0 0 0 0 0 0 0 0 0 0 0 0 0 5952 5921 5786 6016 6016 0 0 0 0 0</Frame>
+      <Frame name="Riapri" duration="350">0 0 0 0 0 0 0 0 0 0 0 0 0 0 5952 5921 5786 5408 5579 0 0 0 0 0</Frame>
+      <Frame name="Sinistra" duration="500">0 0 0 0 0 0 0 0 0 0 0 0 0 0 5952 5184 4800 5408 5579 0 0 0 0 0</Frame>
+      <Frame name="Alto" duration="350">0 0 0 0 0 0 0 0 0 0 0 0 0 0 6693 5184 4800 5408 5579 0 0 0 0 0</Frame>
+      <Frame name="Destra" duration="600">0 0 0 0 0 0 0 0 0 0 0 0 0 0 6726 6784 6400 5408 5579 0 0 0 0 0</Frame>
+      <Frame name="Frontale" duration="550">0 0 0 0 0 0 0 0 0 0 0 0 0 0 5870 5797 5809 5053 5389 0 0 0 0 0</Frame>
+      <Frame name="Basso" duration="600">0 0 0 0 0 0 0 0 0 0 0 0 0 0 4224 5797 5809 5644 5184 0 0 0 0 0</Frame>
+      <Frame name="Destra2" duration="450">0 0 0 0 0 0 0 0 0 0 0 0 0 0 6726 6784 6400 5408 5579 0 0 0 0 0</Frame>
+      <Frame name="Destra2 blink" duration="150">0 0 0 0 0 0 0 0 0 0 0 0 0 0 6726 6784 6400 6016 6016 0 0 0 0 0</Frame>
+      <Frame name="Sinistra2" duration="450">0 0 0 0 0 0 0 0 0 0 0 0 0 0 6825 5184 4800 5095 5353 0 0 0 0 0</Frame>
+      <Frame name="Basso2" duration="300">0 0 0 0 0 0 0 0 0 0 0 0 0 0 5113 5797 5809 5148 5184 0 0 0 0 0</Frame>
+    </Sequence>
+    <Sequence name="Test">
+      <Frame name="Frame 0" duration="2000">0 0 0 0 0 7232 3200 8000 6016 4416 7232 3520 6784 7680 3200 3968 8000 8384 3200 6688 8000 3520 6592 4416</Frame>
+      <Frame name="Frame 1" duration="2000">0 0 0 0 0 6020 4706 6890 5110 5316 7232 4335 6784 6665 8000 3968 4032 8384 3200 6688 5553 3520 6592 6839</Frame>
+      <Frame name="Frame 2" duration="1000">0 0 0 0 0 2432 9408 3520 6016 4416 6439 5184 5991 5632 5553 5964 6054 6324 9984 6688 8000 9984 6592 4416</Frame>
+      <Frame name="Frame 3" duration="2500">0 0 0 0 0 2432 9408 3520 6016 4416 7232 3520 6784 7680 3200 8000 4032 8384 3200 6688 3200 3520 6592 9216</Frame>
+    </Sequence>
+    <Sequence name="Testa 1">
+      <Frame name="Neutro" duration="2000">0 0 0 0 0 4808 6273 5673 4170 6217 6399 4319 5999 6651 5530 5944 5996 6283 6526 6720 6671 6752 6526 5674</Frame>
+      <Frame name="Triste" duration="2000">0 0 0 0 0 7232 9408 3520 2496 4416 7232 3520 6784 7680 8000 3968 4032 8384 5175 3392 4831 7661 9984 7142</Frame>
+      <Frame name="Sorpreso" duration="2000">0 0 0 0 0 7232 3200 7021 6016 4416 6424 4327 5960 6636 8000 8000 4032 4224 5652 6784 8000 7655 6624 4416</Frame>
+      <Frame name="Spaventato" duration="2000">0 0 0 0 0 2432 9408 3520 2496 8128 6399 4335 5999 6651 8000 3968 4032 8384 4879 6720 8000 8383 6526 4416</Frame>
+      <Frame name="Annoiato" duration="2000">0 0 0 0 0 2432 9408 3520 2496 8128 6399 4319 5999 6651 5530 5925 5996 6283 5175 8128 5600 8132 5274 6792</Frame>
+      <Frame name="Molto annoiato" duration="2000">0 0 0 0 0 2432 9408 3520 2496 8128 6399 5184 5999 5632 5530 5925 5996 6283 5175 9984 5600 8132 3200 6792</Frame>
+      <Frame name="Arrabbiato" duration="2000">0 0 0 0 0 7232 9408 3520 2496 4416 5632 3520 5184 7680 3200 8000 8000 4224 5175 6592 7813 7661 6624 4532</Frame>
+      <Frame name="Felice" duration="2000">0 0 0 0 0 3690 3200 7021 6016 7136 6424 5184 5984 5632 8000 3968 4032 8384 5652 6784 6811 7655 6624 5115</Frame>
+      <Frame name="Interrogativo" duration="2000">0 0 0 0 0 2432 9408 3520 2496 8128 6432 5184 5991 7680 8000 5103 8000 7616 5077 7424 7091 7661 6624 5417</Frame>
+      <Frame name="Abbraccio" duration="2000">0 0 0 0 0 2432 8383 6934 4882 8128 7232 5184 5184 5632 4691 5612 5919 8384 5175 7040 8000 7661 6624 4416</Frame>
+      <Frame name="Perfido" duration="2000">0 0 0 0 0 2432 8383 6934 4882 8128 5632 5184 6784 5632 3200 8000 8000 4224 5175 7040 6834 7661 6624 5324</Frame>
+      <Frame name="Scettico" duration="2000">0 0 0 0 0 2432 9408 3520 2496 8128 6432 3520 5991 5632 5600 5944 6035 8384 5175 7360 7021 7661 6624 5557</Frame>
+    </Sequence>
+  </Sequences>
+  <Script ScriptDone="true"># Sequence 3
+begin
+  1000 0 0 0 0 0 0 
+  0 0 0 0 0 0 
+  0 0 5952 5921 5786 4800 
+  5184 0 0 0 0 0 frame_0..23 # Base
+  300 6016 6016 frame_17_18 # Blink
+  500 5408 5579 frame_17_18 # Riapri
+  750 5184 4800 frame_15_16 # Sinistra
+  350 6693 frame_14 # Alto
+  600 6726 6784 6400 frame_14..16 # Destra
+  1000 5870 5797 5809 5053 5389 frame_14..18 # Frontale
+  750 4224 5644 5184 frame_14_17_18 # Basso
+  600 6726 6784 6400 5408 5579 frame_14..18 # Destra2
+repeat
+
+sub frame_0..23
+  23 servo
+  22 servo
+  21 servo
+  20 servo
+  19 servo
+  18 servo
+  17 servo
+  16 servo
+  15 servo
+  14 servo
+  13 servo
+  12 servo
+  11 servo
+  10 servo
+  9 servo
+  8 servo
+  7 servo
+  6 servo
+  5 servo
+  4 servo
+  3 servo
+  2 servo
+  1 servo
+  0 servo
+  delay
+  return
+
+sub frame_17_18
+  18 servo
+  17 servo
+  delay
+  return
+
+sub frame_15_16
+  16 servo
+  15 servo
+  delay
+  return
+
+sub frame_14
+  14 servo
+  delay
+  return
+
+sub frame_14..16
+  16 servo
+  15 servo
+  14 servo
+  delay
+  return
+
+sub frame_14..18
+  18 servo
+  17 servo
+  16 servo
+  15 servo
+  14 servo
+  delay
+  return
+
+sub frame_14_17_18
+  18 servo
+  17 servo
+  14 servo
+  delay
+  return
+
+</Script>
+</UscSettings>
