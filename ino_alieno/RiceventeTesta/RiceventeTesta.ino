@@ -3,12 +3,11 @@ const char statusChangeC = 'C';
 const char servoC = 'S';
 const char globalC = 'A';
 
-const char eyesC = 'E';
+const char earC = 'E';
 const char eyeLidsC = 'L';
 const char eyebrownsC = 'B';
 const char mouthC = 'M';
-const char noseC = 'N';
-const char tailC = 'T';
+const char snoutC = 'T';
 
 
 struct ServoValues {
@@ -62,31 +61,31 @@ void setup() {
 
 
   //NOME SERVO "Lab_D";
-  servoList[0].minValue = 4032;
-  servoList[0].maxValue = 6208;
+  servoList[0].minValue = 4288;
+  servoList[0].maxValue = 6528;
   servoList[0].channel = 0;
   servoList[0].reverse = false;
   servoList[0].stopAndGo = false;
   servoList[0].shutDownWhen = 1000;
 
   //NOME SERVO "Naso";
-  servoList[1].minValue = 4032;
-  servoList[1].maxValue = 6592;
+  servoList[1].minValue = 3968;
+  servoList[1].maxValue = 7168;
   servoList[1].channel = 1;
   servoList[1].reverse = false;
   servoList[1].stopAndGo = false;
   servoList[1].shutDownWhen = 1000;
 
-  //NOME SERVO "Cig_S_C";
-  servoList[2].minValue = 4032;
+  //NOME SERVO "Cig_C_Sx";
+  servoList[2].minValue = 3968;
   servoList[2].maxValue = 6400;
   servoList[2].channel = 2;
   servoList[2].reverse = false;
   servoList[2].stopAndGo = false;
   servoList[2].shutDownWhen = 1000;
 
-  //NOME SERVO "Cig_D_C";
-  servoList[3].minValue = 6784;
+  //NOME SERVO "Cig_C_Dx";
+  servoList[3].minValue = 4864;
   servoList[3].maxValue = 8000;
   servoList[3].channel = 3;
   servoList[3].reverse = true;
@@ -94,47 +93,47 @@ void setup() {
   servoList[3].shutDownWhen = 1000;
 
   //NOME SERVO "Orecchie";
-  servoList[4].minValue = 4032;
-  servoList[4].maxValue = 6848;  //
+  servoList[4].minValue = 4672;
+  servoList[4].maxValue = 8000;  //
   servoList[4].channel = 4;
-  servoList[4].reverse = true;
+  servoList[4].reverse = false;
   servoList[4].stopAndGo = false;
   servoList[4].shutDownWhen = 1000;
 
   //NOME SERVO "Lab_S";
-  servoList[5].minValue = 4416;
+  servoList[5].minValue = 5632;
   servoList[5].maxValue = 8000;
   servoList[5].channel = 5;
-  servoList[5].reverse = false;
+  servoList[5].reverse = true;
   servoList[5].stopAndGo = false;
   servoList[5].shutDownWhen = 1000;
 
   //NOME SERVO "Baf_S";
-  servoList[6].minValue = 4032;
-  servoList[6].maxValue = 6784;  //
+  servoList[6].minValue = 3968;
+  servoList[6].maxValue = 8000;  //
   servoList[6].channel = 6;
   servoList[6].reverse = false;
   servoList[6].stopAndGo = false;
   servoList[6].shutDownWhen = 1000;
 
-  //NOME SERVO "Cig_S_E";
-  servoList[7].minValue = 4032;
-  servoList[7].maxValue = 6400;
+  //NOME SERVO "Cig_E_Sx";
+  servoList[7].minValue = 3968;
+  servoList[7].maxValue = 6080;
   servoList[7].channel = 7;
   servoList[7].reverse = false;
   servoList[7].stopAndGo = false;
   servoList[7].shutDownWhen = 1000;
 
-  //NOME SERVO "Cig_D_E";
-  servoList[8].minValue = 5824;
+  //NOME SERVO "Cig_E_Dx";
+  servoList[8].minValue = 5632;
   servoList[8].maxValue = 8000;
   servoList[8].channel = 8;
   servoList[8].reverse = true;
   servoList[8].stopAndGo = false;
   servoList[8].shutDownWhen = 1000;
 
-  //servoList[9].servoName = "Baf_D";
-  servoList[9].minValue = 5600;
+  //NOME SERVO "Baf_D";
+  servoList[9].minValue = 4096;
   servoList[9].maxValue = 8000;
   servoList[9].channel = 9;
   servoList[9].reverse = true;
@@ -142,50 +141,50 @@ void setup() {
   servoList[9].shutDownWhen = 1000;
 
   //NOME SERVO "Gua_S";
-  servoList[10].minValue = 4992;
-  servoList[10].maxValue = 6208;
+  servoList[10].minValue = 3968;
+  servoList[10].maxValue = 7040;
   servoList[10].channel = 10;
   servoList[10].reverse = false;
   servoList[10].stopAndGo = false;
   servoList[10].shutDownWhen = 1000;
 
   //NOME SERVO "Gua_D";
-  servoList[11].minValue = 5184;
+  servoList[11].minValue = 5120;
   servoList[11].maxValue = 8000;
   servoList[11].channel = 11;
   servoList[11].reverse = true;
   servoList[11].stopAndGo = false;
   servoList[11].shutDownWhen = 1000;
 
-  //NOME SERVO "Palp_D";
-  servoList[12].minValue = 3712;
-  servoList[12].maxValue = 6656;
+  //NOME SERVO "Occ_D";
+  servoList[12].minValue = 4608;
+  servoList[12].maxValue = 5824;
   servoList[12].channel = 12;
-  servoList[12].reverse = false;
+  servoList[12].reverse = true;
   servoList[12].stopAndGo = false;
   servoList[12].shutDownWhen = 1000;
 
-  //NOME SERVO "Palp_S";
-  servoList[13].minValue = 4032;
-  servoList[13].maxValue = 7232;
+  //NOME SERVO "Occ_S";
+  servoList[13].minValue = 6208;
+  servoList[13].maxValue = 7360;
   servoList[13].channel = 13;
   servoList[13].reverse = false;
   servoList[13].stopAndGo = false;
   servoList[13].shutDownWhen = 1000;
 
   //NOME SERVO "Bocc_D";
-  servoList[14].minValue = 4224;
-  servoList[14].maxValue = 7616;
+  servoList[14].minValue = 3968;
+  servoList[14].maxValue = 8000;
   servoList[14].channel = 14;
   servoList[14].reverse = true;
   servoList[14].stopAndGo = false;
   servoList[14].shutDownWhen = 1000;
 
   //NOME SERVO "Bocc_S";
-  servoList[15].minValue = 5200;
-  servoList[15].maxValue = 6650;
+  servoList[15].minValue = 3968;
+  servoList[15].maxValue = 8000;
   servoList[15].channel = 15;
-  servoList[15].reverse = true;
+  servoList[15].reverse = false;
   servoList[15].stopAndGo = false;
   servoList[15].shutDownWhen = 1000;
 
@@ -228,8 +227,8 @@ void loop() {
       if (myCheckSum == checksum) {
         char sector_c = message.charAt(0);
         switch (sector_c) {
-          case eyesC:
-            eyesMotorMessage(message);
+          case earC:
+            earMotorMessage(message);
             break;
           case eyeLidsC:
             eyelidsMessage(message);
@@ -237,7 +236,7 @@ void loop() {
           case eyebrownsC:
             eyeBrowMessage(message);
             break;
-          case noseC:
+          case snoutC:
             noseMessage(message);
             break;
           case mouthC:
@@ -251,7 +250,6 @@ void loop() {
     }
   }
   deadManButton();
-  shutDownMotors();
   //delay(20);
 }
 
@@ -317,17 +315,20 @@ void mouthMessage(String message) {
     int index = indexString.toInt();
     String valueString = getValueStringSplitter(message, ';', 2);
     int value = valueString.toInt();
+    if(index == 15){
+      return;
+    }
     servoList[index].lastPosition = value;
     servoList[index].counterShutDown = 0;
     maestro.setTarget(servoList[index].channel, analogServoConversion(value, servoList[index]));
     if (index == 14) {
       delay(2);
-      maestro.setTarget(servoList[15].channel, analogServoConversion(1023 - value, servoList[13]));
+      maestro.setTarget(servoList[15].channel, analogServoConversion(value, servoList[15]));
     }
   }
 }
 
-void eyesMotorMessage(String message) {
+void earMotorMessage(String message) {
   if (message.charAt(1) == servoC) {
     String indexString = getValueStringSplitter(message, ';', 1);
     int index = indexString.toInt();
@@ -353,7 +354,6 @@ int homManySeparator(String data, char separator) {
   return s;
 }
 
-
 int getLenghtBeforeCheckSum(String data, char separator) {
   int l = -1;
   for (int i = 0; i < data.length(); i++)
@@ -361,7 +361,6 @@ int getLenghtBeforeCheckSum(String data, char separator) {
       l = i;
   return (l + 1);
 }
-
 
 String getValueStringSplitter(String data, char separator, int index) {
   int found = 0;

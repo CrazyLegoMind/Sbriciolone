@@ -48,13 +48,12 @@
                 android:layout_weight="1"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp">
-<!--
+
                 <TextView
                     android:id="@+id/mouthStatus"
                     android:layout_width="15dp"
                     android:layout_height="17dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/eyesStatus"
+                    android:layout_toRightOf="@+id/eyesTextS"
                     android:text="✓"
                     android:textColor="@color/activePerform" />
 
@@ -62,10 +61,9 @@
                     android:id="@+id/mouthTextS"
                     android:layout_width="80dp"
                     android:layout_height="17dp"
-                    android:layout_below="@+id/eyesTextS"
                     android:layout_toRightOf="@+id/mouthStatus"
                     android:text="Remote B" />
--->
+
                 <TextView
                     android:id="@+id/eyesStatus"
                     android:layout_width="15dp"
@@ -125,14 +123,14 @@
                 android:layout_height="13dp"
                 android:layout_gravity="center_vertical"
                 android:text="Names" />
-<!--
+
             <Switch
                 android:id="@+id/mouthSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="Remote B" />
--->
+
             <Switch
                 android:id="@+id/eyesSwitch"
                 android:layout_width="wrap_content"
@@ -159,6 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <!-- preset row -->
             <TableRow
                 android:layout_width="match_parent"
@@ -177,13 +176,13 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/firstleft">
 
                     <TextView
                         android:id="@+id/presetText01"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/firstleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
@@ -194,7 +193,6 @@
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/firstleft"
                         android:text="01"
                         android:theme="@style/AppTheme.PerformToRec" />
 
@@ -202,553 +200,453 @@
                         android:id="@+id/presetPB01"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/firstleft" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText02"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_02"
-                        app:layout_constraintStart_toEndOf="@+id/presetText01" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
                         android:id="@+id/preset_02"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="02"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_01"
-                        app:layout_constraintTop_toTopOf="@+id/preset_01" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
                         android:id="@+id/presetPB02"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB01"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_02" />
+                        android:layout_height="@dimen/pbheight" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText03"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_03"
-                        app:layout_constraintStart_toEndOf="@+id/presetText02" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
                         android:id="@+id/preset_03"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="03"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_02"
-                        app:layout_constraintTop_toTopOf="@+id/preset_02" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
                         android:id="@+id/presetPB03"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB02"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_03" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText04"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_04"
-                        app:layout_constraintStart_toEndOf="@+id/presetText03" />
+                        android:textSize="@dimen/textsize" />
 
                     <Button
                         android:id="@+id/preset_04"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="04"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_03"
-                        app:layout_constraintTop_toTopOf="@+id/preset_03" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
                         android:id="@+id/presetPB04"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB03"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_04" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText05"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_05"
-                        app:layout_constraintStart_toEndOf="@+id/presetText04" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
                         android:id="@+id/preset_05"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="05"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_04"
-                        app:layout_constraintTop_toTopOf="@+id/preset_04" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
                         android:id="@+id/presetPB05"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB04"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_05" />
+                        android:layout_height="@dimen/pbheight" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText06"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_06"
-                        app:layout_constraintStart_toEndOf="@+id/presetText05" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
                         android:id="@+id/preset_06"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="06"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_05"
-                        app:layout_constraintTop_toTopOf="@+id/preset_05" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
                         android:id="@+id/presetPB06"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB05"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_06" />
+                        android:layout_height="@dimen/pbheight" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText07"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_07"
-                        app:layout_constraintStart_toEndOf="@+id/presetText06" />
+                        android:textSize="@dimen/textsize" />
 
                     <Button
                         android:id="@+id/preset_07"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="07"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_06"
-                        app:layout_constraintTop_toTopOf="@+id/preset_06" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
                         android:id="@+id/presetPB07"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB06"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_07" />
+                        android:layout_height="@dimen/pbheight" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText08"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_08"
-                        app:layout_constraintStart_toEndOf="@+id/presetText07" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
                         android:id="@+id/preset_08"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="08"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_07"
-                        app:layout_constraintTop_toTopOf="@+id/preset_07" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
                         android:id="@+id/presetPB08"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB07"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_08" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText09"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_09"
-                        app:layout_constraintStart_toEndOf="@+id/presetText08" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
                         android:id="@+id/preset_09"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="09"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_08"
-                        app:layout_constraintTop_toTopOf="@+id/preset_08" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
                         android:id="@+id/presetPB09"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB08"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_09" />
+                        android:layout_height="@dimen/pbheight" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText10"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_10"
-                        app:layout_constraintStart_toEndOf="@+id/presetText09" />
+                        android:textSize="@dimen/textsize" />
 
                     <Button
                         android:id="@+id/preset_10"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="10"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_09"
-                        app:layout_constraintTop_toTopOf="@+id/preset_09" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
                         android:id="@+id/presetPB10"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB09"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_10" />
+                        android:layout_height="@dimen/pbheight" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText11"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_11"
-                        app:layout_constraintStart_toEndOf="@+id/presetText10" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
                         android:id="@+id/preset_11"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="11"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_10"
-                        app:layout_constraintTop_toTopOf="@+id/preset_10" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
                         android:id="@+id/presetPB11"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB10"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_11" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
                         android:id="@+id/presetText12"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/preset_12"
-                        app:layout_constraintStart_toEndOf="@+id/presetText11" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
                         android:id="@+id/preset_12"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="12"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/preset_11"
-                        app:layout_constraintTop_toTopOf="@+id/preset_11" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
                         android:id="@+id/presetPB12"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/presetPB11"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_12" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
             </TableRow>
 
-            <!-- eyebrows row -->
+            <!-- row_1 -->
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/eyebrowsText"
+                    android:id="@+id/row1Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Antennas"
+                    android:text="Ears"
                     android:textSize="@dimen/textsize"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/firstleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText01"
+                        android:id="@+id/row1Text01"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/firstleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_01"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <Button
-                        android:id="@+id/eyebrow_01"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        android:text="01"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_01" />
-
-                    <ProgressBar
-                        android:id="@+id/eyebrowPB01"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_01" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/eyebrowText02"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/eyebrow_02"
+                        android:id="@+id/row1Btn01"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
+                        android:text="01"
+                        android:theme="@style/AppTheme.PerformToRec" />
+
+                    <ProgressBar
+                        android:id="@+id/row1PB01"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row1Text02"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize" />
+
+                    <Button
+                        android:id="@+id/row1Btn02"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
                         android:text="02"
                         android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB02"
+                        android:id="@+id/row1PB02"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText03"
+                        android:id="@+id/row1Text03"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_03"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowText02" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyebrow_03"
+                        android:id="@+id/row1Btn03"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="03"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrow_02"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_03" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB03"
+                        android:id="@+id/row1PB03"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB02"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_03" />
+                        android:layout_height="@dimen/pbheight" />
 
 
                 </LinearLayout>
@@ -756,35 +654,31 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft" >
 
                     <TextView
-                        android:id="@+id/eyebrowText04"
+                        android:id="@+id/row1Text04"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="Name"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/eyebrow_04"
+                        android:id="@+id/row1Btn04"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="04"
                         android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB04"
+                        android:id="@+id/row1PB04"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB03"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_04" />
+                        android:layout_height="@dimen/pbheight"/>
 
 
                 </LinearLayout>
@@ -792,191 +686,152 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText05"
+                        android:id="@+id/row1Text05"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_05"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowText04" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyebrow_05"
+                        android:id="@+id/row1Btn05"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="05"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrow_04"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_05" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB05"
+                        android:id="@+id/row1PB05"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB04"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_05" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText06"
+                        android:id="@+id/row1Text06"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_06"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowText05" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyebrow_06"
+                        android:id="@+id/row1Btn06"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="06"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrow_05"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_06" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB06"
+                        android:id="@+id/row1PB06"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB05"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_06" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText07"
+                        android:id="@+id/row1Text07"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/eyebrow_07"
+                        android:id="@+id/row1Btn07"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="07"
                         android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB07"
+                        android:id="@+id/row1PB07"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText08"
+                        android:id="@+id/row1Text08"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_08"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowText07" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyebrow_08"
+                        android:id="@+id/row1Btn08"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="08"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrow_07"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_08" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB08"
+                        android:id="@+id/row1PB08"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB07"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_08" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText09"
+                        android:id="@+id/row1Text09"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_09"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowText08" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyebrow_09"
+                        android:id="@+id/row1Btn09"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="09"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrow_08"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_09" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB09"
+                        android:id="@+id/row1PB09"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB08"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_09" />
+                        android:layout_height="@dimen/pbheight"/>
 
 
                 </LinearLayout>
@@ -984,39 +839,31 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText10"
+                        android:id="@+id/row1Text10"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_10"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowText09" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyebrow_10"
+                        android:id="@+id/row1Btn10"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="10"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrow_09"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_10" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB10"
+                        android:id="@+id/row1PB10"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB09"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_10" />
+                        android:layout_height="@dimen/pbheight"/>
 
 
                 </LinearLayout>
@@ -1024,433 +871,355 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText11"
+                        android:id="@+id/row1Text11"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_11"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowText10" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyebrow_11"
+                        android:id="@+id/row1Btn11"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="11"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrow_10"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_11" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB11"
+                        android:id="@+id/row1PB11"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB10"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_11" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyebrowText12"
+                        android:id="@+id/row1Text12"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyebrow_12"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowText11" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyebrow_12"
+                        android:id="@+id/row1Btn12"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="12"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrow_11"
-                        app:layout_constraintTop_toBottomOf="@+id/preset_12" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyebrowPB12"
+                        android:id="@+id/row1PB12"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyebrowPB11"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_12" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
 
             </TableRow>
 
-            <!-- eyelid row -->
+            <!-- row_2 -->
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="37dp"
+                    android:id="@+id/row2Text"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Tongue"
+                    android:text="Eyebrows"
                     android:textSize="@dimen/textsize"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/firstleft">
 
                     <TextView
-                        android:id="@+id/eyelidText01"
+                        android:id="@+id/row2Text01"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/firstleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/eyelid_01"
+                        android:id="@+id/row2Btn01"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/firstleft"
                         android:text="01"
                         android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/eyelidPB01"
+                        android:id="@+id/row2PB01"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/firstleft" />
-
-
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyelidText02"
+                        android:id="@+id/row2Text02"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/eyelid_02"
+                        android:id="@+id/row2Btn02"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="02"
                         android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/eyelidPB02"
+                        android:id="@+id/row2PB02"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyelidText03"
+                        android:id="@+id/row2Text03"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row2Btn03"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="03"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row2PB03"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft" >
+
+                    <TextView
+                        android:id="@+id/row2Text04"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:text="Name"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:textSize="@dimen/textsize" />
+
+                    <Button
+                        android:id="@+id/row2Btn04"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="04"
+                        android:theme="@style/AppTheme.PerformToRec" />
+
+                    <ProgressBar
+                        android:id="@+id/row2PB04"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row2Text05"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row2Btn05"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="05"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row2PB05"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row2Text06"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row2Btn06"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="06"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row2PB06"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row2Text07"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/eyelid_03"
+                        android:id="@+id/row2Btn07"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:text="03"
+                        android:text="07"
                         android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/eyelidPB03"
+                        android:id="@+id/row2PB07"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyelidText04"
+                        android:id="@+id/row2Text08"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_04"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidText03" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyelid_04"
+                        android:id="@+id/row2Btn08"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="04"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyelid_03"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_04" />
-
-                    <ProgressBar
-                        android:id="@+id/eyelidPB04"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB03"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_04" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/eyelidText05"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_05"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidText04" />
-
-                    <Button
-                        android:id="@+id/eyelid_05"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="05"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyelid_04"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_05" />
-
-                    <ProgressBar
-                        android:id="@+id/eyelidPB05"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB04"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_05" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/eyelidText06"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_06"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidText05" />
-
-                    <Button
-                        android:id="@+id/eyelid_06"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="06"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyelid_05"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_06" />
-
-                    <ProgressBar
-                        android:id="@+id/eyelidPB06"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB05"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_06" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/eyelidText07"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_07"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidText06" />
-
-                    <Button
-                        android:id="@+id/eyelid_07"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="07"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyelid_06"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_07" />
-
-                    <ProgressBar
-                        android:id="@+id/eyelidPB07"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB06"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_07" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/eyelidText08"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_08"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidText07" />
-
-                    <Button
-                        android:id="@+id/eyelid_08"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="08"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyelid_07"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_08" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyelidPB08"
+                        android:id="@+id/row2PB08"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB07"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_08" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyelidText09"
+                        android:id="@+id/row2Text09"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_09"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidText08" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyelid_09"
+                        android:id="@+id/row2Btn09"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="09"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyelid_08"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_09" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyelidPB09"
+                        android:id="@+id/row2PB09"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB08"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_09" />
+                        android:layout_height="@dimen/pbheight"/>
 
 
                 </LinearLayout>
@@ -1458,613 +1227,882 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyelidText10"
+                        android:id="@+id/row2Text10"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_10"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidText09" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyelid_10"
+                        android:id="@+id/row2Btn10"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="10"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyelid_09"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_10" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyelidPB10"
+                        android:id="@+id/row2PB10"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB09"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_10" />
+                        android:layout_height="@dimen/pbheight"/>
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyelidText11"
+                        android:id="@+id/row2Text11"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_11"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidText10" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyelid_11"
+                        android:id="@+id/row2Btn11"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="11"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyelid_10"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_11" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyelidPB11"
+                        android:id="@+id/row2PB11"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB10"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_11" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyelidText12"
+                        android:id="@+id/row2Text12"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyelid_12"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidText11" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyelid_12"
+                        android:id="@+id/row2Btn12"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="12"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyelid_11"
-                        app:layout_constraintTop_toBottomOf="@+id/eyebrow_12" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyelidPB12"
+                        android:id="@+id/row2PB12"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyelidPB11"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_12" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
+
             </TableRow>
 
-            <!-- eyes row -->
-            <!--
+            <!-- row_3 -->
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/row3Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Eyes"
+                    android:text="Eyelids"
                     android:textSize="@dimen/textsize"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/firstleft">
 
                     <TextView
-                        android:id="@+id/eyesText01"
+                        android:id="@+id/row3Text01"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/firstleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_01"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <Button
-                        android:id="@+id/eyes_01"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        android:text="01"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toStartOf="@+id/eyelid_01"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_01" />
-
-                    <ProgressBar
-                        android:id="@+id/eyesPB01"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="11dp"
-                        android:layout_marginStart="@dimen/firstleft"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_01" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/eyesText02"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
                         android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/eyes_02"
+                        android:id="@+id/row3Btn01"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
+                        android:text="01"
+                        android:theme="@style/AppTheme.PerformToRec" />
+
+                    <ProgressBar
+                        android:id="@+id/row3PB01"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row3Text02"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize" />
+
+                    <Button
+                        android:id="@+id/row3Btn02"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
                         android:text="02"
                         android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/eyesPB02"
+                        android:id="@+id/row3PB02"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB01"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_02" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyesText03"
+                        android:id="@+id/row3Text03"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_03"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText02" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyes_03"
+                        android:id="@+id/row3Btn03"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="03"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_02"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_03" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyesPB03"
+                        android:id="@+id/row3PB03"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB02"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_03" />
+                        android:layout_height="@dimen/pbheight" />
+
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft" >
 
                     <TextView
-                        android:id="@+id/eyesText04"
+                        android:id="@+id/row3Text04"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
+                        android:text="Name"
                         android:clickable="true"
                         android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_04"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText03" />
+                        android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/eyes_04"
+                        android:id="@+id/row3Btn04"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="04"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_03"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_04" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/eyesPB04"
+                        android:id="@+id/row3PB04"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB03"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_04" />
+                        android:layout_height="@dimen/pbheight"/>
+
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyesText05"
+                        android:id="@+id/row3Text05"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_05"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText04" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyes_05"
+                        android:id="@+id/row3Btn05"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="05"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_04"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_05" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyesPB05"
+                        android:id="@+id/row3PB05"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB04"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_05" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyesText06"
+                        android:id="@+id/row3Text06"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_06"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText05" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyes_06"
+                        android:id="@+id/row3Btn06"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="06"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_05"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_06" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyesPB06"
+                        android:id="@+id/row3PB06"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB05"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_06" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyesText07"
+                        android:id="@+id/row3Text07"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_07"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText06" />
+                        android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/eyes_07"
+                        android:id="@+id/row3Btn07"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="07"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_06"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_07" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/eyesPB07"
+                        android:id="@+id/row3PB07"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB06"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_07" />
-
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyesText08"
+                        android:id="@+id/row3Text08"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_08"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText07" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyes_08"
+                        android:id="@+id/row3Btn08"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="08"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_07"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_08" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyesPB08"
+                        android:id="@+id/row3PB08"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB07"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_08" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyesText09"
+                        android:id="@+id/row3Text09"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_09"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText08" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyes_09"
+                        android:id="@+id/row3Btn09"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="09"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_08"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_09" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyesPB09"
+                        android:id="@+id/row3PB09"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB08"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_09" />
+                        android:layout_height="@dimen/pbheight"/>
+
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyesText10"
+                        android:id="@+id/row3Text10"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_10"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText09" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyes_10"
+                        android:id="@+id/row3Btn10"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="10"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_09"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_10" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyesPB10"
+                        android:id="@+id/row3PB10"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB09"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_10" />
+                        android:layout_height="@dimen/pbheight"/>
+
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyesText11"
+                        android:id="@+id/row3Text11"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_11"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText10" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyes_11"
+                        android:id="@+id/row3Btn11"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="11"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_10"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_11" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyesPB11"
+                        android:id="@+id/row3PB11"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB10"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_11" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/eyesText12"
+                        android:id="@+id/row3Text12"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/eyes_12"
-                        app:layout_constraintStart_toEndOf="@+id/eyesText11" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/eyes_12"
+                        android:id="@+id/row3Btn12"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="12"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/eyes_11"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_12" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/eyesPB12"
+                        android:id="@+id/row3PB12"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/eyesPB11"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_12" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
+
             </TableRow>
-            -->
 
-
-            <!-- mouth row -->
+            <!-- row_4 -->
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/row4Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Snout"
+                    android:textSize="@dimen/textsize"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/firstleft">
+
+                    <TextView
+                        android:id="@+id/row4Text01"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize" />
+
+                    <Button
+                        android:id="@+id/row4Btn01"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="01"
+                        android:theme="@style/AppTheme.PerformToRec" />
+
+                    <ProgressBar
+                        android:id="@+id/row4PB01"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text02"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize" />
+
+                    <Button
+                        android:id="@+id/row4Btn02"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="02"
+                        android:theme="@style/AppTheme.PerformToRec" />
+
+                    <ProgressBar
+                        android:id="@+id/row4PB02"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text03"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row4Btn03"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="03"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row4PB03"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft" >
+
+                    <TextView
+                        android:id="@+id/row4Text04"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:text="Name"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:textSize="@dimen/textsize" />
+
+                    <Button
+                        android:id="@+id/row4Btn04"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="04"
+                        android:theme="@style/AppTheme.PerformToRec" />
+
+                    <ProgressBar
+                        android:id="@+id/row4PB04"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text05"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row4Btn05"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="05"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row4PB05"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text06"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row4Btn06"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="06"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row4PB06"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text07"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize" />
+
+                    <Button
+                        android:id="@+id/row4Btn07"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="07"
+                        android:theme="@style/AppTheme.PerformToRec" />
+
+                    <ProgressBar
+                        android:id="@+id/row4PB07"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text08"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row4Btn08"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="08"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row4PB08"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text09"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row4Btn09"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="09"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row4PB09"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text10"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row4Btn10"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="10"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row4PB10"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text11"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row4Btn11"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="11"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row4PB11"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
+
+                    <TextView
+                        android:id="@+id/row4Text12"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="15dp"
+                        android:clickable="true"
+                        android:onClick="changeName"
+                        android:text="Name"
+                        android:textSize="@dimen/textsize"/>
+
+                    <Button
+                        android:id="@+id/row4Btn12"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/bheight"
+                        android:text="12"
+                        android:theme="@style/AppTheme.PerformToRec"/>
+
+                    <ProgressBar
+                        android:id="@+id/row4PB12"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/bwidth"
+                        android:layout_height="@dimen/pbheight"/>
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <!-- row_5 -->
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/row5Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -2075,967 +2113,376 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/firstleft">
 
                     <TextView
-                        android:id="@+id/mouthText01"
+                        android:id="@+id/row5Text01"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/firstleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_01"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/mouth_01"
+                        android:id="@+id/row5Btn01"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/firstleft"
                         android:text="01"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toStartOf="@+id/nose_01"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_01" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/mouthPB01"
+                        android:id="@+id/row5PB01"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_01" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/mouthText02"
+                        android:id="@+id/row5Text02"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_02"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText01" />
+                        android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/mouth_02"
+                        android:id="@+id/row5Btn02"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="02"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_01"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_02" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB02"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB01"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_02" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText03"
-                        android:layout_width="@dimen/bheight"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_03"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText02" />
-
-                    <Button
-                        android:id="@+id/mouth_03"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="03"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_02"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_03" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB03"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB02"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_03" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText04"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_04"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText03" />
-
-                    <Button
-                        android:id="@+id/mouth_04"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="04"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_03"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_04" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB04"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB03"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_04" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText05"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_05"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText04" />
-
-                    <Button
-                        android:id="@+id/mouth_05"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="05"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_04"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_05" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB05"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB04"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_05" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText06"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_06"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText05" />
-
-                    <Button
-                        android:id="@+id/mouth_06"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="06"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_05"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_06" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB06"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB05"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_06" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText07"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_07"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText06" />
-
-                    <Button
-                        android:id="@+id/mouth_07"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="07"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_06"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_07" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB07"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB06"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_07" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText08"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_08"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText07" />
-
-                    <Button
-                        android:id="@+id/mouth_08"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="08"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_07"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_08" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB08"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB07"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_08" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText09"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_09"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText08" />
-
-                    <Button
-                        android:id="@+id/mouth_09"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="09"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_08"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_09" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB09"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB08"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_09" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText10"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_10"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText09" />
-
-                    <Button
-                        android:id="@+id/mouth_10"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="10"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_09"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_10" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB10"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB09"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_10" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText11"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_11"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText10" />
-
-                    <Button
-                        android:id="@+id/mouth_11"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="11"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_10"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_11" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB11"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB10"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_11" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mouthText12"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/mouth_12"
-                        app:layout_constraintStart_toEndOf="@+id/mouthText11" />
-
-                    <Button
-                        android:id="@+id/mouth_12"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
-                        android:text="12"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/mouth_11"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_12" />
-
-                    <ProgressBar
-                        android:id="@+id/mouthPB12"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/mouthPB11"
-                        app:layout_constraintTop_toBottomOf="@+id/mouth_12" />
-                </LinearLayout>
-            </TableRow>
-
-            <!-- nose row -->
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="Jaw"
-                    android:textSize="@dimen/textsize"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/noseText01"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/firstleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_01"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <Button
-                        android:id="@+id/nose_01"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        android:text="01"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toStartOf="@+id/eyelid_01"
-                        app:layout_constraintTop_toBottomOf="@+id/eyelid_01" />
-
-                    <ProgressBar
-                        android:id="@+id/nosePB01"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/firstleft"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_01" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/noseText02"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
-                        android:clickable="true"
-                        android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_02"
-                        app:layout_constraintStart_toEndOf="@+id/noseText01" />
-
-                    <Button
-                        android:id="@+id/nose_02"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
                         android:text="02"
                         android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/nosePB02"
+                        android:id="@+id/row5PB02"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB01"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_02" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/noseText03"
+                        android:id="@+id/row5Text03"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_03"
-                        app:layout_constraintStart_toEndOf="@+id/noseText02" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/nose_03"
+                        android:id="@+id/row5Btn03"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="03"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_02"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_03" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/nosePB03"
+                        android:id="@+id/row5PB03"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB02"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_03" />
+                        android:layout_height="@dimen/pbheight" />
+
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft" >
 
                     <TextView
-                        android:id="@+id/noseText04"
+                        android:id="@+id/row5Text04"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
+                        android:text="Name"
                         android:clickable="true"
                         android:onClick="changeName"
-                        android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_04"
-                        app:layout_constraintStart_toEndOf="@+id/noseText03" />
+                        android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/nose_04"
+                        android:id="@+id/row5Btn04"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="04"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_03"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_04" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/nosePB04"
+                        android:id="@+id/row5PB04"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB03"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_04" />
+                        android:layout_height="@dimen/pbheight"/>
+
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/noseText05"
+                        android:id="@+id/row5Text05"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_05"
-                        app:layout_constraintStart_toEndOf="@+id/noseText04" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/nose_05"
+                        android:id="@+id/row5Btn05"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="05"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_04"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_05" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/nosePB05"
+                        android:id="@+id/row5PB05"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB04"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_05" />
-
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/noseText06"
+                        android:id="@+id/row5Text06"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_06"
-                        app:layout_constraintStart_toEndOf="@+id/noseText05" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/nose_06"
+                        android:id="@+id/row5Btn06"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="06"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_05"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_06" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/nosePB06"
+                        android:id="@+id/row5PB06"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB05"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_06" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/noseText07"
+                        android:id="@+id/row5Text07"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_07"
-                        app:layout_constraintStart_toEndOf="@+id/noseText06" />
+                        android:textSize="@dimen/textsize" />
 
                     <Button
-                        android:id="@+id/nose_07"
+                        android:id="@+id/row5Btn07"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="07"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_06"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_07" />
+                        android:theme="@style/AppTheme.PerformToRec" />
 
                     <ProgressBar
-                        android:id="@+id/nosePB07"
+                        android:id="@+id/row5PB07"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB06"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_07" />
+                        android:layout_height="@dimen/pbheight"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/noseText08"
+                        android:id="@+id/row5Text08"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_08"
-                        app:layout_constraintStart_toEndOf="@+id/noseText07" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/nose_08"
+                        android:id="@+id/row5Btn08"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="08"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_07"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_08" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/nosePB08"
+                        android:id="@+id/row5PB08"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB07"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_08" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/noseText09"
+                        android:id="@+id/row5Text09"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_09"
-                        app:layout_constraintStart_toEndOf="@+id/noseText08" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/nose_09"
+                        android:id="@+id/row5Btn09"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="09"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_08"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_09" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/nosePB09"
+                        android:id="@+id/row5PB09"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB08"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_09" />
+                        android:layout_height="@dimen/pbheight"/>
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/noseText10"
+                        android:id="@+id/row5Text10"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_10"
-                        app:layout_constraintStart_toEndOf="@+id/noseText09" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/nose_10"
+                        android:id="@+id/row5Btn10"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="10"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_09"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_10" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/nosePB10"
+                        android:id="@+id/row5PB10"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB09"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_10" />
+                        android:layout_height="@dimen/pbheight"/>
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/noseText11"
+                        android:id="@+id/row5Text11"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_11"
-                        app:layout_constraintStart_toEndOf="@+id/noseText10" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/nose_11"
+                        android:id="@+id/row5Btn11"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="11"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_10"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_11" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/nosePB11"
+                        android:id="@+id/row5PB11"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB10"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_11" />
+                        android:layout_height="@dimen/pbheight"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/mleft">
 
                     <TextView
-                        android:id="@+id/noseText12"
+                        android:id="@+id/row5Text12"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="15dp"
-                        android:layout_marginStart="@dimen/mleft"
                         android:clickable="true"
                         android:onClick="changeName"
                         android:text="Name"
-                        android:textSize="@dimen/textsize"
-                        app:layout_constraintBottom_toTopOf="@+id/nose_12"
-                        app:layout_constraintStart_toEndOf="@+id/noseText11" />
+                        android:textSize="@dimen/textsize"/>
 
                     <Button
-                        android:id="@+id/nose_12"
+                        android:id="@+id/row5Btn12"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="@dimen/bwidth"
                         android:layout_height="@dimen/bheight"
-                        android:layout_marginStart="@dimen/mleft"
-
                         android:text="12"
-                        android:theme="@style/AppTheme.PerformToRec"
-                        app:layout_constraintStart_toEndOf="@+id/nose_11"
-                        app:layout_constraintTop_toBottomOf="@+id/eyes_12" />
+                        android:theme="@style/AppTheme.PerformToRec"/>
 
                     <ProgressBar
-                        android:id="@+id/nosePB12"
+                        android:id="@+id/row5PB12"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="@dimen/bwidth"
-                        android:layout_height="@dimen/pbheight"
-                        android:layout_marginStart="@dimen/mleft"
-                        app:layout_constraintStart_toEndOf="@+id/nosePB11"
-                        app:layout_constraintTop_toBottomOf="@+id/nose_12" />
+                        android:layout_height="@dimen/pbheight"/>
 
                 </LinearLayout>
 
             </TableRow>
-
-            <!--
-            android:clickable="true"
-            android:onClick="changeName"
-             <!- -->
-
 
         </TableLayout>
 

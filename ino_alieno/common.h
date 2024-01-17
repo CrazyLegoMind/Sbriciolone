@@ -1,10 +1,10 @@
 const char eventsC = 'e';
 const char statusChangeC = 'C';
 const char servoC = 'S';
+const char globalC = 'A';
 
-const char eyesC = 'E';
+const char earC = 'E';
 const char eyeLidsC = 'L';
 const char eyebrownsC = 'B';
 const char mouthC = 'M';
-const char noseC = 'N';
-const char tailC = 'T';
+const char snoutC = 'T';

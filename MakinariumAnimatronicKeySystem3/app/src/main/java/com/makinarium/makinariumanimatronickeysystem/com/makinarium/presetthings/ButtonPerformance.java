@@ -1,14 +1,11 @@
 package com.makinarium.makinariumanimatronickeysystem.com.makinarium.presetthings;
 
-import android.icu.text.RelativeDateTimeFormatter;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.makinarium.makinariumanimatronickeysystem.FaceSector;
-import com.makinarium.makinariumanimatronickeysystem.MessageTypes;
-import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.AnalogDirection;
 import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.Constants;
 
 import java.util.ArrayList;

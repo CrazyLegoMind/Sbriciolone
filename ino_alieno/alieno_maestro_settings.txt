@@ -15,33 +15,33 @@
     <!--Channel 1-->
     <Channel name="Naso" mode="Servo" min="3968" max="7168" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 2-->
-    <Channel name="CigCSx" mode="Servo" min="3968" max="7488" homemode="Off" home="4736" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="CigCSx" mode="Servo" min="3968" max="7488" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 3-->
     <Channel name="CigCDx" mode="Servo" min="4864" max="8000" homemode="Off" home="4864" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 4-->
     <Channel name="Orecchie" mode="Servo" min="4672" max="8000" homemode="Off" home="4672" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 5-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="LabSx" mode="Servo" min="5632" max="8000" homemode="Off" home="5632" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 6-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="BafSx" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 7-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="CigESx" mode="Servo" min="3968" max="6080" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 8-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="CigEDx" mode="Servo" min="5632" max="8000" homemode="Off" home="5632" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 9-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="BafDx" mode="Servo" min="4096" max="8000" homemode="Off" home="4096" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 10-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="GuaSx" mode="Servo" min="3968" max="7040" homemode="Off" home="3968" speed="0" acceleration="0" neutral="7040" range="1905" />
     <!--Channel 11-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="GuaDx" mode="Servo" min="5120" max="8000" homemode="Off" home="5120" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 12-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="OccDx" mode="Servo" min="4608" max="5824" homemode="Off" home="4608" speed="0" acceleration="0" neutral="5824" range="1905" />
     <!--Channel 13-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="OccSx" mode="Servo" min="6208" max="7360" homemode="Off" home="6208" speed="0" acceleration="0" neutral="6208" range="1905" />
     <!--Channel 14-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="BocDx" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 15-->
-    <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="BocSx" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 16-->
     <Channel name="" mode="Servo" min="3968" max="8000" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 17-->

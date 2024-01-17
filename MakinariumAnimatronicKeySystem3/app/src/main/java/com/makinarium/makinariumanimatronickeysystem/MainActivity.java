@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean canIChangeNames = false;
 
     private Switch eyesSwitch;
+
+    private Switch mouthSwitch;
     private Switch nameSwitch;
 
     private ButtonsContainer<byte[]> container;
@@ -79,13 +81,22 @@ public class MainActivity extends AppCompatActivity {
 
     private long previousPerformancePieceTime = 0;
     private String headMac;
-    private String remoteMac;
-    private BluetoothAdapter mBluetoothAdapter;
-    private BluetoothConnectionService mBluetoothConnectionHead;
-    private BluetoothConnectionService mBluetoothConnectionEyes;
+    private String remote1Mac;
+    private String remote2Mac;
     
+    //--------- bluetooth variables for remotes and receivers
+    private BluetoothAdapter mBluetoothAdapter;
+
     private BluetoothDevice mBTDeviceHead;
+    private BluetoothConnectionService mBluetoothConnectionHead;
+    
+    
     private BluetoothDevice mBTDeviceEyes;
+    private BluetoothConnectionService mBluetoothConnectionEyes;
+
+    private BluetoothDevice mBTDeviceMouth;
+    private BluetoothConnectionService mBluetoothConnectionMouth;
+
 
     //playback speed slider
     private double multiplicator = 1.0;
@@ -94,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView eyesStatus;
     private TextView headStatus;
-
+    private TextView mouthStatus;
     private Gson gson;
 
     private int readyColor = 0;
@@ -117,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent headIntent = getIntent();
         headMac = headIntent.getStringExtra("head_mac");
-        remoteMac = headIntent.getStringExtra("remote_mac");
+        remote1Mac = headIntent.getStringExtra("remote1_mac");
+        remote2Mac = headIntent.getStringExtra("remote2_mac");
 
         readyColor = ResourcesCompat.getColor(getResources(), R.color.activePerform, null);
 
@@ -156,10 +168,13 @@ public class MainActivity extends AppCompatActivity {
         stopButton.setEnabled(false);
         
         eyesSwitch = findViewById(R.id.eyesSwitch);
+        mouthSwitch = findViewById(R.id.mouthSwitch);
         nameSwitch = findViewById(R.id.nameSwitch);
 
         eyesSwitch.setChecked(true);
+        mouthSwitch.setChecked(true);
         eyesSwitch.setOnCheckedChangeListener(this::onCheckEyes);
+        mouthSwitch.setOnCheckedChangeListener(this::onCheckMouth);
         nameSwitch.setOnCheckedChangeListener(this::onCheckNames);
 
         multBar = findViewById(R.id.seekBar);
@@ -185,9 +200,10 @@ public class MainActivity extends AppCompatActivity {
         });
         
         eyesStatus = findViewById(R.id.eyesStatus);
+        mouthStatus = findViewById(R.id.mouthStatus);
         headStatus = findViewById(R.id.headStatus);
 
-        checkThread = new CheckConnectionsThread(this,eyesStatus,headStatus,readyColor,presetColor);
+        checkThread = new CheckConnectionsThread(this,eyesStatus,headStatus,mouthStatus,readyColor,presetColor);
 
         connectionBluetooth();
 
@@ -203,12 +219,18 @@ public class MainActivity extends AppCompatActivity {
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         for(BluetoothDevice bt : pairedDevices)
         {
-            if (bt.getAddress().equals(remoteMac)) {
+            if (bt.getAddress().equals(remote1Mac)) {
                 mBTDeviceEyes = bt;
                 mBluetoothConnectionEyes = new BluetoothConnectionService(MainActivity.this, Constants.eyesID);
                 startBTConnection(mBTDeviceEyes, mBluetoothConnectionEyes);
             }
-
+            
+            if (bt.getAddress().equals(remote2Mac)) {
+                mBTDeviceMouth = bt;
+                mBluetoothConnectionMouth = new BluetoothConnectionService(MainActivity.this, Constants.MouthID);
+                startBTConnection(mBTDeviceMouth, mBluetoothConnectionMouth);
+            }
+            
             if (bt.getAddress().equals(headMac)) {
                 Log.d(TAG, bt.getName());
 
@@ -222,88 +244,97 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeAllButtons()
     {
-        initilializePresetButton(R.id.preset_01,R.id.presetPB01, R.id.presetText01);
-        initilializePresetButton(R.id.preset_02,R.id.presetPB02, R.id.presetText02);
-        initilializePresetButton(R.id.preset_03,R.id.presetPB03, R.id.presetText03);
-        initilializePresetButton(R.id.preset_04,R.id.presetPB04, R.id.presetText04);
-        initilializePresetButton(R.id.preset_05,R.id.presetPB05, R.id.presetText05);
-        initilializePresetButton(R.id.preset_06,R.id.presetPB06, R.id.presetText06);
-        initilializePresetButton(R.id.preset_07,R.id.presetPB07, R.id.presetText07);
-        initilializePresetButton(R.id.preset_08,R.id.presetPB08, R.id.presetText08);
-        initilializePresetButton(R.id.preset_09,R.id.presetPB09, R.id.presetText09);
-        initilializePresetButton(R.id.preset_10,R.id.presetPB10, R.id.presetText10);
-        initilializePresetButton(R.id.preset_11,R.id.presetPB11, R.id.presetText11);
-        initilializePresetButton(R.id.preset_12,R.id.presetPB12, R.id.presetText12);
+        initializePresetButton(R.id.preset_01,R.id.presetPB01, R.id.presetText01);
+        initializePresetButton(R.id.preset_02,R.id.presetPB02, R.id.presetText02);
+        initializePresetButton(R.id.preset_03,R.id.presetPB03, R.id.presetText03);
+        initializePresetButton(R.id.preset_04,R.id.presetPB04, R.id.presetText04);
+        initializePresetButton(R.id.preset_05,R.id.presetPB05, R.id.presetText05);
+        initializePresetButton(R.id.preset_06,R.id.presetPB06, R.id.presetText06);
+        initializePresetButton(R.id.preset_07,R.id.presetPB07, R.id.presetText07);
+        initializePresetButton(R.id.preset_08,R.id.presetPB08, R.id.presetText08);
+        initializePresetButton(R.id.preset_09,R.id.presetPB09, R.id.presetText09);
+        initializePresetButton(R.id.preset_10,R.id.presetPB10, R.id.presetText10);
+        initializePresetButton(R.id.preset_11,R.id.presetPB11, R.id.presetText11);
+        initializePresetButton(R.id.preset_12,R.id.presetPB12, R.id.presetText12);
 
-        initilializeButton(R.id.eyebrow_01 , FaceSector.ANTENNAS, R.id.eyebrowPB01, R.id.eyebrowText01);
-        initilializeButton(R.id.eyebrow_02 , FaceSector.ANTENNAS, R.id.eyebrowPB02, R.id.eyebrowText02);
-        initilializeButton(R.id.eyebrow_03 , FaceSector.ANTENNAS, R.id.eyebrowPB03, R.id.eyebrowText03);
-        initilializeButton(R.id.eyebrow_04 , FaceSector.ANTENNAS, R.id.eyebrowPB04, R.id.eyebrowText04);
-        initilializeButton(R.id.eyebrow_05 , FaceSector.ANTENNAS, R.id.eyebrowPB05, R.id.eyebrowText05);
-        initilializeButton(R.id.eyebrow_06 , FaceSector.ANTENNAS, R.id.eyebrowPB06, R.id.eyebrowText06);
-        initilializeButton(R.id.eyebrow_07 , FaceSector.ANTENNAS, R.id.eyebrowPB07, R.id.eyebrowText07);
-        initilializeButton(R.id.eyebrow_08 , FaceSector.ANTENNAS, R.id.eyebrowPB08, R.id.eyebrowText08);
-        initilializeButton(R.id.eyebrow_09 , FaceSector.ANTENNAS, R.id.eyebrowPB09, R.id.eyebrowText09);
-        initilializeButton(R.id.eyebrow_10 , FaceSector.ANTENNAS, R.id.eyebrowPB10, R.id.eyebrowText10);
-        initilializeButton(R.id.eyebrow_11 , FaceSector.ANTENNAS, R.id.eyebrowPB11, R.id.eyebrowText11);
-        initilializeButton(R.id.eyebrow_12 , FaceSector.ANTENNAS, R.id.eyebrowPB12, R.id.eyebrowText12);
+        FaceSector row1sector = FaceSector.EAR;
 
-        initilializeButton(R.id.eyelid_01 , FaceSector.TONGUE, R.id.eyelidPB01, R.id.eyelidText01);
-        initilializeButton(R.id.eyelid_02 , FaceSector.TONGUE, R.id.eyelidPB02, R.id.eyelidText02);
-        initilializeButton(R.id.eyelid_03 , FaceSector.TONGUE, R.id.eyelidPB03, R.id.eyelidText03);
-        initilializeButton(R.id.eyelid_04 , FaceSector.TONGUE, R.id.eyelidPB04, R.id.eyelidText04);
-        initilializeButton(R.id.eyelid_05 , FaceSector.TONGUE, R.id.eyelidPB05, R.id.eyelidText05);
-        initilializeButton(R.id.eyelid_06 , FaceSector.TONGUE, R.id.eyelidPB06, R.id.eyelidText06);
-        initilializeButton(R.id.eyelid_07 , FaceSector.TONGUE, R.id.eyelidPB07, R.id.eyelidText07);
-        initilializeButton(R.id.eyelid_08 , FaceSector.TONGUE, R.id.eyelidPB08, R.id.eyelidText08);
-        initilializeButton(R.id.eyelid_09 , FaceSector.TONGUE, R.id.eyelidPB09, R.id.eyelidText09);
-        initilializeButton(R.id.eyelid_10 , FaceSector.TONGUE, R.id.eyelidPB10, R.id.eyelidText10);
-        initilializeButton(R.id.eyelid_11 , FaceSector.TONGUE, R.id.eyelidPB11, R.id.eyelidText11);
-        initilializeButton(R.id.eyelid_12 , FaceSector.TONGUE, R.id.eyelidPB12, R.id.eyelidText12);
+        initializeButton(R.id.row1Btn01 , row1sector, R.id.row1PB01, R.id.row1Text01);
+        initializeButton(R.id.row1Btn02 , row1sector, R.id.row1PB02, R.id.row1Text02);
+        initializeButton(R.id.row1Btn03 , row1sector, R.id.row1PB03, R.id.row1Text03);
+        initializeButton(R.id.row1Btn04 , row1sector, R.id.row1PB04, R.id.row1Text04);
+        initializeButton(R.id.row1Btn05 , row1sector, R.id.row1PB05, R.id.row1Text05);
+        initializeButton(R.id.row1Btn06 , row1sector, R.id.row1PB06, R.id.row1Text06);
+        initializeButton(R.id.row1Btn07 , row1sector, R.id.row1PB07, R.id.row1Text07);
+        initializeButton(R.id.row1Btn08 , row1sector, R.id.row1PB08, R.id.row1Text08);
+        initializeButton(R.id.row1Btn09 , row1sector, R.id.row1PB09, R.id.row1Text09);
+        initializeButton(R.id.row1Btn10 , row1sector, R.id.row1PB10, R.id.row1Text10);
+        initializeButton(R.id.row1Btn11 , row1sector, R.id.row1PB11, R.id.row1Text11);
+        initializeButton(R.id.row1Btn12 , row1sector, R.id.row1PB12, R.id.row1Text12);
 
-        /*
-        initilializeButton(R.id.eyes_01 , FaceSector.EYES, R.id.eyesPB01, R.id.eyesText01);
-        initilializeButton(R.id.eyes_02 , FaceSector.EYES, R.id.eyesPB02, R.id.eyesText02);
-        initilializeButton(R.id.eyes_03 , FaceSector.EYES, R.id.eyesPB03, R.id.eyesText03);
-        initilializeButton(R.id.eyes_04 , FaceSector.EYES, R.id.eyesPB04, R.id.eyesText04);
-        initilializeButton(R.id.eyes_05 , FaceSector.EYES, R.id.eyesPB05, R.id.eyesText05);
-        initilializeButton(R.id.eyes_06 , FaceSector.EYES, R.id.eyesPB06, R.id.eyesText06);
-        initilializeButton(R.id.eyes_07 , FaceSector.EYES, R.id.eyesPB07, R.id.eyesText07);
-        initilializeButton(R.id.eyes_08 , FaceSector.EYES, R.id.eyesPB08, R.id.eyesText08);
-        initilializeButton(R.id.eyes_09 , FaceSector.EYES, R.id.eyesPB09, R.id.eyesText09);
-        initilializeButton(R.id.eyes_10 , FaceSector.EYES, R.id.eyesPB10, R.id.eyesText10);
-        initilializeButton(R.id.eyes_11 , FaceSector.EYES, R.id.eyesPB11, R.id.eyesText11);
-        initilializeButton(R.id.eyes_12 , FaceSector.EYES, R.id.eyesPB12, R.id.eyesText12);
-        */
 
-        initilializeButton(R.id.nose_01 , FaceSector.JAWS, R.id.nosePB01, R.id.noseText01);
-        initilializeButton(R.id.nose_02 , FaceSector.JAWS, R.id.nosePB02, R.id.noseText02);
-        initilializeButton(R.id.nose_03 , FaceSector.JAWS, R.id.nosePB03, R.id.noseText03);
-        initilializeButton(R.id.nose_04 , FaceSector.JAWS, R.id.nosePB04, R.id.noseText04);
-        initilializeButton(R.id.nose_05 , FaceSector.JAWS, R.id.nosePB05, R.id.noseText05);
-        initilializeButton(R.id.nose_06 , FaceSector.JAWS, R.id.nosePB06, R.id.noseText06);
-        initilializeButton(R.id.nose_07 , FaceSector.JAWS, R.id.nosePB07, R.id.noseText07);
-        initilializeButton(R.id.nose_08 , FaceSector.JAWS, R.id.nosePB08, R.id.noseText08);
-        initilializeButton(R.id.nose_09 , FaceSector.JAWS, R.id.nosePB09, R.id.noseText09);
-        initilializeButton(R.id.nose_10 , FaceSector.JAWS, R.id.nosePB10, R.id.noseText10);
-        initilializeButton(R.id.nose_11 , FaceSector.JAWS, R.id.nosePB11, R.id.noseText11);
-        initilializeButton(R.id.nose_12 , FaceSector.JAWS, R.id.nosePB12, R.id.noseText12);
+        FaceSector row2sector = FaceSector.EYEBROWS;
 
-        initilializeButton(R.id.mouth_01 , FaceSector.MOUTH, R.id.mouthPB01, R.id.mouthText01);
-        initilializeButton(R.id.mouth_02 , FaceSector.MOUTH, R.id.mouthPB02, R.id.mouthText02);
-        initilializeButton(R.id.mouth_03 , FaceSector.MOUTH, R.id.mouthPB03, R.id.mouthText03);
-        initilializeButton(R.id.mouth_04 , FaceSector.MOUTH, R.id.mouthPB04, R.id.mouthText04);
-        initilializeButton(R.id.mouth_05 , FaceSector.MOUTH, R.id.mouthPB05, R.id.mouthText05);
-        initilializeButton(R.id.mouth_06 , FaceSector.MOUTH, R.id.mouthPB06, R.id.mouthText06);
-        initilializeButton(R.id.mouth_07 , FaceSector.MOUTH, R.id.mouthPB07, R.id.mouthText07);
-        initilializeButton(R.id.mouth_08 , FaceSector.MOUTH, R.id.mouthPB08, R.id.mouthText08);
-        initilializeButton(R.id.mouth_09 , FaceSector.MOUTH, R.id.mouthPB09, R.id.mouthText09);
-        initilializeButton(R.id.mouth_10 , FaceSector.MOUTH, R.id.mouthPB10, R.id.mouthText10);
-        initilializeButton(R.id.mouth_11 , FaceSector.MOUTH, R.id.mouthPB11, R.id.mouthText11);
-        initilializeButton(R.id.mouth_12 , FaceSector.MOUTH, R.id.mouthPB12, R.id.mouthText12);
+        initializeButton(R.id.row2Btn01 , row2sector, R.id.row2PB01, R.id.row2Text01);
+        initializeButton(R.id.row2Btn02 , row2sector, R.id.row2PB02, R.id.row2Text02);
+        initializeButton(R.id.row2Btn03 , row2sector, R.id.row2PB03, R.id.row2Text03);
+        initializeButton(R.id.row2Btn04 , row2sector, R.id.row2PB04, R.id.row2Text04);
+        initializeButton(R.id.row2Btn05 , row2sector, R.id.row2PB05, R.id.row2Text05);
+        initializeButton(R.id.row2Btn06 , row2sector, R.id.row2PB06, R.id.row2Text06);
+        initializeButton(R.id.row2Btn07 , row2sector, R.id.row2PB07, R.id.row2Text07);
+        initializeButton(R.id.row2Btn08 , row2sector, R.id.row2PB08, R.id.row2Text08);
+        initializeButton(R.id.row2Btn09 , row2sector, R.id.row2PB09, R.id.row2Text09);
+        initializeButton(R.id.row2Btn10 , row2sector, R.id.row2PB10, R.id.row2Text10);
+        initializeButton(R.id.row2Btn11 , row2sector, R.id.row2PB11, R.id.row2Text11);
+        initializeButton(R.id.row2Btn12 , row2sector, R.id.row2PB12, R.id.row2Text12);
+
+        FaceSector row3sector = FaceSector.EYELIDS;
+
+        initializeButton(R.id.row3Btn01 , row3sector, R.id.row3PB01, R.id.row3Text01);
+        initializeButton(R.id.row3Btn02 , row3sector, R.id.row3PB02, R.id.row3Text02);
+        initializeButton(R.id.row3Btn03 , row3sector, R.id.row3PB03, R.id.row3Text03);
+        initializeButton(R.id.row3Btn04 , row3sector, R.id.row3PB04, R.id.row3Text04);
+        initializeButton(R.id.row3Btn05 , row3sector, R.id.row3PB05, R.id.row3Text05);
+        initializeButton(R.id.row3Btn06 , row3sector, R.id.row3PB06, R.id.row3Text06);
+        initializeButton(R.id.row3Btn07 , row3sector, R.id.row3PB07, R.id.row3Text07);
+        initializeButton(R.id.row3Btn08 , row3sector, R.id.row3PB08, R.id.row3Text08);
+        initializeButton(R.id.row3Btn09 , row3sector, R.id.row3PB09, R.id.row3Text09);
+        initializeButton(R.id.row3Btn10 , row3sector, R.id.row3PB10, R.id.row3Text10);
+        initializeButton(R.id.row3Btn11 , row3sector, R.id.row3PB11, R.id.row3Text11);
+        initializeButton(R.id.row3Btn12 , row3sector, R.id.row3PB12, R.id.row3Text12);
+
+        FaceSector row4sector = FaceSector.SNOUT;
+
+        initializeButton(R.id.row4Btn01 , row4sector, R.id.row4PB01, R.id.row4Text01);
+        initializeButton(R.id.row4Btn02 , row4sector, R.id.row4PB02, R.id.row4Text02);
+        initializeButton(R.id.row4Btn03 , row4sector, R.id.row4PB03, R.id.row4Text03);
+        initializeButton(R.id.row4Btn04 , row4sector, R.id.row4PB04, R.id.row4Text04);
+        initializeButton(R.id.row4Btn05 , row4sector, R.id.row4PB05, R.id.row4Text05);
+        initializeButton(R.id.row4Btn06 , row4sector, R.id.row4PB06, R.id.row4Text06);
+        initializeButton(R.id.row4Btn07 , row4sector, R.id.row4PB07, R.id.row4Text07);
+        initializeButton(R.id.row4Btn08 , row4sector, R.id.row4PB08, R.id.row4Text08);
+        initializeButton(R.id.row4Btn09 , row4sector, R.id.row4PB09, R.id.row4Text09);
+        initializeButton(R.id.row4Btn10 , row4sector, R.id.row4PB10, R.id.row4Text10);
+        initializeButton(R.id.row4Btn11 , row4sector, R.id.row4PB11, R.id.row4Text11);
+        initializeButton(R.id.row4Btn12 , row4sector, R.id.row4PB12, R.id.row4Text12);
+
+        FaceSector row5sector = FaceSector.MOUTH;
+
+        initializeButton(R.id.row5Btn01 , row5sector, R.id.row5PB01, R.id.row5Text01);
+        initializeButton(R.id.row5Btn02 , row5sector, R.id.row5PB02, R.id.row5Text02);
+        initializeButton(R.id.row5Btn03 , row5sector, R.id.row5PB03, R.id.row5Text03);
+        initializeButton(R.id.row5Btn04 , row5sector, R.id.row5PB04, R.id.row5Text04);
+        initializeButton(R.id.row5Btn05 , row5sector, R.id.row5PB05, R.id.row5Text05);
+        initializeButton(R.id.row5Btn06 , row5sector, R.id.row5PB06, R.id.row5Text06);
+        initializeButton(R.id.row5Btn07 , row5sector, R.id.row5PB07, R.id.row5Text07);
+        initializeButton(R.id.row5Btn08 , row5sector, R.id.row5PB08, R.id.row5Text08);
+        initializeButton(R.id.row5Btn09 , row5sector, R.id.row5PB09, R.id.row5Text09);
+        initializeButton(R.id.row5Btn10 , row5sector, R.id.row5PB10, R.id.row5Text10);
+        initializeButton(R.id.row5Btn11 , row5sector, R.id.row5PB11, R.id.row5Text11);
+        initializeButton(R.id.row5Btn12 , row5sector, R.id.row5PB12, R.id.row5Text12);
     }
 
-    private void initilializeButton(int id, FaceSector sector, int pbID, int textID)
+    private void initializeButton(int id, FaceSector sector, int pbID, int textID)
     {
         Button b = findViewById(id);
         ProgressBar pb = findViewById(pbID);
@@ -324,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
         container.addPerformanceButton(id, b, sector, pb, t);
     }
 
-    private void initilializePresetButton(int id, int pbID, int textID)
+    private void initializePresetButton(int id, int pbID, int textID)
     {
         Button b = findViewById(id);
         ProgressBar pb = findViewById(pbID);
@@ -704,9 +735,19 @@ public class MainActivity extends AppCompatActivity {
     public void onCheckEyes(CompoundButton buttonView, boolean isChecked) {
         if(isChecked) {
             eyesActiveController = true;
-            Toast.makeText(this, Constants.controllerActived, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, Constants.controllerActivated, Toast.LENGTH_LONG).show();
         } else {
             eyesActiveController = false;
+            Toast.makeText(this, Constants.controllerDisactived, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void onCheckMouth(CompoundButton buttonView, boolean isChecked) {
+        if(isChecked) {
+            mouthActiveController = true;
+            Toast.makeText(this, Constants.controllerActivated, Toast.LENGTH_LONG).show();
+        } else {
+            mouthActiveController = false;
             Toast.makeText(this, Constants.controllerDisactived, Toast.LENGTH_LONG).show();
         }
     }
@@ -736,8 +777,8 @@ public class MainActivity extends AppCompatActivity {
                 case Constants.HeadID:
                     checkThread.setLastTimeHeadAlive(currentTime);
                     break;
-                case Constants.TailID:
-                    checkThread.setLastTimeTailAlive(currentTime);
+                case Constants.MouthID:
+                    checkThread.setLastTimeMouthAlive(currentTime);
                     break;
                 default:
                     break;
@@ -764,7 +805,23 @@ public class MainActivity extends AppCompatActivity {
                         if(f == bInRec.getFaceSector())
                             addPerforamancePieceToRec(bytes, text);
                     }
-                    mBluetoothConnectionHead.write(bytes);
+                    if (checkThread.getReceiverStatus()) {
+                        mBluetoothConnectionHead.write(bytes);
+                    }
+                    break;
+                case Constants.MouthID:
+                    if(!mouthActiveController)
+                        return;
+                    bytes = text.getBytes(Charset.defaultCharset());
+
+                    if(performRegistrationMode)
+                    {
+                        if(f == bInRec.getFaceSector())
+                            addPerforamancePieceToRec(bytes, text);
+                    }
+                    if (checkThread.getReceiverStatus()) {
+                        mBluetoothConnectionHead.write(bytes);
+                    }
                     break;
                 case Constants.HeadID:
                     //IMPOSSIBLE
@@ -818,7 +875,9 @@ public class MainActivity extends AppCompatActivity {
                     messageToSend = "r" + messageToSend;
                     bytesToSend = messageToSend.getBytes(Charset.defaultCharset());
                     Log.i("PERFT_TH","sending: "+ messageToSend);
-                    mBluetoothConnectionHead.write(bytesToSend);
+                    if (checkThread.getReceiverStatus()) {
+                        mBluetoothConnectionHead.write(bytesToSend);
+                    }
                     currentIndex++;
 
                     if(currentIndex >= performance.size())
@@ -952,7 +1011,9 @@ public class MainActivity extends AppCompatActivity {
         messageToSend = "r" + messageToSend;
         byte[] bytesToSend = messageToSend.getBytes(Charset.defaultCharset());
         Log.i("SERVO_STOP","sending: "+ messageToSend);
-        mBluetoothConnectionHead.write(bytesToSend);
+        if (checkThread.getReceiverStatus()) {
+            mBluetoothConnectionHead.write(bytesToSend);
+        }
     }
 
 }

@@ -13,11 +13,11 @@ import java.util.List;
 //button performances to start when starting the animation
 
 public class PresetPerformance extends AbstractPerformance{
-    private ButtonPerformance eyebrowns;
-    private ButtonPerformance eyelids;
-    private ButtonPerformance eyes;
-    private ButtonPerformance nose;
-    private ButtonPerformance mouth;
+    private ButtonPerformance row1Btn;
+    private ButtonPerformance row2Btn;
+    private ButtonPerformance row3Btn;
+    private ButtonPerformance row4Btn;
+    private ButtonPerformance row5Btn;
 
 
     public PresetPerformance(int id, Button button, FaceSector faceSector, ProgressBar progressBar,
@@ -31,20 +31,20 @@ public class PresetPerformance extends AbstractPerformance{
     {
         switch (bp.getFaceSector())
         {
-            case ANTENNAS:
-                eyebrowns = bp;
+            case EAR:
+                row1Btn = bp;
                 break;
-            case TONGUE:
-                eyelids = bp;
+            case EYEBROWS:
+                row2Btn = bp;
                 break;
-            case EYES:
-                eyes = bp;
+            case EYELIDS:
+                row3Btn = bp;
                 break;
-            case JAWS:
-                nose = bp;
+            case SNOUT:
+                row4Btn = bp;
                 break;
             case MOUTH:
-                mouth = bp;
+                row5Btn = bp;
                 break;
                 default:
                     return;
@@ -60,11 +60,11 @@ public class PresetPerformance extends AbstractPerformance{
     public void deletePerformance()
     {
         super.deletePerformance();
-        eyebrowns = null;
-        eyelids = null;
-        eyes = null;
-        nose = null;
-        mouth = null;
+        row1Btn = null;
+        row2Btn = null;
+        row3Btn = null;
+        row4Btn = null;
+        row5Btn = null;
     }
 
 
@@ -72,16 +72,16 @@ public class PresetPerformance extends AbstractPerformance{
     {
         List result = new ArrayList<>();
 
-        if(eyebrowns != null)
-            result.add(eyebrowns.getId());
-        if(eyelids != null)
-            result.add(eyelids.getId());
-        if(eyes != null)
-            result.add(eyes.getId());
-        if(nose != null)
-            result.add(nose.getId());
-        if(mouth != null)
-            result.add(mouth.getId());
+        if(row1Btn != null)
+            result.add(row1Btn.getId());
+        if(row2Btn != null)
+            result.add(row2Btn.getId());
+        if(row3Btn != null)
+            result.add(row3Btn.getId());
+        if(row4Btn != null)
+            result.add(row4Btn.getId());
+        if(row5Btn != null)
+            result.add(row5Btn.getId());
 
         return result;
     }

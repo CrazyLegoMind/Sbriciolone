@@ -9,22 +9,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="-539dp"
+        tools:layout_editor_absoluteY="376dp">
 
         <TextView
             android:id="@+id/actHeadName"
             android:layout_width="174dp"
             android:layout_height="40dp"
+            android:layout_gravity="center"
             android:fontFamily="casual"
             android:text="Choose head"
-            android:textSize="30sp"
-            android:layout_gravity="center"/>
+            android:textSize="30sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="fill">
+            android:layout_gravity="fill"
+            android:orientation="horizontal">
 
             <RadioGroup
                 android:layout_width="wrap_content"
@@ -54,9 +56,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_gravity="center_vertical"
-                android:focusableInTouchMode="true">
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/editHeadMac"
@@ -66,8 +68,8 @@
                     android:layout_marginEnd="120dp"
                     android:ems="10"
                     android:fontFamily="casual"
-                    android:inputType="textPersonName"
-                    android:hint="secondary head mac" />
+                    android:hint="secondary head mac"
+                    android:inputType="textPersonName" />
 
                 <Spinner
                     android:id="@+id/receivermacspinner"
@@ -76,18 +78,18 @@
                     android:contentDescription="Receiver Mac" />
 
                 <EditText
-                    android:id="@+id/editRemoteMac"
+                    android:id="@+id/editremote1Mac"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
                     android:layout_marginEnd="120dp"
                     android:ems="10"
                     android:fontFamily="casual"
-                    android:inputType="textPersonName"
-                    android:hint="secondary remote mac" />
+                    android:hint="secondary remote mac"
+                    android:inputType="textPersonName" />
 
                 <Spinner
-                    android:id="@+id/remotemacspinner"
+                    android:id="@+id/remote1Macspinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:contentDescription="Remote Mac" />
@@ -102,13 +104,13 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:clickable="false"
             android:enabled="false"
             android:fontFamily="casual"
+            android:onClick="ctnBtn"
             android:text="Continue"
-            android:theme="@style/AppTheme.PerformToRec"
-            android:layout_gravity="center"
-            android:onClick="ctnBtn"/>
+            android:theme="@style/AppTheme.PerformToRec" />
 
     </LinearLayout>
 
