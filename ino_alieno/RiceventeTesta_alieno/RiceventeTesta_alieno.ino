@@ -1,7 +1,7 @@
 const char eventsC = 'e';
 const char statusChangeC = 'C';
 const char servoC = 'S';
-const char globalC = 'A';
+const char globalC = 'G';
 
 const char earC = 'E';
 const char eyeLidsC = 'L';
@@ -195,16 +195,13 @@ void setup() {
 
 void loop() {
   String message = Serial3.readStringUntil('\n');
+  //if(message.length() > 0)
+  
   if (message.length() > 0) {
 
     bool doIt = true;
     if (message.charAt(0) != 'r') {
-
-      long randNumber = random(100);
-
-      if (randNumber < 20) {
-        doIt = false;
-      }
+      ;
     } else {
       message = message.substring(1);
     }
@@ -250,7 +247,6 @@ void loop() {
     }
   }
   deadManButton();
-  //delay(20);
 }
 
 void globalMessage(String message) {

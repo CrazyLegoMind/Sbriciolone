@@ -1,7 +1,7 @@
 const char eventsC = 'e';
 const char statusChangeC = 'C';
 const char servoC = 'S';
-const char globalC = 'A';
+const char globalC = 'G';
 
 const char earC = 'E';
 const char eyeLidsC = 'L';
