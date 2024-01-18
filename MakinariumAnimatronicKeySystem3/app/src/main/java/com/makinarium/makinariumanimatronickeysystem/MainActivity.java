@@ -874,7 +874,7 @@ public class MainActivity extends AppCompatActivity {
                     String messageToSend = new String(bytes);
                     messageToSend = "r" + messageToSend;
                     bytesToSend = messageToSend.getBytes(Charset.defaultCharset());
-                    Log.i("PERFT_TH","sending: "+ messageToSend);
+                    Log.i("PERFT_TH","sending: "+ messageToSend+" with mod:"+ multiplicator + "millis :" + currentPiece.getMillisToAction());
                     if (checkThread.getReceiverStatus()) {
                         mBluetoothConnectionHead.write(bytesToSend);
                     }

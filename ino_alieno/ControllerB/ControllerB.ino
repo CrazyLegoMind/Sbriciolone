@@ -10,8 +10,9 @@ const char mouthC = 'M';
 const char snoutC = 'T';
 
 const byte analogFilter = 10;
-const byte delayLettura = 2;
 const byte delayLoop = 20;
+const byte delay_servo = 5;
+
 int aliveCounter = 0;
 const byte aliveTrigger = 10;
 
@@ -29,23 +30,18 @@ struct LedSwc {
   boolean value;
 };
 
-const byte howmanyanalog = 7;  //9
+const byte howmanyanalog = 7;
 Motor listaMotori[howmanyanalog];
-Motor tailMot;
-Motor mouthDxMot;
+
 
 LedSwc eyebagMirrorSwc;    //non deve mai inviare alla testa //pulsante blu
-int tailRightBtn = 2;
-int tailLeftBtn = 3;
-bool rightTrigger = false;
-bool leftTrigger = false;
 
 void setup() {
   Serial.begin(115200);
 
 
-  eyebagMirrorSwc.pin = 7;
-  eyebagMirrorSwc.led = 6;
+  eyebagMirrorSwc.pin = 5;
+  eyebagMirrorSwc.led = 4;
   eyebagMirrorSwc.value = false;
 
   pinMode(eyebagMirrorSwc.pin, INPUT);
@@ -55,25 +51,25 @@ void setup() {
   listaMotori[0].arduinoPin = A0;
   listaMotori[0].servoCh = 4;
 
-  listaMotori[1].sector = snoutC;  //labbsx
+  listaMotori[1].sector = mouthC;  //labbdx
   listaMotori[1].arduinoPin = A1;
-  listaMotori[1].servoCh = 5;
+  listaMotori[1].servoCh = 0;
 
-  listaMotori[2].sector = snoutC;  //baffsx
+  listaMotori[2].sector = snoutC;  //baffdx
   listaMotori[2].arduinoPin = A2;
-  listaMotori[2].servoCh = 6;
+  listaMotori[2].servoCh = 9;
 
   listaMotori[3].sector = snoutC;  //naso
   listaMotori[3].arduinoPin = A3;
   listaMotori[3].servoCh = 1;
 
-  listaMotori[4].sector = snoutC;  //baffdx
+  listaMotori[4].sector = snoutC;  //baffsx
   listaMotori[4].arduinoPin = A4;
-  listaMotori[4].servoCh = 9;
+  listaMotori[4].servoCh = 6;
 
-  listaMotori[5].sector = snoutC;  //labbrdx
+  listaMotori[5].sector = mouthC;  //labbsx
   listaMotori[5].arduinoPin = A5;
-  listaMotori[5].servoCh = 0;
+  listaMotori[5].servoCh = 5;
 
   listaMotori[6].sector = mouthC;  //bocca
   listaMotori[6].arduinoPin = A6;
@@ -99,17 +95,16 @@ void handleSliders() {
     if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
       listaMotori[slider].oldValue = sliderVal;
       sendMotor(listaMotori[slider], sliderVal);
-      // if(slider == 6){
-      //   sendMotor(mouthDxMot, 1023-sliderVal);
-      // }
-
+      delay(delay_servo);
       if (eyebagMirrorSwc.value) {
         switch (slider) {
           case 1:
-            sendMotor(listaMotori[4], sliderVal);
+            sendMotor(listaMotori[5], sliderVal);
+            delay(delay_servo);
             break;
           case 2:
-            sendMotor(listaMotori[5], sliderVal);
+            sendMotor(listaMotori[4], sliderVal);
+            delay(delay_servo);
             break;
         }
       }
