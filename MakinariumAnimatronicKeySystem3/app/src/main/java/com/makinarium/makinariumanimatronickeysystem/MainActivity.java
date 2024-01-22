@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
@@ -43,6 +44,7 @@ import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.ID
 
 import org.apache.commons.io.IOUtils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -138,18 +140,25 @@ public class MainActivity extends AppCompatActivity {
         presetColor = ResourcesCompat.getColor(getResources(), R.color.firstcolumn, null);
 
         gson = new Gson();
+        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)+"/maks/"+Constants.SaveFileName;
+        final File newFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)+"/maks");
+        newFile.mkdir();
+        Log.i("FILE_L",filePath);
 
-        try (FileInputStream inputStream = new FileInputStream(this.getFilesDir() + Constants.SaveFileName)) {
+        try (FileInputStream inputStream = new FileInputStream(filePath)) {
             String json = IOUtils.toString(inputStream, "UTF-8");
+            Log.i("FILE_L",json);
             Type containerType = new TypeToken<ButtonsContainer<byte[]>>(){}.getType();
             container = gson.fromJson(json, containerType);
             if(container != null) {
+                Log.i("FILE_L","load_ok");
                 initializeAllButtons();
                 container.updateAllColorsAndNames();
 
             }
             else
             {
+                Log.i("FILE_L","load_fail");
                 container = new ButtonsContainer<>(readyColor, toReccolor);
                 initializeAllButtons();
             }
@@ -638,7 +647,7 @@ public class MainActivity extends AppCompatActivity {
                 //show elapsed time while registering input
                 if(registeringPerformance.canPerform()) {
                     if (performanceStartTime <= 0){
-                        performanceStartTime = System.currentTimeMillis();
+                        performanceStartTime = System.nanoTime();
                         timeColor = timeDarkColor;
                         publishProgress(zeroedTime);
                     }
@@ -649,12 +658,12 @@ public class MainActivity extends AppCompatActivity {
                         //e.printStackTrace();
                         Log.i("TIMERTHREAD", "timer stopped");
                     }
-                    long timePassed = System.currentTimeMillis() - performanceStartTime;
+                    long timePassed = System.nanoTime() - performanceStartTime;
                     String timeString = generateTimerString(timePassed);
                     publishProgress(timeString);
 
                 }else{ //blink the timer while waiting for input
-                    long timePassed = System.currentTimeMillis() - startTime;
+                    long timePassed = System.nanoTime() - startTime;
                     if(timePassed % 1000 > 500) {
                         if (blinkState) {
                             blinkState = false;
@@ -793,7 +802,7 @@ public class MainActivity extends AppCompatActivity {
             if(performanceFilter.contains(packetChannel))
                 return;
 
-            Log.i("BT_REC: ",text);
+            //Log.i("BT_REC: ",text);
             switch (id){
                 case Constants.eyesID:
                     if(!eyesActiveController)
@@ -847,49 +856,70 @@ public class MainActivity extends AppCompatActivity {
 
             bpThread = params[0];
             List<PerformancePiece<byte[]>> performance = bpThread.getPerformance();
+            double playback_multiplier = multiplicator;
             long startTime = System.currentTimeMillis();
+            long currentTime = startTime;
+            Log.i("PERFT_G","start: "+ startTime+" with duration:"+bpThread.getDuration());
+            double mslostcount = 0;
             boolean inPerformance = true;
             PerformancePiece<byte[]> currentPiece = performance.get(0);
 
 
             int currentIndex = 0;
-            long doPerfomance = startTime + (long)(currentPiece.getMillisToAction() / multiplicator);
+            long send_time = 0;
+            long ms_to_action_left = 0;
+            long next_action_ms = startTime + (long)(currentPiece.getMillisToAction() / playback_multiplier);
             while(inPerformance)
             {
+
                 try {
-                    Thread.sleep(stopMillisPerformance);
+                    currentTime = System.currentTimeMillis();
+                    ms_to_action_left = 0;
+                    if(next_action_ms > currentTime){
+                        ms_to_action_left = next_action_ms - currentTime;
+                    }
+                    if(ms_to_action_left > 10){
+                        Thread.sleep(2);
+                    }
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                long currentTime = System.currentTimeMillis();
-                long progressTime = currentTime - startTime;
-                int percentProgress = (int) ((100 * progressTime) / (int)(bpThread.getDuration() / multiplicator));
-                publishProgress(percentProgress);
-
-                if(currentTime > doPerfomance)
+                if(currentTime > next_action_ms)
                 {
+                    if(currentTime > next_action_ms){
+                        long gap = currentTime - next_action_ms;
+                        //Log.i("PERFT_G","gap: "+gap+" send: " + send_time);
+                        mslostcount = gap;
+                    }
                     byte[] bytes = currentPiece.getAction();
                     byte[] bytesToSend;
                     String messageToSend = new String(bytes);
                     messageToSend = "r" + messageToSend;
                     bytesToSend = messageToSend.getBytes(Charset.defaultCharset());
-                    Log.i("PERFT_TH","sending: "+ messageToSend+" with mod:"+ multiplicator + "millis :" + currentPiece.getMillisToAction());
                     if (checkThread.getReceiverStatus()) {
                         mBluetoothConnectionHead.write(bytesToSend);
                     }
+                    //Log.i("PERFT_P","i" +currentIndex);
                     currentIndex++;
 
-                    if(currentIndex >= performance.size())
+                    if(currentIndex >= performance.size()) {
+                        long realDuration = currentTime - startTime;
+                        Log.i("PERFT_G", "end-> dur: " + (realDuration)+" r_err: "+(realDuration-bpThread.getDuration()/playback_multiplier)+" e_err: "+mslostcount);
                         inPerformance = false;
-                    else
-                    {
+                    }else{
                         currentPiece = performance.get(currentIndex);
-                        doPerfomance = currentTime + (long)(currentPiece.getMillisToAction() / multiplicator);
+                        long wait = (long)((currentPiece.getMillisToAction() ) / playback_multiplier);
+                        next_action_ms = next_action_ms + wait;
                     }
                 }
+                long progressTime = currentTime - startTime;
+                int percentProgress = (int) ((100 * progressTime) / (int)(bpThread.getDuration() / playback_multiplier));
 
 
+                publishProgress(percentProgress);
+                send_time = System.currentTimeMillis() - currentTime;
             }
             return bpThread;
         }

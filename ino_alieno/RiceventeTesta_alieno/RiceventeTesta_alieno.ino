@@ -109,7 +109,7 @@ void setup() {
   servoList[5].shutDownWhen = 1000;
 
   //NOME SERVO "Baf_S";
-  servoList[6].minValue = 3968;
+  servoList[6].minValue = 5184;
   servoList[6].maxValue = 8000;  //
   servoList[6].channel = 6;
   servoList[6].reverse = false;
@@ -133,7 +133,7 @@ void setup() {
   servoList[8].shutDownWhen = 1000;
 
   //NOME SERVO "Baf_D";
-  servoList[9].minValue = 4096;
+  servoList[9].minValue = 6912;
   servoList[9].maxValue = 8000;
   servoList[9].channel = 9;
   servoList[9].reverse = true;
@@ -272,7 +272,7 @@ void noseMessage(String message) {
     int value = valueString.toInt();
     servoList[index].lastPosition = value;
     servoList[index].counterShutDown = 0;
-    maestro.setTarget(servoList[index].channel, analogServoConversion(value, servoList[index]));
+    maestro.setTargetMiniSSC(servoList[index].channel, analogServoConversion(value, servoList[index]));
   }
 }
 
@@ -288,7 +288,7 @@ void palpebraMotorMessage(String message) {
   int value = valueString.toInt();
   servoList[index].lastPosition = value;
   servoList[index].counterShutDown = 0;
-  maestro.setTarget(servoList[index].channel, analogServoConversion(value, servoList[index]));
+  maestro.setTargetMiniSSC(servoList[index].channel, analogServoConversion(value, servoList[index]));
 }
 
 
@@ -300,7 +300,7 @@ void eyeBrowMessage(String message) {
     int value = valueString.toInt();
     servoList[index].lastPosition = value;
     servoList[index].counterShutDown = 0;
-    maestro.setTarget(servoList[index].channel, analogServoConversion(value, servoList[index]));
+    maestro.setTargetMiniSSC(servoList[index].channel, analogServoConversion(value, servoList[index]));
   }
 }
 
@@ -316,10 +316,10 @@ void mouthMessage(String message) {
     }
     servoList[index].lastPosition = value;
     servoList[index].counterShutDown = 0;
-    maestro.setTarget(servoList[index].channel, analogServoConversion(value, servoList[index]));
+    maestro.setTargetMiniSSC(servoList[index].channel, analogServoConversion(value, servoList[index]));
     if (index == 14) {
       delay(2);
-      maestro.setTarget(servoList[15].channel, analogServoConversion(value, servoList[15]));
+      maestro.setTargetMiniSSC(servoList[15].channel, analogServoConversion(value, servoList[15]));
     }
   }
 }
@@ -332,7 +332,7 @@ void earMotorMessage(String message) {
     int value = valueString.toInt();
     servoList[index].lastPosition = value;
     servoList[index].counterShutDown = 0;
-    maestro.setTarget(servoList[index].channel, analogServoConversion(value, servoList[index]));
+    maestro.setTargetMiniSSC(servoList[index].channel, analogServoConversion(value, servoList[index]));
   }
 }
 

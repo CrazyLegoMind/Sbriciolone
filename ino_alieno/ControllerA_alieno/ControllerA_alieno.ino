@@ -32,6 +32,14 @@ const byte analogFilter = 10;
 int aliveCounter = 0;
 const byte aliveTrigger = 10;
 
+const char blink_dx_btn_pin = 5;
+const char blink_sx_btn_pin = 6;
+int right_eye = 0;
+int left_eye = 0;
+
+
+bool blinkSx = false;
+bool blinkDx = false;
 
 const byte howmanyanalog = 8;  //Sono 7 invero
 Motor listaMotori[howmanyanalog];
@@ -63,6 +71,8 @@ void setup() {
 
   pinMode(labbraSinchroSwc.pin, INPUT);
   pinMode(labbraSinchroSwc.led, OUTPUT);
+  pinMode(blink_dx_btn_pin, INPUT_PULLUP);
+  pinMode(blink_sx_btn_pin, INPUT_PULLUP);
 
   listaMotori[0].sector = eyeLidsC; //occhiodx
   listaMotori[0].arduinoPin = A1;
@@ -106,6 +116,9 @@ void setup() {
 
 void loop() {
   readLedSwc(labbraSinchroSwc);
+  blinkDx = !digitalRead(blink_dx_btn_pin);
+  blinkSx = !digitalRead(blink_sx_btn_pin);
+  readJstick();
   handleSliders();
   deadManButton();
   delay(delayLoop);
@@ -113,17 +126,32 @@ void loop() {
 
 void handleSliders() {
   for (int slider = 0; slider < howmanyanalog; slider++) {
-    int sliderch = listaMotori[slider].servoCh;
+    int servo_ch = listaMotori[slider].servoCh;
 
-    if (labbraSinchroSwc.value && (sliderch == 7 || sliderch == 2|| sliderch == 10)) {
+    if (labbraSinchroSwc.value && (servo_ch == 7 || servo_ch == 2|| servo_ch == 10)) {
       continue;  //skip loop if motors are mirrored
     }
+
     int sliderVal = analogRead(listaMotori[slider].arduinoPin);
+    if (servo_ch ==12){
+      if(blinkDx){
+        sliderVal = 0;
+      }else{
+        sliderVal = right_eye;
+      }
+    }
+    if (servo_ch ==13){
+      if(blinkSx){
+        sliderVal = 0;
+      }else{
+        sliderVal = left_eye;
+      }
+    }
 
     if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
       sendMotor(listaMotori[slider], sliderVal);
       if (labbraSinchroSwc.value) {
-        switch (sliderch) {
+        switch (servo_ch) {
           case 8:
             sendMotor(listaMotori[7], sliderVal);
             break;
@@ -139,6 +167,30 @@ void handleSliders() {
   }
 }
 
+
+void readJstick(){
+  
+  int udValue = analogRead(A1);
+  int lrValue = analogRead(A0);
+  // map the value to useful pwm-friendly ones
+  int up = map(udValue, 0, 480,512, 0);
+  int down = map(udValue, 520, 1023, 512, 0);
+  int right = map(lrValue, 500, 0,0 ,512);
+  int left = map(lrValue, 530, 1023, 0, 512);
+
+  // correct the values in case of wrong pot limits on initialization and
+  // so all of them will have the same weight in next computations
+  right = constrain(right, 0, 512);
+  left = constrain(left, 0, 512);
+  up = constrain(up, 0, 512);
+  down = constrain(down, 0, 512);
+  // recorrect the data not to have more than max +PWM while non pivot-steering
+  left_eye = constrain(down+up - right+ left, 0, 1023);
+  right_eye = constrain(down+ up+ right - left, 0, 1023);
+  //Serial.print(right_eye);
+  //Serial.print(" ");
+  //Serial.println(left_eye);
+}
 
 void readLedSwc(LedSwc& button) {
   int lettura = digitalRead(button.pin);

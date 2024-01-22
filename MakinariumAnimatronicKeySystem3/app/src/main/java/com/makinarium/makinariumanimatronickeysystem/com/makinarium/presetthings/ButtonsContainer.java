@@ -1,6 +1,8 @@
 package com.makinarium.makinariumanimatronickeysystem.com.makinarium.presetthings;
 
 import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -10,13 +12,11 @@ import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.Co
 import com.makinarium.makinariumanimatronickeysystem.FaceSector;
 import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.IDFactory;
 
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.util.HashMap;
 
 public class ButtonsContainer<T> {
@@ -137,22 +137,18 @@ public class ButtonsContainer<T> {
 
     public void saveMe(Context context, Gson gson)
     {
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(context.getFilesDir() + Constants.SaveFileName), "utf-8"))) {
-            writer.write(gson.toJson(this));
-        } catch (UnsupportedEncodingException e) {
-
-        } catch (FileNotFoundException e) {
-
+        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)+"/maks/"+Constants.SaveFileName;
+        Log.i("FILE_S",filePath);
+        FileWriter fw = null;
+        try {
+            File file = new File(filePath);
+            file.setWritable(true);
+            fw = new FileWriter(file);
+            fw.write(gson.toJson(this));
+            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
     }
 
     public void updateAllColorsAndNames()
