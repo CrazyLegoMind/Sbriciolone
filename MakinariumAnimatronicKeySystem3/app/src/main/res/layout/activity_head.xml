@@ -92,7 +92,7 @@
                     android:id="@+id/remote1Macspinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Remote Mac" />
+                    android:contentDescription="Remote Mac"/>
 
 
             </LinearLayout>

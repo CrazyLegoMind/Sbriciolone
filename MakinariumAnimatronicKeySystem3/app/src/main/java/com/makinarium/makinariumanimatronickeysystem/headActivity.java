@@ -30,6 +30,8 @@ public class headActivity extends AppCompatActivity {
     private EditText remoteEdit;
     private EditText headEdit;
     private List<String> macArray;
+    private int spinTopPos = 0;
+    private int spinBtmPos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,11 +125,22 @@ public class headActivity extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view,
                                    int pos, long id) {
             if(type == SpinnerType.REMOTE) {
+                if (spinBtmPos == pos){
+                    return;
+                }
+                spinBtmPos = pos;
                 remote1Mac = macArray.get(pos);
                 Log.i("MACS", "chosen rmt: " + remote1Mac);
             }else if (type == SpinnerType.RECEIVER){
+                if (spinTopPos == pos){
+                    return;
+                }
+                spinTopPos = pos;
                 headMac = macArray.get(pos);
                 Log.i("MACS", "chosen rec: " + headMac);
+                continueButton.setAlpha(1);
+                continueButton.setEnabled(true);
+                continueButton.setClickable(true);
             }
         }
 

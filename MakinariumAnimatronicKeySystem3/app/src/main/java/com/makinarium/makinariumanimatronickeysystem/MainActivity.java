@@ -647,7 +647,7 @@ public class MainActivity extends AppCompatActivity {
                 //show elapsed time while registering input
                 if(registeringPerformance.canPerform()) {
                     if (performanceStartTime <= 0){
-                        performanceStartTime = System.nanoTime();
+                        performanceStartTime = System.currentTimeMillis();
                         timeColor = timeDarkColor;
                         publishProgress(zeroedTime);
                     }
@@ -658,12 +658,12 @@ public class MainActivity extends AppCompatActivity {
                         //e.printStackTrace();
                         Log.i("TIMERTHREAD", "timer stopped");
                     }
-                    long timePassed = System.nanoTime() - performanceStartTime;
+                    long timePassed = System.currentTimeMillis() - performanceStartTime;
                     String timeString = generateTimerString(timePassed);
                     publishProgress(timeString);
 
                 }else{ //blink the timer while waiting for input
-                    long timePassed = System.nanoTime() - startTime;
+                    long timePassed = System.currentTimeMillis() - startTime;
                     if(timePassed % 1000 > 500) {
                         if (blinkState) {
                             blinkState = false;
@@ -857,9 +857,9 @@ public class MainActivity extends AppCompatActivity {
             bpThread = params[0];
             List<PerformancePiece<byte[]>> performance = bpThread.getPerformance();
             double playback_multiplier = multiplicator;
-            long startTime = System.currentTimeMillis();
-            long currentTime = startTime;
-            Log.i("PERFT_G","start: "+ startTime+" with duration:"+bpThread.getDuration());
+            long btn_start_us = System.currentTimeMillis()*1000;
+            long btn_current_us = btn_start_us;
+            Log.i("PERFT_G","start: "+ btn_start_us/1000+" with duration:"+bpThread.getDuration()/ playback_multiplier);
             double mslostcount = 0;
             boolean inPerformance = true;
             PerformancePiece<byte[]> currentPiece = performance.get(0);
@@ -867,32 +867,27 @@ public class MainActivity extends AppCompatActivity {
 
             int currentIndex = 0;
             long send_time = 0;
-            long ms_to_action_left = 0;
-            long next_action_ms = startTime + (long)(currentPiece.getMillisToAction() / playback_multiplier);
+            long us_to_action_left = 0;
+            long next_action_us = btn_start_us + (long)(currentPiece.getMillisToAction()*1000 / playback_multiplier);
             while(inPerformance)
             {
 
                 try {
-                    currentTime = System.currentTimeMillis();
-                    ms_to_action_left = 0;
-                    if(next_action_ms > currentTime){
-                        ms_to_action_left = next_action_ms - currentTime;
+                    btn_current_us = System.currentTimeMillis()*1000;
+                    us_to_action_left = 0;
+                    if(next_action_us > btn_current_us){
+                        us_to_action_left = next_action_us - btn_current_us;
                     }
-                    if(ms_to_action_left > 10){
+                    if(us_to_action_left >2000){
+                        long pre_time =  System.currentTimeMillis();
                         Thread.sleep(2);
                     }
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                if(currentTime > next_action_ms)
+                if(btn_current_us > next_action_us)
                 {
-                    if(currentTime > next_action_ms){
-                        long gap = currentTime - next_action_ms;
-                        //Log.i("PERFT_G","gap: "+gap+" send: " + send_time);
-                        mslostcount = gap;
-                    }
                     byte[] bytes = currentPiece.getAction();
                     byte[] bytesToSend;
                     String messageToSend = new String(bytes);
@@ -905,21 +900,22 @@ public class MainActivity extends AppCompatActivity {
                     currentIndex++;
 
                     if(currentIndex >= performance.size()) {
-                        long realDuration = currentTime - startTime;
-                        Log.i("PERFT_G", "end-> dur: " + (realDuration)+" r_err: "+(realDuration-bpThread.getDuration()/playback_multiplier)+" e_err: "+mslostcount);
+                        long realDuration = (btn_current_us - btn_start_us)/1000;
+                        Log.i("PERFT_G", "end-> dur: " + (realDuration)+" r_err: "+(realDuration-bpThread.getDuration()/playback_multiplier));
+                        Log.i("PERFT_P", "pkg/s: " +( performance.size()/realDuration/1000.0));
                         inPerformance = false;
                     }else{
                         currentPiece = performance.get(currentIndex);
-                        long wait = (long)((currentPiece.getMillisToAction() ) / playback_multiplier);
-                        next_action_ms = next_action_ms + wait;
+                        long wait = (long)((currentPiece.getMillisToAction()*1000 ) / playback_multiplier);
+                        next_action_us = next_action_us + wait;
                     }
                 }
-                long progressTime = currentTime - startTime;
-                int percentProgress = (int) ((100 * progressTime) / (int)(bpThread.getDuration() / playback_multiplier));
+                long btn_elapsed_us = btn_current_us - btn_start_us;
+                int percentProgress = (int) ((100 * btn_elapsed_us) / (int)(bpThread.getDuration()*1000 / playback_multiplier));
 
 
                 publishProgress(percentProgress);
-                send_time = System.currentTimeMillis() - currentTime;
+                send_time = System.currentTimeMillis()*1000 - btn_current_us;
             }
             return bpThread;
         }
