@@ -11,7 +11,7 @@ const char snoutC = 'T';
 
 const byte analogFilter = 10;
 const byte delayLoop = 20;
-const byte delay_servo = 5;
+const byte delay_servo = 2;
 
 int aliveCounter = 0;
 const byte aliveTrigger = 10;
@@ -34,7 +34,7 @@ const byte howmanyanalog = 7;
 Motor listaMotori[howmanyanalog];
 
 
-LedSwc eyebagMirrorSwc;    //non deve mai inviare alla testa //pulsante blu
+LedSwc eyebagMirrorSwc;  //non deve mai inviare alla testa //pulsante blu
 
 void setup() {
   Serial.begin(115200);
@@ -74,11 +74,10 @@ void setup() {
   listaMotori[6].sector = mouthC;  //bocca
   listaMotori[6].arduinoPin = A6;
   listaMotori[6].servoCh = 14;
-
 }
 
 void loop() {
-  readLedSwc(eyebagMirrorSwc);    //non invia nulla alla testa
+  readLedSwc(eyebagMirrorSwc);  //non invia nulla alla testa
   handleSliders();
   deadManButton();
   delay(delayLoop);
@@ -88,28 +87,31 @@ void loop() {
 void handleSliders() {
   for (int slider = 0; slider < howmanyanalog; slider++) {
     int servoch = listaMotori[slider].servoCh;
-    if (eyebagMirrorSwc.value && (slider == 4 || slider == 5)) {
+    if (eyebagMirrorSwc.value && (slider == 1 || slider == 2)) {
       continue;  //skip loop if motors are mirrored
     }
     int sliderVal = analogRead(listaMotori[slider].arduinoPin);
+    if (servoch == 4) {
+        sliderVal = map(sliderVal, 0, 1023, 0, 670);
+      }
     if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
+      
       listaMotori[slider].oldValue = sliderVal;
       sendMotor(listaMotori[slider], sliderVal);
       delay(delay_servo);
       if (eyebagMirrorSwc.value) {
         switch (slider) {
-          case 1:
-            sendMotor(listaMotori[5], sliderVal);
+          case 5:
+            sendMotor(listaMotori[1], sliderVal);
             delay(delay_servo);
             break;
-          case 2:
-            sendMotor(listaMotori[4], sliderVal);
+          case 4:
+            sendMotor(listaMotori[2], sliderVal);
             delay(delay_servo);
             break;
         }
       }
     }
-    
   }
 }
 
