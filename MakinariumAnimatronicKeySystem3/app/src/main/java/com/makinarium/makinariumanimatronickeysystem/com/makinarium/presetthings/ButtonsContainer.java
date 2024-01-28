@@ -25,16 +25,21 @@ public class ButtonsContainer<T> {
     private HashMap<Integer,PresetPerformance> presetHashMap;
 
     private int activeColor;
-    private int performToRecColor;
+    private int emptyColor;
 
-    public ButtonsContainer(int activeColor, int performToRecColor)
+    public ButtonsContainer(int activeColor, int emptyColor)
     {
         performanceHashMap = new HashMap<>();
         presetHashMap = new HashMap<>();
         this.activeColor = activeColor;
-        this.performToRecColor = performToRecColor;
+        this.emptyColor = emptyColor;
     }
-
+    public void setActiveColor(int activeColor){
+        this.activeColor = activeColor;
+    }
+    public void setEmptyColor(int emptyColor){
+        this.emptyColor = emptyColor;
+    }
 
     public void addPerformanceButton(int id, Button button, FaceSector sector, ProgressBar progressBar, TextView textView)
     {
@@ -42,7 +47,7 @@ public class ButtonsContainer<T> {
         if(performanceHashMap.containsKey(IDFactory.getLogicID(id)))
             setButtonAndProgressBarPerformance(button, progressBar, textView);
         else
-            performanceHashMap.put(IDFactory.getLogicID(id), new ButtonPerformance(IDFactory.getLogicID(id), button,sector, progressBar, textView, activeColor, performToRecColor));
+            performanceHashMap.put(IDFactory.getLogicID(id), new ButtonPerformance(IDFactory.getLogicID(id), button,sector, progressBar, textView, activeColor, emptyColor));
     }
 
     public void addPresetButton(int id, Button button, FaceSector sector, ProgressBar progressBar, TextView textView)
@@ -53,7 +58,7 @@ public class ButtonsContainer<T> {
             return;
         }
         if(sector == FaceSector.PRESET)
-            presetHashMap.put(IDFactory.getLogicID(id), new PresetPerformance(IDFactory.getLogicID(id), button,sector, progressBar, textView, activeColor, performToRecColor));
+            presetHashMap.put(IDFactory.getLogicID(id), new PresetPerformance(IDFactory.getLogicID(id), button,sector, progressBar, textView, activeColor, emptyColor));
     }
 
     public void deactivatesButtonSectorButton(FaceSector sector)
@@ -155,14 +160,18 @@ public class ButtonsContainer<T> {
     {
         for(Integer id: performanceHashMap.keySet())
         {
-            performanceHashMap.get(id).updateColor();
-            performanceHashMap.get(id).updateTextName();
+            AbstractPerformance prf = performanceHashMap.get(id);
+            prf.setColors(emptyColor,activeColor);
+            prf.updateColor();
+            prf.updateTextName();
         }
 
         for(Integer id: presetHashMap.keySet())
         {
-            presetHashMap.get(id).updateColor();
-            presetHashMap.get(id).updateTextName();
+            AbstractPerformance prf = presetHashMap.get(id);
+            prf.setColors(emptyColor,activeColor);
+            prf.updateColor();
+            prf.updateTextName();
         }
     }
 

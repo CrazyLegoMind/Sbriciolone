@@ -26,11 +26,11 @@ struct LedSwc {
   boolean value;
 };
 
-const byte delayLoop = 20;
+const byte delayLoop = 5;
 const byte analogFilter = 10;
 
-int aliveCounter = 0;
-const byte aliveTrigger = 10;
+unsigned long ms_last_alive_sent = 0;
+unsigned long ms_alive_spacing = 500;
 
 const char blink_dx_btn_pin = 5;
 const char blink_sx_btn_pin = 6;
@@ -62,8 +62,6 @@ int checkSumFunction(String SCS) {
 
 
 void setup() {
-
-
 
   labbraSinchroSwc.pin = 3;
   labbraSinchroSwc.led = 4;
@@ -107,10 +105,9 @@ void setup() {
   listaMotori[7].servoCh = 7;
 
 
-  Serial.begin(115200);
+  Serial3.begin(115200);
   checkSumForEvent1 = checkSumFunction("LC;1;");
   checkSumForEvent0 = checkSumFunction("A;0;");
-  //Serial.println(checkSumForEvent0); //72
 }
 
 
@@ -140,7 +137,7 @@ void handleSliders() {
         sliderVal = right_eye;
       }
     }
-    if (servo_ch ==13){
+    if (servo_ch == 13){
       if(blinkSx){
         sliderVal = 0;
       }else{
@@ -169,27 +166,19 @@ void handleSliders() {
 
 
 void readJstick(){
-  
   int udValue = analogRead(A1);
   int lrValue = analogRead(A0);
-  // map the value to useful pwm-friendly ones
   int up = map(udValue, 0, 480,512, 0);
   int down = map(udValue, 520, 1023, 512, 0);
   int right = map(lrValue, 500, 0,0 ,512);
   int left = map(lrValue, 530, 1023, 0, 512);
-
-  // correct the values in case of wrong pot limits on initialization and
-  // so all of them will have the same weight in next computations
   right = constrain(right, 0, 512);
   left = constrain(left, 0, 512);
   up = constrain(up, 0, 512);
   down = constrain(down, 0, 512);
-  // recorrect the data not to have more than max +PWM while non pivot-steering
   left_eye = constrain(down+up - right+ left, 0, 1023);
   right_eye = constrain(down+ up+ right - left, 0, 1023);
-  //Serial.print(right_eye);
-  //Serial.print(" ");
-  //Serial.println(left_eye);
+
 }
 
 void readLedSwc(LedSwc& button) {
@@ -215,9 +204,6 @@ void sendMotor(Motor& m, int sensorValue) {
   SCS += ';';
   SCS += sensorValue;
   SCS += ';';
-
-  //Serial.println(SCS);
-
   char bufferChar[SCS.length()];
   SCS.toCharArray(bufferChar, SCS.length());
 
@@ -225,23 +211,24 @@ void sendMotor(Motor& m, int sensorValue) {
   for (int i = 0; i < SCS.length(); i++) {
     sum += bufferChar[i];
   }
-
   int checkSum = sum % 100;
-
-  Serial.print(m.sector);
-  Serial.print(m.event);
-  Serial.print(';');
-  Serial.print(m.servoCh);
-  Serial.print(';');
-  Serial.print(sensorValue);
-  Serial.print(';');
-  Serial.println(checkSum);
+  Serial3.print(m.sector);
+  Serial3.print(m.event);
+  Serial3.print(';');
+  Serial3.print(m.servoCh);
+  Serial3.print(';');
+  Serial3.print(sensorValue);
+  Serial3.print(';');
+  Serial3.println(checkSum);
+  delay(2);
   m.oldValue = sensorValue;
 }
 
 void deadManButton() {
-  if (aliveCounter % aliveTrigger == 0)
-    Serial.println("ALIVE");
+  unsigned long current_time = millis();
+  if(current_time - ms_last_alive_sent > ms_alive_spacing){
+    ms_last_alive_sent = current_time;
+    Serial3.println("ALIVE");
+  }
 
-  aliveCounter++;
 }

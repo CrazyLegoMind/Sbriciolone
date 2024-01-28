@@ -110,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView mouthStatus;
     private Gson gson;
 
-    private int readyColor = 0;
+    private int recActiveColor = 0;
+    int recEmptyColor = 0;
     private int presetColor = 0;
 
     private Executor myExecutor;
@@ -133,9 +134,9 @@ public class MainActivity extends AppCompatActivity {
         remote1Mac = headIntent.getStringExtra("remote1_mac");
         remote2Mac = headIntent.getStringExtra("remote2_mac");
 
-        readyColor = ResourcesCompat.getColor(getResources(), R.color.activePerform, null);
+        recActiveColor = ResourcesCompat.getColor(getResources(), R.color.activePerform, null);
 
-        int toReccolor = ResourcesCompat.getColor(getResources(), R.color.performToRec, null);
+        recEmptyColor = ResourcesCompat.getColor(getResources(), R.color.performToRec, null);
 
         presetColor = ResourcesCompat.getColor(getResources(), R.color.firstcolumn, null);
 
@@ -151,7 +152,10 @@ public class MainActivity extends AppCompatActivity {
             Type containerType = new TypeToken<ButtonsContainer<byte[]>>(){}.getType();
             container = gson.fromJson(json, containerType);
             if(container != null) {
+
                 Log.i("FILE_L","load_ok");
+                container.setActiveColor(recActiveColor);
+                container.setEmptyColor(recEmptyColor);
                 initializeAllButtons();
                 container.updateAllColorsAndNames();
 
@@ -159,11 +163,11 @@ public class MainActivity extends AppCompatActivity {
             else
             {
                 Log.i("FILE_L","load_fail");
-                container = new ButtonsContainer<>(readyColor, toReccolor);
+                container = new ButtonsContainer<>(recActiveColor, recEmptyColor);
                 initializeAllButtons();
             }
         } catch (IOException e) {
-            container = new ButtonsContainer<>(readyColor, toReccolor);
+            container = new ButtonsContainer<>(recActiveColor, recEmptyColor);
             initializeAllButtons();
         }
 
@@ -194,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 multiplicator = progress / 10.0;
-                multText.setText(" ×"+ String.valueOf(multiplicator)+" ");
+                multText.setText(" ×"+multiplicator+" ");
             }
 
             @Override
@@ -212,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         mouthStatus = findViewById(R.id.mouthStatus);
         headStatus = findViewById(R.id.headStatus);
 
-        checkThread = new CheckConnectionsThread(this,eyesStatus,headStatus,mouthStatus,readyColor,presetColor);
+        checkThread = new CheckConnectionsThread(this,eyesStatus,headStatus,mouthStatus,recActiveColor,presetColor);
 
         connectionBluetooth();
 
@@ -228,18 +232,6 @@ public class MainActivity extends AppCompatActivity {
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         for(BluetoothDevice bt : pairedDevices)
         {
-            if (bt.getAddress().equals(remote1Mac)) {
-                mBTDeviceEyes = bt;
-                mBluetoothConnectionEyes = new BluetoothConnectionService(MainActivity.this, Constants.eyesID);
-                startBTConnection(mBTDeviceEyes, mBluetoothConnectionEyes);
-            }
-            
-            if (bt.getAddress().equals(remote2Mac)) {
-                mBTDeviceMouth = bt;
-                mBluetoothConnectionMouth = new BluetoothConnectionService(MainActivity.this, Constants.MouthID);
-                startBTConnection(mBTDeviceMouth, mBluetoothConnectionMouth);
-            }
-            
             if (bt.getAddress().equals(headMac)) {
                 Log.d(TAG, bt.getName());
 
@@ -247,6 +239,18 @@ public class MainActivity extends AppCompatActivity {
                 mBluetoothConnectionHead = new BluetoothConnectionService(MainActivity.this, Constants.HeadID);
                 startBTConnection(mBTDeviceHead, mBluetoothConnectionHead);
             }
+            if (bt.getAddress().equals(remote1Mac)) {
+                mBTDeviceEyes = bt;
+                mBluetoothConnectionEyes = new BluetoothConnectionService(MainActivity.this, Constants.eyesID);
+                startBTConnection(mBTDeviceEyes, mBluetoothConnectionEyes);
+            }
+
+            if (bt.getAddress().equals(remote2Mac)) {
+                mBTDeviceMouth = bt;
+                mBluetoothConnectionMouth = new BluetoothConnectionService(MainActivity.this, Constants.MouthID);
+                startBTConnection(mBTDeviceMouth, mBluetoothConnectionMouth);
+            }
+
 
         }
     }
@@ -802,7 +806,7 @@ public class MainActivity extends AppCompatActivity {
             if(performanceFilter.contains(packetChannel))
                 return;
 
-            //Log.i("BT_REC: ",text);
+            Log.i("BT_REC: ",text);
             switch (id){
                 case Constants.eyesID:
                     if(!eyesActiveController)

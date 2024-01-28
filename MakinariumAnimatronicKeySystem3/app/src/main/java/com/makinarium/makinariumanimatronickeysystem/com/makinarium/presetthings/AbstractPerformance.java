@@ -62,7 +62,10 @@ public abstract class AbstractPerformance {
         canPerform = false;
 
     }
-
+    public void setColors(int colorEmpty,int colorActive) {
+        activeColor = colorActive;
+        performToRecColor = colorEmpty;
+    }
     public void updateColor()
     {
 
