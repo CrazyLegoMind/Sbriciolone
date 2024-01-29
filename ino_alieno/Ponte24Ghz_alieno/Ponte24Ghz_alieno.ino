@@ -2,13 +2,7 @@
 bfs::SbusTx sbus_tx(&Serial2, 25, 27, true);
 /* SBUS data */
 bfs::SbusData data;
-#include "BluetoothSerial.h"
 
-#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
-#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
-#endif
-
-BluetoothSerial SerialBT;
 unsigned long ms_last_alive_sent = 0;
 unsigned long ms_alive_spacing = 500;
 
@@ -25,15 +19,35 @@ const char snoutC = 'T';
 
 const byte howmanyservo = 12;
 
+int ch_to_sbus_table[] = {
+  0,   //0
+  1,   //1
+  2,   //2
+  3,   //3
+  4,   //4
+  5,   //5
+  6,   //6
+  -1,  //7
+  -1,  //8
+  7,   //9
+  -1,  //10
+  -1,  //11
+  8,   //12
+  9,   //13
+  10,  //14
+  -1,  //15
+};
+
 void setup() {
   //Serial.begin(115200);
-  SerialBT.begin("MK-Ponte24ghz", false, true);  //Bluetooth device name
+  Serial1.begin(115200, SERIAL_8N1, 19, 5);
+  Serial1.setTimeout(20);
   sbus_tx.Begin();
 }
 int lp = 0;
 
 void loop() {
-  String message = SerialBT.readStringUntil('\n');
+  String message = Serial1.readStringUntil('\n');
   if (message.length() > 0) {
     //Serial.println(message);
     if (message.charAt(0) == 'r') {
@@ -99,6 +113,11 @@ void noseMessage(String message) {
   if (message.charAt(1) == servoC) {
     String indexString = getValueStringSplitter(message, ';', 1);
     int index = indexString.toInt();
+    index = ch_to_sbus_table[index];
+    //Serial.println(index);
+    if(index < 0) {
+      return;
+    }
     String valueString = getValueStringSplitter(message, ';', 2);
     int value = valueString.toInt();
     data.ch[index] = analogToMsConversion(value);
@@ -106,23 +125,31 @@ void noseMessage(String message) {
 }
 
 void eyelidsMessage(String message) {
-  if (message.charAt(1) == servoC)
-    palpebraMotorMessage(message);
+  if (message.charAt(1) == servoC) {
+    String indexString = getValueStringSplitter(message, ';', 1);
+    int index = indexString.toInt();
+    index = ch_to_sbus_table[index];
+    //Serial.println(index);
+    if(index < 0) {
+      return;
+    }
+    String valueString = getValueStringSplitter(message, ';', 2);
+    int value = valueString.toInt();
+    data.ch[index] = analogToMsConversion(value);
+  }
 }
 
-void palpebraMotorMessage(String message) {
-  String indexString = getValueStringSplitter(message, ';', 1);
-  int index = indexString.toInt();
-  String valueString = getValueStringSplitter(message, ';', 2);
-  int value = valueString.toInt();
-  data.ch[index] = analogToMsConversion(value);
-}
 
 
 void eyeBrowMessage(String message) {
   if (message.charAt(1) == servoC) {
     String indexString = getValueStringSplitter(message, ';', 1);
     int index = indexString.toInt();
+    index = ch_to_sbus_table[index];
+    //Serial.println(index);
+    if(index < 0) {
+      return;
+    }
     String valueString = getValueStringSplitter(message, ';', 2);
     int value = valueString.toInt();
     data.ch[index] = analogToMsConversion(value);
@@ -134,6 +161,11 @@ void mouthMessage(String message) {
   if (message.charAt(1) == servoC) {
     String indexString = getValueStringSplitter(message, ';', 1);
     int index = indexString.toInt();
+    index = ch_to_sbus_table[index];
+    //Serial.println(index);
+    if(index < 0) {
+      return;
+    }
     String valueString = getValueStringSplitter(message, ';', 2);
     int value = valueString.toInt();
     data.ch[index] = analogToMsConversion(value);
@@ -144,6 +176,11 @@ void earMotorMessage(String message) {
   if (message.charAt(1) == servoC) {
     String indexString = getValueStringSplitter(message, ';', 1);
     int index = indexString.toInt();
+    index = ch_to_sbus_table[index];
+    //Serial.println(index);
+    if(index < 0) {
+      return;
+    }
     String valueString = getValueStringSplitter(message, ';', 2);
     int value = valueString.toInt();
     data.ch[index] = analogToMsConversion(value);
@@ -191,7 +228,7 @@ void deadManButton() {
   unsigned long current_time = millis();
   if (current_time - ms_last_alive_sent > ms_alive_spacing) {
     ms_last_alive_sent = current_time;
-    SerialBT.println("ALIVE");
+    Serial1.println("ALIVE");
     //Serial.println("alive");
   }
 }
