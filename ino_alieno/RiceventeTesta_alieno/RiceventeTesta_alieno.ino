@@ -22,7 +22,8 @@ struct ServoValues {
 };
 
 
-
+unsigned long ms_last_alive_sent = 0;
+unsigned long ms_alive_spacing = 500;
 const byte howmanyservo = 16;
 ServoValues servoList[howmanyservo];
 #include <PololuMaestro.h>
@@ -61,7 +62,7 @@ void setup() {
 
 
   //NOME SERVO "Lab_D";
-  servoList[0].minValue = 4288;
+  servoList[0].minValue = 5184;
   servoList[0].maxValue = 6528;
   servoList[0].channel = 0;
   servoList[0].reverse = false;
@@ -94,7 +95,7 @@ void setup() {
 
   //NOME SERVO "Orecchie";
   servoList[4].minValue = 4672;
-  servoList[4].maxValue = 8000;  //
+  servoList[4].maxValue = 7104;  //
   servoList[4].channel = 4;
   servoList[4].reverse = false;
   servoList[4].stopAndGo = false;
@@ -141,7 +142,7 @@ void setup() {
   servoList[9].shutDownWhen = 1000;
 
   //NOME SERVO "Gua_S";
-  servoList[10].minValue = 3968;
+  servoList[10].minValue = 5696;
   servoList[10].maxValue = 7040;
   servoList[10].channel = 10;
   servoList[10].reverse = false;
@@ -150,7 +151,7 @@ void setup() {
 
   //NOME SERVO "Gua_D";
   servoList[11].minValue = 5120;
-  servoList[11].maxValue = 8000;
+  servoList[11].maxValue = 6528;
   servoList[11].channel = 11;
   servoList[11].reverse = true;
   servoList[11].stopAndGo = false;
@@ -206,8 +207,6 @@ void loop() {
       message = message.substring(1);
     }
     if (doIt) {
-
-      //delay(30);
       int lenghtMessage = getLenghtBeforeCheckSum(message, ';');
       int numberSeparators = homManySeparator(message, ';');
       int checksum = getValueStringSplitter(message, ';', numberSeparators).toInt();
@@ -318,7 +317,6 @@ void mouthMessage(String message) {
     servoList[index].counterShutDown = 0;
     maestro.setTarget(servoList[index].channel, analogServoConversion(value, servoList[index]));
     if (index == 14) {
-      delay(2);
       maestro.setTarget(servoList[15].channel, analogServoConversion(value, servoList[15]));
     }
   }
@@ -375,8 +373,10 @@ String getValueStringSplitter(String data, char separator, int index) {
 }
 
 void deadManButton() {
-  if (aliveCounter % aliveTrigger == 0)
+  unsigned long current_time = millis();
+  if(current_time - ms_last_alive_sent > ms_alive_spacing){
+    ms_last_alive_sent = current_time;
     Serial3.println("ALIVE");
-
-  aliveCounter++;
+  }
 }
+

@@ -9,6 +9,17 @@ const char eyebrownsC = 'B';
 const char mouthC = 'M';
 const char snoutC = 'T';
 
+const byte analogFilter = 10;
+#define DELAY_LOOP 5
+#define DELAY_SERVO 2
+#define ANALOG_PORTS 7
+
+
+unsigned long ms_last_alive_sent = 0;
+unsigned long ms_alive_spacing = 500;
+
+const char blink_dx_btn_pin = 5;
+const char blink_sx_btn_pin = 6;
 
 struct Motor {
   char sector;
@@ -26,14 +37,6 @@ struct LedSwc {
   boolean value;
 };
 
-const byte delayLoop = 5;
-const byte analogFilter = 10;
-
-unsigned long ms_last_alive_sent = 0;
-unsigned long ms_alive_spacing = 500;
-
-const char blink_dx_btn_pin = 5;
-const char blink_sx_btn_pin = 6;
 int right_eye = 0;
 int left_eye = 0;
 
@@ -41,8 +44,8 @@ int left_eye = 0;
 bool blinkSx = false;
 bool blinkDx = false;
 
-const byte howmanyanalog = 8;  //Sono 7 invero
-Motor listaMotori[howmanyanalog];
+const byte analog_amount = ANALOG_PORTS+1;
+Motor listaMotori[analog_amount];
 LedSwc labbraSinchroSwc;  //rosso
 
 int checkSumForEvent1;
@@ -103,8 +106,6 @@ void setup() {
   listaMotori[7].sector = eyebrownsC; //esx
   listaMotori[7].arduinoPin = A7;
   listaMotori[7].servoCh = 7;
-
-
   Serial3.begin(115200);
   checkSumForEvent1 = checkSumFunction("LC;1;");
   checkSumForEvent0 = checkSumFunction("A;0;");
@@ -118,11 +119,11 @@ void loop() {
   readJstick();
   handleSliders();
   deadManButton();
-  delay(delayLoop);
+  delay(DELAY_LOOP);
 }
 
 void handleSliders() {
-  for (int slider = 0; slider < howmanyanalog; slider++) {
+  for (int slider = 0; slider < analog_amount; slider++) {
     int servo_ch = listaMotori[slider].servoCh;
 
     if (labbraSinchroSwc.value && (servo_ch == 7 || servo_ch == 2|| servo_ch == 10)) {
@@ -144,7 +145,6 @@ void handleSliders() {
         sliderVal = left_eye;
       }
     }
-
     if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
       sendMotor(listaMotori[slider], sliderVal);
       if (labbraSinchroSwc.value) {
@@ -183,8 +183,6 @@ void readJstick(){
 
 void readLedSwc(LedSwc& button) {
   int lettura = digitalRead(button.pin);
-
-
   if (lettura == HIGH) {
     button.value = true;
     digitalWrite(button.led, HIGH);
@@ -220,7 +218,7 @@ void sendMotor(Motor& m, int sensorValue) {
   Serial3.print(sensorValue);
   Serial3.print(';');
   Serial3.println(checkSum);
-  delay(2);
+  delay(DELAY_SERVO);
   m.oldValue = sensorValue;
 }
 
@@ -230,5 +228,4 @@ void deadManButton() {
     ms_last_alive_sent = current_time;
     Serial3.println("ALIVE");
   }
-
 }

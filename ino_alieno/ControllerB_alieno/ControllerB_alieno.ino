@@ -10,11 +10,12 @@ const char mouthC = 'M';
 const char snoutC = 'T';
 
 const byte analogFilter = 10;
-const byte delayLoop = 20;
-const byte delay_servo = 2;
+#define DELAY_LOOP 5
+#define DELAY_SERVO 2
+#define ANALOG_PORTS 6
 
-int aliveCounter = 0;
-const byte aliveTrigger = 10;
+unsigned long ms_last_alive_sent = 0;
+unsigned long ms_alive_spacing = 500;
 
 struct Motor {
   char sector;
@@ -30,14 +31,12 @@ struct LedSwc {
   boolean value;
 };
 
-const byte howmanyanalog = 7;
-Motor listaMotori[howmanyanalog];
-
-
+const byte analog_amount = ANALOG_PORTS+1;
+Motor listaMotori[analog_amount];
 LedSwc eyebagMirrorSwc;  //non deve mai inviare alla testa //pulsante blu
 
 void setup() {
-  Serial.begin(115200);
+  Serial3.begin(115200);
 
 
   eyebagMirrorSwc.pin = 5;
@@ -80,34 +79,28 @@ void loop() {
   readLedSwc(eyebagMirrorSwc);  //non invia nulla alla testa
   handleSliders();
   deadManButton();
-  delay(delayLoop);
+  delay(DELAY_LOOP);
 }
 
 
 void handleSliders() {
-  for (int slider = 0; slider < howmanyanalog; slider++) {
+  for (int slider = 0; slider < analog_amount; slider++) {
     int servoch = listaMotori[slider].servoCh;
     if (eyebagMirrorSwc.value && (slider == 1 || slider == 2)) {
       continue;  //skip loop if motors are mirrored
     }
     int sliderVal = analogRead(listaMotori[slider].arduinoPin);
-    if (servoch == 4) {
-        sliderVal = map(sliderVal, 0, 1023, 0, 670);
-      }
     if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
       
       listaMotori[slider].oldValue = sliderVal;
       sendMotor(listaMotori[slider], sliderVal);
-      delay(delay_servo);
       if (eyebagMirrorSwc.value) {
         switch (slider) {
           case 5:
             sendMotor(listaMotori[1], sliderVal);
-            delay(delay_servo);
             break;
           case 4:
             sendMotor(listaMotori[2], sliderVal);
-            delay(delay_servo);
             break;
         }
       }
@@ -151,18 +144,22 @@ void sendMotor(Motor& m, int sensorValue) {
   int checkSum = sum % 100;
 
 
-  Serial.print(m.sector);
-  Serial.print(m.event);
-  Serial.print(';');
-  Serial.print(m.servoCh);
-  Serial.print(';');
-  Serial.print(sensorValue);
-  Serial.print(';');
-  Serial.println(checkSum);
+  Serial3.print(m.sector);
+  Serial3.print(m.event);
+  Serial3.print(';');
+  Serial3.print(m.servoCh);
+  Serial3.print(';');
+  Serial3.print(sensorValue);
+  Serial3.print(';');
+  Serial3.println(checkSum);
+  delay(DELAY_SERVO);
+  m.oldValue = sensorValue;
 }
 
 void deadManButton() {
-  if (aliveCounter % aliveTrigger == 0)
-    Serial.println("ALIVE");
-  aliveCounter++;
+  unsigned long current_time = millis();
+  if(current_time - ms_last_alive_sent > ms_alive_spacing){
+    ms_last_alive_sent = current_time;
+    Serial3.println("ALIVE");
+  }
 }
