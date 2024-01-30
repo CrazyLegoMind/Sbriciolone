@@ -61,6 +61,7 @@ void setup() {
     RC hobby servo responds to pulses between 1 ms (4000) and 2
     ms (8000). */
   maestroSerial.begin(115200);
+  sbus_rx.Begin();
 
   //NOME SERVO "Lab_D";
   servoList[0].minValue = 5184;
