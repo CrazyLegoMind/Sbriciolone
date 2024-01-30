@@ -9,8 +9,8 @@ const char eyebrownsC = 'B';
 const char mouthC = 'M';
 const char snoutC = 'T';
 
-#define SERVO_FILTER 10
-#define DELAY_LOOP 2
+#define SERVO_FILTER 2
+#define DELAY_LOOP 1
 
 struct ServoValues {
   bool reverse;  //reverse min and max control
@@ -60,6 +60,7 @@ void setup() {
     the target position in units of 1/4 microseconds. A typical
     RC hobby servo responds to pulses between 1 ms (4000) and 2
     ms (8000). */
+    //Serial.begin(115200);
   maestroSerial.begin(115200);
   sbus_rx.Begin();
 
@@ -196,6 +197,8 @@ void loop() {
     data = sbus_rx.data();
     /* Display the received data */
     for (int8_t i = 0; i < 12; i++) {
+      //Serial.print(data.ch[i]);
+      //Serial.print("\t");
       int ch_ms = data.ch[i];
       if(abs(ch_ms-prev_data.ch[i]) < SERVO_FILTER){
         continue;
@@ -246,7 +249,9 @@ void loop() {
           break;
       }
     }
+    //Serial.println();
   }
+  
   deadManButton();
   delay(DELAY_LOOP);
 }
