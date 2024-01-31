@@ -93,6 +93,7 @@ void loop() {
   }
   sbus_tx.data(data);
   sbus_tx.Write();
+  delay(2);
   deadManButton();
 }
 
