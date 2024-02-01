@@ -10,7 +10,9 @@ const char mouthC = 'M';
 const char snoutC = 'T';
 
 #define SERVO_FILTER 1
-#define DELAY_LOOP 10
+#define DELAY_LOOP 2
+#define MS_MIN 22
+#define MS_MAX 2000
 
 struct ServoValues {
   bool reverse;         //reverse min and max control
@@ -60,7 +62,7 @@ void setup() {
     the target position in units of 1/4 microseconds. A typical
     RC hobby servo responds to pulses between 1 ms (4000) and 2
     ms (8000). */
-  Serial.begin(115200);
+  //Serial.begin(115200);
   maestroSerial.begin(115200);
   sbus_rx.Begin();
 
@@ -179,14 +181,14 @@ int sbus_to_ch_table[] = {
 
 int msServoConversion(int msValue, ServoValues& servo, bool reverse = false) {
   int res = 0;
-  if (msValue < 50) {
+  if (msValue < MS_MIN/2) {
     return res;
   }
 
   if (servo.reverse != reverse)
-    res = map(msValue, 100, 2000, servo.maxValue, servo.minValue);
+    res = map(msValue, MS_MIN, MS_MAX, servo.maxValue, servo.minValue);
   else
-    res = map(msValue, 100, 2000, servo.minValue, servo.maxValue);
+    res = map(msValue, MS_MIN, MS_MAX, servo.minValue, servo.maxValue);
   res = constrain(res, servo.minValue, servo.maxValue);
   return res;
 }
@@ -197,8 +199,8 @@ void loop() {
     data = sbus_rx.data();
     /* Display the received data */
     for (int8_t i = 0; i < 12; i++) {
-      Serial.print(data.ch[i]);
-      Serial.print("\t");
+      //Serial.print(data.ch[i]);
+      //Serial.print(",");
       int ch_ms = data.ch[i];
       if (abs(ch_ms - prev_data.ch[i]) < SERVO_FILTER) {
         continue;
@@ -248,10 +250,10 @@ void loop() {
         default:
           break;
       }
-      delay(DELAY_LOOP);
     }
-    Serial.println();
+    //Serial.println();
   }
+  delay(DELAY_LOOP);
   deadManButton();
   
 }

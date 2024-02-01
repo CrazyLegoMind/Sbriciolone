@@ -3,8 +3,12 @@ bfs::SbusTx sbus_tx(&Serial2, 25, 27, true);
 /* SBUS data */
 bfs::SbusData data;
 
+#define DELAY_LOOP 2
+#define MS_MIN 22
+#define MS_MAX 2000
+
 unsigned long ms_last_alive_sent = 0;
-unsigned long ms_alive_spacing = 500;
+unsigned long ms_alive_spacing = 300;
 
 const char eventsC = 'e';
 const char statusChangeC = 'C';
@@ -91,9 +95,13 @@ void loop() {
       }
     }
   }
+  //for (int8_t i = 0; i < 12; i++) {
+  //    Serial.print(data.ch[i]);
+ //     Serial.print(",");
+  //}
+  Serial.println();
   sbus_tx.data(data);
   sbus_tx.Write();
-  delay(2);
   deadManButton();
 }
 
@@ -189,8 +197,8 @@ void earMotorMessage(String message) {
 }
 
 int analogToMsConversion(int analogValue) {
-  int res = map(analogValue, 0, 1023, 100, 2000);
-  res = constrain(res, 100, 2000);
+  int res = map(analogValue, 0, 1023, MS_MIN, MS_MAX);
+  res = constrain(res, MS_MIN, MS_MAX);
   return res;
 }
 
