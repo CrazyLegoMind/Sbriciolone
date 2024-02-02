@@ -11,6 +11,7 @@ const char snoutC = 'T';
 
 #define SERVO_FILTER 1
 #define DELAY_LOOP 2
+#define DELAY_SERVO 2 
 #define MS_MIN 22
 #define MS_MAX 2000
 
@@ -62,7 +63,7 @@ void setup() {
     the target position in units of 1/4 microseconds. A typical
     RC hobby servo responds to pulses between 1 ms (4000) and 2
     ms (8000). */
-  //Serial.begin(115200);
+  Serial.begin(115200);
   maestroSerial.begin(115200);
   sbus_rx.Begin();
 
@@ -199,51 +200,69 @@ void loop() {
     data = sbus_rx.data();
     /* Display the received data */
     for (int8_t i = 0; i < 12; i++) {
-      //Serial.print(data.ch[i]);
-      //Serial.print(",");
+      if(i == 8 || i == 9 || i == 0){
+      Serial.print(data.ch[i]);
+      Serial.print(",");
+      }
       int ch_ms = data.ch[i];
-      if (abs(ch_ms - prev_data.ch[i]) < SERVO_FILTER) {
+      if (ch_ms==prev_data.ch[i] && ch_ms != 0) {
         continue;
       }
       prev_data.ch[i] = ch_ms;
       switch (i) {
         case 0:
           maestro.setTarget(servoList[0].channel, msServoConversion(ch_ms, servoList[0]));
+          
           break;
         case 1:
           maestro.setTarget(servoList[1].channel, msServoConversion(ch_ms, servoList[1]));
+          
           break;
         case 2:
           maestro.setTarget(servoList[2].channel, msServoConversion(ch_ms, servoList[2]));
+          
           maestro.setTarget(servoList[7].channel, msServoConversion(ch_ms, servoList[7]));
+          
           maestro.setTarget(servoList[10].channel, msServoConversion(ch_ms, servoList[10], true));  //rev
+          
           break;
         case 3:
           maestro.setTarget(servoList[3].channel, msServoConversion(ch_ms, servoList[3]));
+          
           maestro.setTarget(servoList[8].channel, msServoConversion(ch_ms, servoList[8]));
+          
           maestro.setTarget(servoList[11].channel, msServoConversion(ch_ms, servoList[11], true));  //rev
+          
           break;
         case 4:
           maestro.setTarget(servoList[4].channel, msServoConversion(ch_ms, servoList[4]));
+          
           break;
         case 5:
           maestro.setTarget(servoList[5].channel, msServoConversion(ch_ms, servoList[5]));
+          
           break;
         case 6:
           maestro.setTarget(servoList[6].channel, msServoConversion(ch_ms, servoList[6]));
+          
           break;
         case 7:
           maestro.setTarget(servoList[9].channel, msServoConversion(ch_ms, servoList[9]));
+          
           break;
         case 8:
           maestro.setTarget(servoList[12].channel, msServoConversion(ch_ms, servoList[12]));
+          
           break;
         case 9:
           maestro.setTarget(servoList[13].channel, msServoConversion(ch_ms, servoList[13]));
+          
           break;
         case 10:
           maestro.setTarget(servoList[14].channel, msServoConversion(ch_ms, servoList[14]));
+          
           maestro.setTarget(servoList[15].channel, msServoConversion(ch_ms, servoList[15]));
+          
           break;
         case 11:
           break;
@@ -251,7 +270,7 @@ void loop() {
           break;
       }
     }
-    //Serial.println();
+    Serial.println();
   }
   delay(DELAY_LOOP);
   deadManButton();
