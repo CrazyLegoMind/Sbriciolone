@@ -62,6 +62,9 @@ public class PerformancePiece <T>{
     }
     public static int getChannelFromPacket(String packetString)
     {
+        if (packetString.length() < 1){
+            return -1;
+        }
         MessageTypes packetType = MessageTypes.fromChar(packetString.charAt(1));
         int channel = -1;
         switch(packetType)

@@ -49,6 +49,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private String remote2Mac;
 
     private List<AbstractPerformance> runningPerformances;
+    private  PresetPerformance runningPreset;
     
     //--------- bluetooth variables for remotes and receivers
     private BluetoothAdapter mBluetoothAdapter;
@@ -176,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
         undoManager = new UndoManager<>(container);
 
         performanceFilter = new HashSet<>();
+        runningPerformances = new ArrayList<>();
 
         cronometro = findViewById(R.id.cronometro);
         stopButton = findViewById(R.id.stopButton);
@@ -542,7 +545,13 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Toast.makeText(this, Constants.performing, Toast.LENGTH_SHORT).show();
-        container.deactivatesButtonSectorButton(bp.getFaceSector());
+        //container.deactivatesButtonSectorButton(bp.getFaceSector());
+        if(runningPreset != null){
+            runningPreset.stopThread();
+        }
+        for( AbstractPerformance RunPF : runningPerformances){
+            RunPF.stopThread();
+        }
         preSetThread pt = new preSetThread();
         pt.executeOnExecutor(myExecutor, bp);
         //pt.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, bp);
@@ -916,7 +925,8 @@ public class MainActivity extends AppCompatActivity {
                     if(currentIndex >= performance.size()) {
                         long realDuration = (btn_current_us - btn_start_us)/1000;
                         Log.i("PERFT_G", "end-> dur: " + (realDuration)+" r_err: "+(realDuration-bpThread.getDuration()/playback_multiplier));
-                        Log.i("PERFT_P", "pkg/s: " +( performance.size()/(realDuration+1/1000)));
+                        if(realDuration > 0)
+                            Log.i("PERFT_P", "pkg/s: " +( performance.size()/(realDuration/1000)));
                         inPerformance = false;
                     }else{
                         currentPiece = performance.get(currentIndex);
@@ -935,10 +945,7 @@ public class MainActivity extends AppCompatActivity {
                 send_time = System.currentTimeMillis()*1000 - btn_current_us;
             }
             if(!bpThread.isThreadRunning()){
-                if(bpThread.hasStartPreset()){
-                    bpThread.getStartPreset().tickRunningBtnCounter();
-                    Log.i("PERFT_K", "stopped_early");
-                }
+                Log.i("PERFT_K", "stopped_early");
             }
             return bpThread;
         }
@@ -951,11 +958,20 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ButtonPerformance bp) {
-
-            container.activatesButtonSectorButton(bp.getFaceSector());
+            runningPerformances.remove(bpThread);
+            boolean rowFreeCheck = true;
+            for(AbstractPerformance rnpf : runningPerformances){
+                if(rnpf.isThreadRunning() &&  rnpf.getFaceSector() == bp.getFaceSector()){
+                    rowFreeCheck = false;
+                    break;
+                }
+            }
+            if(rowFreeCheck) {
+                container.activatesButtonSectorButton(bp.getFaceSector());
+            }
             performanceFilter.removeAll(bp.getChannels());
             bpThread.getProgressBar().setProgress(0);
-            runningPerformances.remove(bpThread);
+
         }
 
     }
@@ -969,17 +985,14 @@ public class MainActivity extends AppCompatActivity {
             int duration = (int)(bpThread.getDuration() / multiplicator);
             List<Integer> buttonToPress = bpThread.getButtonsToPress();
 
+            publishProgress(buttonToPress.toArray(new Integer[buttonToPress.size() + 1]));
+
 
             long startTime = System.currentTimeMillis();
             long time = startTime;
             long endTime = time + duration;
             bpThread.initRunning();
-                for(int i = 0; i < buttonToPress.size() +1; i++)//Trucchetto se ho solo un bottone da premere
-                {
-                    Button b = container.getButtonPerformanceFromLogic(buttonToPress.get(i)).getButton();
-                    b.performClick();
-                }
-
+            runningPreset = bpThread;
             while(time < endTime && bpThread.isThreadRunning())
             {
                 try {
@@ -994,7 +1007,7 @@ public class MainActivity extends AppCompatActivity {
                 publishProgress(percentProgress);
             }
             if(!bpThread.isThreadRunning()){
-                Log.i("PERFS_K", "all btns stopped");
+                Log.i("PERFS_K", "preset thd stopped");
             }
             return null;
         }
@@ -1002,7 +1015,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... values)
         {
+            if(values.length > 1)
+            {
+                for(int i = 0; i < values.length - 1; i++)//Trucchetto se ho solo un bottone da premere
+                {
+                    Button b = container.getButtonPerformanceFromLogic(values[i]).getButton();
+                    b.performClick();
+                }
+                return;
 
+            }
             bpThread.getProgressBar().setProgress(values[0]);
         }
 
