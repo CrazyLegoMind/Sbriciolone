@@ -19,7 +19,7 @@
     <!--Channel 3-->
     <Channel name="CigCDx" mode="Servo" min="4864" max="8000" homemode="Off" home="4864" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 4-->
-    <Channel name="Orecchie" mode="Servo" min="4672" max="6912" homemode="Off" home="4672" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="Orecchie" mode="Servo" min="4480" max="6336" homemode="Off" home="4480" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 5-->
     <Channel name="LabSx" mode="Servo" min="5632" max="7104" homemode="Off" home="5632" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 6-->
