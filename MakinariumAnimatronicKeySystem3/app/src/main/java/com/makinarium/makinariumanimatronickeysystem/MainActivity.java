@@ -906,7 +906,7 @@ public class MainActivity extends AppCompatActivity {
                     if(currentIndex >= performance.size()) {
                         long realDuration = (btn_current_us - btn_start_us)/1000;
                         Log.i("PERFT_G", "end-> dur: " + (realDuration)+" r_err: "+(realDuration-bpThread.getDuration()/playback_multiplier));
-                        Log.i("PERFT_P", "pkg/s: " +( performance.size()/realDuration/1000.0));
+                        Log.i("PERFT_P", "pkg/s: " +( performance.size()/(realDuration/1000)));
                         inPerformance = false;
                     }else{
                         currentPiece = performance.get(currentIndex);

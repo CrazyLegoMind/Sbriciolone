@@ -49,8 +49,10 @@ void setup() {
   sbus_tx.Begin();
 }
 int lp = 0;
+unsigned long current_time = 0;
 
 void loop() {
+
   String message = Serial1.readStringUntil('\n');
   if (message.length() > 0) {
     //Serial.println(message);
@@ -97,11 +99,20 @@ void loop() {
   }
   //for (int8_t i = 0; i < 12; i++) {
   //    Serial.print(data.ch[i]);
- //     Serial.print(",");
+  //     Serial.print(",");
   //}
-  Serial.println();
-  sbus_tx.data(data);
-  sbus_tx.Write();
+  //Serial.println();
+  //unsigned long curr_us = micros();
+  //Serial.print(curr_us-start_us);
+  //start_us = curr_us;
+  if (millis() - current_time > 10) {
+    current_time = millis();
+    sbus_tx.data(data);
+    sbus_tx.Write();
+  }
+  //curr_us = micros();
+  //Serial.print(",");
+  //Serial.println(curr_us-start_us);
   deadManButton();
 }
 
@@ -124,7 +135,7 @@ void noseMessage(String message) {
     int index = indexString.toInt();
     index = ch_to_sbus_table[index];
     //Serial.println(index);
-    if(index < 0) {
+    if (index < 0) {
       return;
     }
     String valueString = getValueStringSplitter(message, ';', 2);
@@ -139,7 +150,7 @@ void eyelidsMessage(String message) {
     int index = indexString.toInt();
     index = ch_to_sbus_table[index];
     //Serial.println(index);
-    if(index < 0) {
+    if (index < 0) {
       return;
     }
     String valueString = getValueStringSplitter(message, ';', 2);
@@ -156,7 +167,7 @@ void eyeBrowMessage(String message) {
     int index = indexString.toInt();
     index = ch_to_sbus_table[index];
     //Serial.println(index);
-    if(index < 0) {
+    if (index < 0) {
       return;
     }
     String valueString = getValueStringSplitter(message, ';', 2);
@@ -172,7 +183,7 @@ void mouthMessage(String message) {
     int index = indexString.toInt();
     index = ch_to_sbus_table[index];
     //Serial.println(index);
-    if(index < 0) {
+    if (index < 0) {
       return;
     }
     String valueString = getValueStringSplitter(message, ';', 2);
@@ -187,7 +198,7 @@ void earMotorMessage(String message) {
     int index = indexString.toInt();
     index = ch_to_sbus_table[index];
     //Serial.println(index);
-    if(index < 0) {
+    if (index < 0) {
       return;
     }
     String valueString = getValueStringSplitter(message, ';', 2);
@@ -238,6 +249,5 @@ void deadManButton() {
   if (current_time - ms_last_alive_sent > ms_alive_spacing) {
     ms_last_alive_sent = current_time;
     Serial1.println("ALIVE");
-    //Serial.println("alive");
   }
 }

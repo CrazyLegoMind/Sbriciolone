@@ -16,7 +16,7 @@ const byte analogFilter = 10;
 
 
 unsigned long ms_last_alive_sent = 0;
-unsigned long ms_alive_spacing = 500;
+unsigned long ms_alive_spacing = 300;
 
 const char blink_dx_btn_pin = 5;
 const char blink_sx_btn_pin = 6;
@@ -107,6 +107,7 @@ void setup() {
   listaMotori[7].arduinoPin = A7;
   listaMotori[7].servoCh = 7;
   Serial3.begin(115200);
+  //Serial.begin(115200);
   checkSumForEvent1 = checkSumFunction("LC;1;");
   checkSumForEvent0 = checkSumFunction("A;0;");
 }
@@ -178,7 +179,9 @@ void readJstick(){
   down = constrain(down, 0, 512);
   left_eye = constrain(down+up - right+ left, 0, 1023);
   right_eye = constrain(down+ up+ right - left, 0, 1023);
-
+  //Serial.print(left_eye);
+  //Serial.print(right_eye);
+  //Serial.println();
 }
 
 void readLedSwc(LedSwc& button) {

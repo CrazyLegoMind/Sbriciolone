@@ -63,7 +63,7 @@ void setup() {
     the target position in units of 1/4 microseconds. A typical
     RC hobby servo responds to pulses between 1 ms (4000) and 2
     ms (8000). */
-  Serial.begin(115200);
+  //Serial.begin(115200);
   maestroSerial.begin(115200);
   sbus_rx.Begin();
 
@@ -193,17 +193,22 @@ int msServoConversion(int msValue, ServoValues& servo, bool reverse = false) {
   res = constrain(res, servo.minValue, servo.maxValue);
   return res;
 }
+unsigned long current_time = 0;
+unsigned long maestro_time = 0;
 
 void loop() {
+  current_time = millis();
   if (sbus_rx.Read()) {
-    /* Grab the received data */
     data = sbus_rx.data();
+  }
+  if (current_time-maestro_time>50) {
+    maestro_time = current_time;
     /* Display the received data */
     for (int8_t i = 0; i < 12; i++) {
-      if(i == 8 || i == 9 || i == 0){
-      Serial.print(data.ch[i]);
-      Serial.print(",");
-      }
+
+      //Serial.print(data.ch[i]);
+      //Serial.print(",");
+
       int ch_ms = data.ch[i];
       if (ch_ms==prev_data.ch[i] && ch_ms != 0) {
         continue;
@@ -270,11 +275,9 @@ void loop() {
           break;
       }
     }
-    Serial.println();
+    //Serial.println();
   }
-  delay(DELAY_LOOP);
   deadManButton();
-  
 }
 
 
