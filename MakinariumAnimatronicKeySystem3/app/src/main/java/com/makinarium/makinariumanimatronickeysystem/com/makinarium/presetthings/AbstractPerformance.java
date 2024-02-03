@@ -27,6 +27,8 @@ public abstract class AbstractPerformance {
     private String name = "Name";
     private int id;
 
+    boolean threadRunning = false;
+
     public AbstractPerformance(int id, Button button, FaceSector faceSector, ProgressBar progressBar,
                                TextView textView, int activeColor, int performToRecColor)
     {
@@ -89,6 +91,15 @@ public abstract class AbstractPerformance {
     }
 
     // getters and setters
+    public void initThread(){
+        threadRunning = true;
+    }
+    public void stopThread(){
+        threadRunning = false;
+    }
+    public boolean isThreadRunning(){
+        return threadRunning;
+    }
     public Button getButton()
     {
         return button;

@@ -19,6 +19,7 @@ public class PresetPerformance extends AbstractPerformance{
     private ButtonPerformance row4Btn;
     private ButtonPerformance row5Btn;
 
+    private int runningBtnCounter = 0;
 
     public PresetPerformance(int id, Button button, FaceSector faceSector, ProgressBar progressBar,
                              TextView textView, int activeColor, int performToRecColor)
@@ -85,7 +86,27 @@ public class PresetPerformance extends AbstractPerformance{
 
         return result;
     }
+    public void tickRunningBtnCounter(){
+        if (runningBtnCounter <= 1){
+            runningBtnCounter = 0;
+            stopThread();
+        }else{
+            runningBtnCounter = runningBtnCounter -1;
+        }
+    }
 
-
-
+    public void initRunning(){
+        runningBtnCounter = 0;
+        if(row1Btn != null)
+            runningBtnCounter = runningBtnCounter +1;
+        if(row2Btn != null)
+            runningBtnCounter = runningBtnCounter +1;
+        if(row3Btn != null)
+            runningBtnCounter = runningBtnCounter +1;
+        if(row4Btn != null)
+            runningBtnCounter = runningBtnCounter +1;
+        if(row5Btn != null)
+            runningBtnCounter = runningBtnCounter +1;
+        threadRunning = true;
+    }
 }

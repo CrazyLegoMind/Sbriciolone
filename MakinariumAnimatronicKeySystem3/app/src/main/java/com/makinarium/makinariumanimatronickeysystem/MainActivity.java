@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     private String headMac;
     private String remote1Mac;
     private String remote2Mac;
+
+    private List<AbstractPerformance> runningPerformances;
     
     //--------- bluetooth variables for remotes and receivers
     private BluetoothAdapter mBluetoothAdapter;
@@ -454,9 +456,15 @@ public class MainActivity extends AppCompatActivity {
     //TODO: Toast con nome, occhio ai preset
     public void performClick(View v)
     {
+        performClick(v,null);
+
+    }
+    public void performClick(View v,PresetPerformance startPreset)
+    {
 
         int id = v.getId();
         ButtonPerformance clickedButton = container.getButtonPerformance(id);
+        clickedButton.setStartPreset(startPreset);
 
         if(!clickedButton.canPerform()) {
             Toast.makeText(this, Constants.emptyPerformance, Toast.LENGTH_SHORT).show();
@@ -859,6 +867,8 @@ public class MainActivity extends AppCompatActivity {
         protected ButtonPerformance doInBackground(ButtonPerformance... params) {
 
             bpThread = params[0];
+            bpThread.initThread();
+            runningPerformances.add(bpThread);
             List<PerformancePiece<byte[]>> performance = bpThread.getPerformance();
             double playback_multiplier = multiplicator;
             long btn_start_us = System.currentTimeMillis()*1000;
@@ -873,7 +883,7 @@ public class MainActivity extends AppCompatActivity {
             long send_time = 0;
             long us_to_action_left = 0;
             long next_action_us = btn_start_us + (long)(currentPiece.getMillisToAction()*1000 / playback_multiplier);
-            while(inPerformance)
+            while(inPerformance && bpThread.isThreadRunning())
             {
 
                 try {
@@ -906,7 +916,7 @@ public class MainActivity extends AppCompatActivity {
                     if(currentIndex >= performance.size()) {
                         long realDuration = (btn_current_us - btn_start_us)/1000;
                         Log.i("PERFT_G", "end-> dur: " + (realDuration)+" r_err: "+(realDuration-bpThread.getDuration()/playback_multiplier));
-                        Log.i("PERFT_P", "pkg/s: " +( performance.size()/(realDuration/1000)));
+                        Log.i("PERFT_P", "pkg/s: " +( performance.size()/(realDuration+1/1000)));
                         inPerformance = false;
                     }else{
                         currentPiece = performance.get(currentIndex);
@@ -915,11 +925,20 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 long btn_elapsed_us = btn_current_us - btn_start_us;
-                int percentProgress = (int) ((100 * btn_elapsed_us) / (int)(bpThread.getDuration()*1000 / playback_multiplier));
+                int percentProgress = 0;
+                if(bpThread.getDuration()!= 0){
+                    percentProgress =  (int) ((100 * btn_elapsed_us) / (int)(bpThread.getDuration()*1000 / playback_multiplier));
+                }
 
 
                 publishProgress(percentProgress);
                 send_time = System.currentTimeMillis()*1000 - btn_current_us;
+            }
+            if(!bpThread.isThreadRunning()){
+                if(bpThread.hasStartPreset()){
+                    bpThread.getStartPreset().tickRunningBtnCounter();
+                    Log.i("PERFT_K", "stopped_early");
+                }
             }
             return bpThread;
         }
@@ -936,6 +955,7 @@ public class MainActivity extends AppCompatActivity {
             container.activatesButtonSectorButton(bp.getFaceSector());
             performanceFilter.removeAll(bp.getChannels());
             bpThread.getProgressBar().setProgress(0);
+            runningPerformances.remove(bpThread);
         }
 
     }
@@ -948,12 +968,19 @@ public class MainActivity extends AppCompatActivity {
             bpThread = presetPerformances[0];
             int duration = (int)(bpThread.getDuration() / multiplicator);
             List<Integer> buttonToPress = bpThread.getButtonsToPress();
-            publishProgress(buttonToPress.toArray(new Integer[buttonToPress.size() + 1]));//Trucchetto se ho solo un bottone da premere
+
+
             long startTime = System.currentTimeMillis();
             long time = startTime;
             long endTime = time + duration;
+            bpThread.initRunning();
+                for(int i = 0; i < buttonToPress.size() +1; i++)//Trucchetto se ho solo un bottone da premere
+                {
+                    Button b = container.getButtonPerformanceFromLogic(buttonToPress.get(i)).getButton();
+                    b.performClick();
+                }
 
-            while(time < endTime)
+            while(time < endTime && bpThread.isThreadRunning())
             {
                 try {
                     Thread.sleep(stopMillisPerformance);
@@ -966,6 +993,9 @@ public class MainActivity extends AppCompatActivity {
                 int percentProgress = (int) ((100 * progressTime) / (int)(bpThread.getDuration() / multiplicator));
                 publishProgress(percentProgress);
             }
+            if(!bpThread.isThreadRunning()){
+                Log.i("PERFS_K", "all btns stopped");
+            }
             return null;
         }
 
@@ -973,24 +1003,15 @@ public class MainActivity extends AppCompatActivity {
         protected void onProgressUpdate(Integer... values)
         {
 
-            if(values.length > 1)
-            {
-                for(int i = 0; i < values.length - 1; i++)//Trucchetto se ho solo un bottone da premere
-                {
-                    Button b = container.getButtonPerformanceFromLogic(values[i]).getButton();
-                    b.performClick();
-                }
-                return;
-
-            }
-
             bpThread.getProgressBar().setProgress(values[0]);
         }
 
 
         @Override
         protected void onPostExecute(PresetPerformance p) {
-            container.activatesButtonSectorButton(bpThread.getFaceSector());
+            if(bpThread.isThreadRunning()) {
+                container.activatesButtonSectorButton(bpThread.getFaceSector());
+            }
             bpThread.getProgressBar().setProgress(0);
         }
 
