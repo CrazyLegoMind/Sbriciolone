@@ -67,7 +67,7 @@ int checkSumFunction(String SCS) {
 }
 
 void setup() {
-  Serial.begin(115200);
+  //Serial.begin(115200);
   Serial1.begin(115200);
 
   inputList[0].arduinoPin = A0;  //face y
@@ -126,8 +126,8 @@ void handleInputs() {
   for (short in = 0; in < INPUT_CHANNELS; in++) {
     in_ch_t ch = inputList[in];
     int value = 0;
-    Serial.print(in);
-    Serial.print(": ");
+    //Serial.print(in);
+    //Serial.print(": ");
     switch (ch.type) {
       case ANL:
         value = analogRead(ch.arduinoPin);
@@ -136,8 +136,8 @@ void handleInputs() {
         value = !digitalRead(ch.arduinoPin);
         break;
     }
-    Serial.print(value);
-    Serial.print(", ");
+    //Serial.print(value);
+    //Serial.print(", ");
     if (ch.type == ANL && abs(value - ch.val) < analogFilter) {
       continue;
     } else if (ch.type == PLP && value == ch.val) {
@@ -172,20 +172,20 @@ void handleInputs() {
   int side_r_n = constrain(down + up + right - left, 0, 1023);
   if(abs(side_left-side_l_n ) > analogFilter){
     side_left = side_l_n;
-    sendServo(servoList[2],1023-side_left);
-    sendServo(servoList[4],side_left);
-    sendServo(servoList[5],side_left);
+    sendServo(servoList[3],1023-side_left);
+    sendServo(servoList[6],side_left);
+    sendServo(servoList[7],side_left);
   }
   if(abs(side_right-side_r_n ) > analogFilter){
     side_right = side_r_n;
-    sendServo(servoList[3],1023-side_right);
-    sendServo(servoList[6],side_right);
-    sendServo(servoList[7],side_right);
+    sendServo(servoList[2],1023-side_right);
+    sendServo(servoList[4],side_right);
+    sendServo(servoList[5],side_right);
   }
-  Serial.print(side_left);
-  Serial.print(" ");
-  Serial.print(side_right);
-  Serial.println();
+  //Serial.print(side_left);
+  //Serial.print(" ");
+  //Serial.print(side_right);
+  //Serial.println();
 }
 
 

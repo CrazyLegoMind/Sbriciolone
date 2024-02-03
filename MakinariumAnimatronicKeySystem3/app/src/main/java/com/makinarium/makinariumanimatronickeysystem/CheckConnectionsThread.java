@@ -11,7 +11,7 @@ import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.Co
 
 public class CheckConnectionsThread extends Thread {
 
-    private static final long timeToDeclareDeath = 2000;
+    private static final long timeToDeclareDeath = 1000;
 
 
     private long lastTimeMouthAlive;

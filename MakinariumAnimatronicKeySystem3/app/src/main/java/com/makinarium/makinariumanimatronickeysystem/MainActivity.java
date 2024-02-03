@@ -806,7 +806,7 @@ public class MainActivity extends AppCompatActivity {
             if(performanceFilter.contains(packetChannel))
                 return;
 
-            Log.i("BT_REC: ",text);
+            //Log.i("BT_REC: ",text);
             switch (id){
                 case Constants.eyesID:
                     if(!eyesActiveController)

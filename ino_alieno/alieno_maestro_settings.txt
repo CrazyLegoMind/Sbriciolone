@@ -15,7 +15,7 @@
     <!--Channel 1-->
     <Channel name="Naso" mode="Servo" min="3968" max="5824" homemode="Off" home="3968" speed="0" acceleration="0" neutral="5824" range="1905" />
     <!--Channel 2-->
-    <Channel name="CigCSx" mode="Servo" min="3968" max="7488" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="CigCSx" mode="Servo" min="3968" max="6976" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 3-->
     <Channel name="CigCDx" mode="Servo" min="4864" max="8000" homemode="Off" home="4864" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 4-->

@@ -73,6 +73,7 @@ void setup() {
   listaMotori[6].sector = mouthC;  //bocca
   listaMotori[6].arduinoPin = A6;
   listaMotori[6].servoCh = 14;
+  //Serial.begin(115200);
 }
 
 void loop() {
@@ -90,6 +91,8 @@ void handleSliders() {
       continue;  //skip loop if motors are mirrored
     }
     int sliderVal = analogRead(listaMotori[slider].arduinoPin);
+    //Serial.print(sliderVal);
+    //Serial.print(" ");
     if (abs(sliderVal - listaMotori[slider].oldValue) > analogFilter) {
       
       listaMotori[slider].oldValue = sliderVal;
@@ -106,6 +109,7 @@ void handleSliders() {
       }
     }
   }
+  //Serial.println();
 }
 
 
