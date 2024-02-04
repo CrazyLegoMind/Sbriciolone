@@ -64,11 +64,10 @@ public class ButtonPerformance extends AbstractPerformance{
     public void compressMessage()
     {
         Log.i("PFGZ", "-- START COMPRESSING");
-        Log.i("PFGZ","performance size : " + String.valueOf(performance.size()));
-        Log.i("PFGZ" , "performance duration : " +String.valueOf(super.getDuration()));
-        int pIndex = 0;
+        Log.i("PFGZ","performance size : " + performance.size());
+        Log.i("PFGZ" , "performance duration : " + super.getDuration());
 
-        //keep track of channel alst packet info:
+        //keep track of channel and packet info:
         //direction: 0, not init 1 increasing -1 decreasing
         //time: epoch of last packet
         //value: value of lack packet
@@ -81,14 +80,14 @@ public class ButtonPerformance extends AbstractPerformance{
             channels.add(p.getChannelPin());
         }
         Log.i("PFGZ" , "channels recorded: " + channels.toString());
-        long curentMessageTime = 0;
+        long currentMessageTime = 0;
 
         for(PerformancePiece<byte[]> p : performance) {
             int pChannel = p.getChannelPin();
             long pTime = p.getMillisToAction();
             int pValue = p.getAnalogValue();
 
-            Log.i("PFGZ_piece", "PIECE: " + p.toString()+ "- of length: "+String.valueOf(pTime));
+            Log.i("PFGZ_piece", "PIECE: " + p + "- of length: "+ pTime);
             if (channelValueDict.containsKey(pChannel)){
 
                 int prevDirection = channelDirectionDict.get(pChannel);
@@ -100,23 +99,23 @@ public class ButtonPerformance extends AbstractPerformance{
                 }
                 boolean dirChange = prevDirection != currentDir;
                 if(!dirChange){
-                    if(curentMessageTime + pTime - prevTime < Constants.DELAYTOERASEFORBTE){
+                    if(currentMessageTime + pTime - prevTime < Constants.DELAYTOERASEFORBTE){
                         p.eraseThis();
                     }
                 }
                 channelValueDict.put(pChannel,pValue);
                 channelDirectionDict.put(pChannel,currentDir);
-                channelTimeDict.put(pChannel,curentMessageTime);
+                channelTimeDict.put(pChannel,currentMessageTime);
             }else{
                 channelValueDict.put(pChannel,pValue);
                 channelDirectionDict.put(pChannel,0);
-                channelTimeDict.put(pChannel,curentMessageTime);
+                channelTimeDict.put(pChannel,currentMessageTime);
             }
-            Log.i("PFGZ_EPOCH", String.valueOf(curentMessageTime));
+            Log.i("PFGZ_EPOCH", String.valueOf(currentMessageTime));
             Log.i("PFGZ_d_val", String.valueOf(channelValueDict));
             Log.i("PFGZ_d_dir", String.valueOf(channelDirectionDict));
             Log.i("PFGZ_d_time", String.valueOf(channelTimeDict));
-            curentMessageTime += pTime;
+            currentMessageTime += pTime;
         }
 
 
@@ -133,8 +132,8 @@ public class ButtonPerformance extends AbstractPerformance{
 
 
 
-        Log.i("PFGZ_clear", "size before:" +  String.valueOf(performance.size()));
-        Log.i("PFGZ_clear" , "duration before:" +   String.valueOf(super.getDuration()));
+        Log.i("PFGZ_clear", "size before:" + performance.size());
+        Log.i("PFGZ_clear" , "duration before:" + super.getDuration());
         performance.removeIf(p -> p.isToErase());
 
 
@@ -144,8 +143,8 @@ public class ButtonPerformance extends AbstractPerformance{
         }
         super.setDuration(duration);
 
-        Log.i("PFGZ_clear", "size after:" +  String.valueOf(performance.size()));
-        Log.i("PFGZ_clear" , "duration after:" +   String.valueOf(super.getDuration()));
+        Log.i("PFGZ_clear", "size after:" + performance.size());
+        Log.i("PFGZ_clear" , "duration after:" + super.getDuration());
     }
 
 
