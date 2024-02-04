@@ -51,6 +51,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -87,16 +88,16 @@ public class MainActivity extends AppCompatActivity {
     private String remote1Mac;
     private String remote2Mac;
 
-    private List<AbstractPerformance> runningPerformances;
-    private  PresetPerformance runningPreset;
-    
+    private List<performanceThread> runningPerformances;
+    private PresetPerformance runningPreset;
+
     //--------- bluetooth variables for remotes and receivers
     private BluetoothAdapter mBluetoothAdapter;
 
     private BluetoothDevice mBTDeviceHead;
     private BluetoothConnectionService mBluetoothConnectionHead;
-    
-    
+
+
     private BluetoothDevice mBTDeviceEyes;
     private BluetoothConnectionService mBluetoothConnectionEyes;
 
@@ -122,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
     private CheckConnectionsThread checkThread;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,28 +145,27 @@ public class MainActivity extends AppCompatActivity {
         presetColor = ResourcesCompat.getColor(getResources(), R.color.firstcolumn, null);
 
         gson = new Gson();
-        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)+"/maks/"+Constants.SaveFileName;
-        final File newFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)+"/maks");
+        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/maks/" + Constants.SaveFileName;
+        final File newFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/maks");
         newFile.mkdir();
-        Log.i("FILE_L",filePath);
+        Log.i("FILE_L", filePath);
 
         try (FileInputStream inputStream = new FileInputStream(filePath)) {
             String json = IOUtils.toString(inputStream, "UTF-8");
-            Log.i("FILE_L",json);
-            Type containerType = new TypeToken<ButtonsContainer<byte[]>>(){}.getType();
+            Log.i("FILE_L", json);
+            Type containerType = new TypeToken<ButtonsContainer<byte[]>>() {
+            }.getType();
             container = gson.fromJson(json, containerType);
-            if(container != null) {
+            if (container != null) {
 
-                Log.i("FILE_L","load_ok");
+                Log.i("FILE_L", "load_ok");
                 container.setActiveColor(recActiveColor);
                 container.setEmptyColor(recEmptyColor);
                 initializeAllButtons();
                 container.updateAllColorsAndNames();
 
-            }
-            else
-            {
-                Log.i("FILE_L","load_fail");
+            } else {
+                Log.i("FILE_L", "load_fail");
                 container = new ButtonsContainer<>(recActiveColor, recEmptyColor);
                 initializeAllButtons();
             }
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         stopButton = findViewById(R.id.stopButton);
         stopButton.setClickable(false);
         stopButton.setEnabled(false);
-        
+
         eyesSwitch = findViewById(R.id.eyesSwitch);
         mouthSwitch = findViewById(R.id.mouthSwitch);
         nameSwitch = findViewById(R.id.nameSwitch);
@@ -198,12 +197,12 @@ public class MainActivity extends AppCompatActivity {
         multBar = findViewById(R.id.seekBar);
         multText = findViewById(R.id.multText);
 
-        multBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+        multBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 multiplicator = progress / 10.0;
-                multText.setText(" ×"+multiplicator+" ");
+                multText.setText(" ×" + multiplicator + " ");
             }
 
             @Override
@@ -216,27 +215,25 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        
+
         eyesStatus = findViewById(R.id.eyesStatus);
         mouthStatus = findViewById(R.id.mouthStatus);
         headStatus = findViewById(R.id.headStatus);
 
-        checkThread = new CheckConnectionsThread(this,eyesStatus,headStatus,mouthStatus,recActiveColor,presetColor);
+        checkThread = new CheckConnectionsThread(this, eyesStatus, headStatus, mouthStatus, recActiveColor, presetColor);
 
         connectionBluetooth();
 
-        myExecutor = Executors.newFixedThreadPool(7);
+        myExecutor = Executors.newFixedThreadPool(12);
 
         checkThread.start();
     }
 
 
-    private void connectionBluetooth()
-    {
+    private void connectionBluetooth() {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        for(BluetoothDevice bt : pairedDevices)
-        {
+        for (BluetoothDevice bt : pairedDevices) {
             if (bt.getAddress().equals(headMac)) {
                 Log.d(TAG, bt.getName());
 
@@ -260,100 +257,98 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initializeAllButtons()
-    {
-        initializePresetButton(R.id.preset_01,R.id.presetPB01, R.id.presetText01);
-        initializePresetButton(R.id.preset_02,R.id.presetPB02, R.id.presetText02);
-        initializePresetButton(R.id.preset_03,R.id.presetPB03, R.id.presetText03);
-        initializePresetButton(R.id.preset_04,R.id.presetPB04, R.id.presetText04);
-        initializePresetButton(R.id.preset_05,R.id.presetPB05, R.id.presetText05);
-        initializePresetButton(R.id.preset_06,R.id.presetPB06, R.id.presetText06);
-        initializePresetButton(R.id.preset_07,R.id.presetPB07, R.id.presetText07);
-        initializePresetButton(R.id.preset_08,R.id.presetPB08, R.id.presetText08);
-        initializePresetButton(R.id.preset_09,R.id.presetPB09, R.id.presetText09);
-        initializePresetButton(R.id.preset_10,R.id.presetPB10, R.id.presetText10);
-        initializePresetButton(R.id.preset_11,R.id.presetPB11, R.id.presetText11);
-        initializePresetButton(R.id.preset_12,R.id.presetPB12, R.id.presetText12);
+    private void initializeAllButtons() {
+        initializePresetButton(R.id.preset_01, R.id.presetPB01, R.id.presetText01);
+        initializePresetButton(R.id.preset_02, R.id.presetPB02, R.id.presetText02);
+        initializePresetButton(R.id.preset_03, R.id.presetPB03, R.id.presetText03);
+        initializePresetButton(R.id.preset_04, R.id.presetPB04, R.id.presetText04);
+        initializePresetButton(R.id.preset_05, R.id.presetPB05, R.id.presetText05);
+        initializePresetButton(R.id.preset_06, R.id.presetPB06, R.id.presetText06);
+        initializePresetButton(R.id.preset_07, R.id.presetPB07, R.id.presetText07);
+        initializePresetButton(R.id.preset_08, R.id.presetPB08, R.id.presetText08);
+        initializePresetButton(R.id.preset_09, R.id.presetPB09, R.id.presetText09);
+        initializePresetButton(R.id.preset_10, R.id.presetPB10, R.id.presetText10);
+        initializePresetButton(R.id.preset_11, R.id.presetPB11, R.id.presetText11);
+        initializePresetButton(R.id.preset_12, R.id.presetPB12, R.id.presetText12);
 
         FaceSector row1sector = FaceSector.EAR;
 
-        initializeButton(R.id.row1Btn01 , row1sector, R.id.row1PB01, R.id.row1Text01);
-        initializeButton(R.id.row1Btn02 , row1sector, R.id.row1PB02, R.id.row1Text02);
-        initializeButton(R.id.row1Btn03 , row1sector, R.id.row1PB03, R.id.row1Text03);
-        initializeButton(R.id.row1Btn04 , row1sector, R.id.row1PB04, R.id.row1Text04);
-        initializeButton(R.id.row1Btn05 , row1sector, R.id.row1PB05, R.id.row1Text05);
-        initializeButton(R.id.row1Btn06 , row1sector, R.id.row1PB06, R.id.row1Text06);
-        initializeButton(R.id.row1Btn07 , row1sector, R.id.row1PB07, R.id.row1Text07);
-        initializeButton(R.id.row1Btn08 , row1sector, R.id.row1PB08, R.id.row1Text08);
-        initializeButton(R.id.row1Btn09 , row1sector, R.id.row1PB09, R.id.row1Text09);
-        initializeButton(R.id.row1Btn10 , row1sector, R.id.row1PB10, R.id.row1Text10);
-        initializeButton(R.id.row1Btn11 , row1sector, R.id.row1PB11, R.id.row1Text11);
-        initializeButton(R.id.row1Btn12 , row1sector, R.id.row1PB12, R.id.row1Text12);
+        initializeButton(R.id.row1Btn01, row1sector, R.id.row1PB01, R.id.row1Text01);
+        initializeButton(R.id.row1Btn02, row1sector, R.id.row1PB02, R.id.row1Text02);
+        initializeButton(R.id.row1Btn03, row1sector, R.id.row1PB03, R.id.row1Text03);
+        initializeButton(R.id.row1Btn04, row1sector, R.id.row1PB04, R.id.row1Text04);
+        initializeButton(R.id.row1Btn05, row1sector, R.id.row1PB05, R.id.row1Text05);
+        initializeButton(R.id.row1Btn06, row1sector, R.id.row1PB06, R.id.row1Text06);
+        initializeButton(R.id.row1Btn07, row1sector, R.id.row1PB07, R.id.row1Text07);
+        initializeButton(R.id.row1Btn08, row1sector, R.id.row1PB08, R.id.row1Text08);
+        initializeButton(R.id.row1Btn09, row1sector, R.id.row1PB09, R.id.row1Text09);
+        initializeButton(R.id.row1Btn10, row1sector, R.id.row1PB10, R.id.row1Text10);
+        initializeButton(R.id.row1Btn11, row1sector, R.id.row1PB11, R.id.row1Text11);
+        initializeButton(R.id.row1Btn12, row1sector, R.id.row1PB12, R.id.row1Text12);
 
 
         FaceSector row2sector = FaceSector.EYEBROWS;
 
-        initializeButton(R.id.row2Btn01 , row2sector, R.id.row2PB01, R.id.row2Text01);
-        initializeButton(R.id.row2Btn02 , row2sector, R.id.row2PB02, R.id.row2Text02);
-        initializeButton(R.id.row2Btn03 , row2sector, R.id.row2PB03, R.id.row2Text03);
-        initializeButton(R.id.row2Btn04 , row2sector, R.id.row2PB04, R.id.row2Text04);
-        initializeButton(R.id.row2Btn05 , row2sector, R.id.row2PB05, R.id.row2Text05);
-        initializeButton(R.id.row2Btn06 , row2sector, R.id.row2PB06, R.id.row2Text06);
-        initializeButton(R.id.row2Btn07 , row2sector, R.id.row2PB07, R.id.row2Text07);
-        initializeButton(R.id.row2Btn08 , row2sector, R.id.row2PB08, R.id.row2Text08);
-        initializeButton(R.id.row2Btn09 , row2sector, R.id.row2PB09, R.id.row2Text09);
-        initializeButton(R.id.row2Btn10 , row2sector, R.id.row2PB10, R.id.row2Text10);
-        initializeButton(R.id.row2Btn11 , row2sector, R.id.row2PB11, R.id.row2Text11);
-        initializeButton(R.id.row2Btn12 , row2sector, R.id.row2PB12, R.id.row2Text12);
+        initializeButton(R.id.row2Btn01, row2sector, R.id.row2PB01, R.id.row2Text01);
+        initializeButton(R.id.row2Btn02, row2sector, R.id.row2PB02, R.id.row2Text02);
+        initializeButton(R.id.row2Btn03, row2sector, R.id.row2PB03, R.id.row2Text03);
+        initializeButton(R.id.row2Btn04, row2sector, R.id.row2PB04, R.id.row2Text04);
+        initializeButton(R.id.row2Btn05, row2sector, R.id.row2PB05, R.id.row2Text05);
+        initializeButton(R.id.row2Btn06, row2sector, R.id.row2PB06, R.id.row2Text06);
+        initializeButton(R.id.row2Btn07, row2sector, R.id.row2PB07, R.id.row2Text07);
+        initializeButton(R.id.row2Btn08, row2sector, R.id.row2PB08, R.id.row2Text08);
+        initializeButton(R.id.row2Btn09, row2sector, R.id.row2PB09, R.id.row2Text09);
+        initializeButton(R.id.row2Btn10, row2sector, R.id.row2PB10, R.id.row2Text10);
+        initializeButton(R.id.row2Btn11, row2sector, R.id.row2PB11, R.id.row2Text11);
+        initializeButton(R.id.row2Btn12, row2sector, R.id.row2PB12, R.id.row2Text12);
 
         FaceSector row3sector = FaceSector.EYELIDS;
 
-        initializeButton(R.id.row3Btn01 , row3sector, R.id.row3PB01, R.id.row3Text01);
-        initializeButton(R.id.row3Btn02 , row3sector, R.id.row3PB02, R.id.row3Text02);
-        initializeButton(R.id.row3Btn03 , row3sector, R.id.row3PB03, R.id.row3Text03);
-        initializeButton(R.id.row3Btn04 , row3sector, R.id.row3PB04, R.id.row3Text04);
-        initializeButton(R.id.row3Btn05 , row3sector, R.id.row3PB05, R.id.row3Text05);
-        initializeButton(R.id.row3Btn06 , row3sector, R.id.row3PB06, R.id.row3Text06);
-        initializeButton(R.id.row3Btn07 , row3sector, R.id.row3PB07, R.id.row3Text07);
-        initializeButton(R.id.row3Btn08 , row3sector, R.id.row3PB08, R.id.row3Text08);
-        initializeButton(R.id.row3Btn09 , row3sector, R.id.row3PB09, R.id.row3Text09);
-        initializeButton(R.id.row3Btn10 , row3sector, R.id.row3PB10, R.id.row3Text10);
-        initializeButton(R.id.row3Btn11 , row3sector, R.id.row3PB11, R.id.row3Text11);
-        initializeButton(R.id.row3Btn12 , row3sector, R.id.row3PB12, R.id.row3Text12);
+        initializeButton(R.id.row3Btn01, row3sector, R.id.row3PB01, R.id.row3Text01);
+        initializeButton(R.id.row3Btn02, row3sector, R.id.row3PB02, R.id.row3Text02);
+        initializeButton(R.id.row3Btn03, row3sector, R.id.row3PB03, R.id.row3Text03);
+        initializeButton(R.id.row3Btn04, row3sector, R.id.row3PB04, R.id.row3Text04);
+        initializeButton(R.id.row3Btn05, row3sector, R.id.row3PB05, R.id.row3Text05);
+        initializeButton(R.id.row3Btn06, row3sector, R.id.row3PB06, R.id.row3Text06);
+        initializeButton(R.id.row3Btn07, row3sector, R.id.row3PB07, R.id.row3Text07);
+        initializeButton(R.id.row3Btn08, row3sector, R.id.row3PB08, R.id.row3Text08);
+        initializeButton(R.id.row3Btn09, row3sector, R.id.row3PB09, R.id.row3Text09);
+        initializeButton(R.id.row3Btn10, row3sector, R.id.row3PB10, R.id.row3Text10);
+        initializeButton(R.id.row3Btn11, row3sector, R.id.row3PB11, R.id.row3Text11);
+        initializeButton(R.id.row3Btn12, row3sector, R.id.row3PB12, R.id.row3Text12);
 
         FaceSector row4sector = FaceSector.SNOUT;
 
-        initializeButton(R.id.row4Btn01 , row4sector, R.id.row4PB01, R.id.row4Text01);
-        initializeButton(R.id.row4Btn02 , row4sector, R.id.row4PB02, R.id.row4Text02);
-        initializeButton(R.id.row4Btn03 , row4sector, R.id.row4PB03, R.id.row4Text03);
-        initializeButton(R.id.row4Btn04 , row4sector, R.id.row4PB04, R.id.row4Text04);
-        initializeButton(R.id.row4Btn05 , row4sector, R.id.row4PB05, R.id.row4Text05);
-        initializeButton(R.id.row4Btn06 , row4sector, R.id.row4PB06, R.id.row4Text06);
-        initializeButton(R.id.row4Btn07 , row4sector, R.id.row4PB07, R.id.row4Text07);
-        initializeButton(R.id.row4Btn08 , row4sector, R.id.row4PB08, R.id.row4Text08);
-        initializeButton(R.id.row4Btn09 , row4sector, R.id.row4PB09, R.id.row4Text09);
-        initializeButton(R.id.row4Btn10 , row4sector, R.id.row4PB10, R.id.row4Text10);
-        initializeButton(R.id.row4Btn11 , row4sector, R.id.row4PB11, R.id.row4Text11);
-        initializeButton(R.id.row4Btn12 , row4sector, R.id.row4PB12, R.id.row4Text12);
+        initializeButton(R.id.row4Btn01, row4sector, R.id.row4PB01, R.id.row4Text01);
+        initializeButton(R.id.row4Btn02, row4sector, R.id.row4PB02, R.id.row4Text02);
+        initializeButton(R.id.row4Btn03, row4sector, R.id.row4PB03, R.id.row4Text03);
+        initializeButton(R.id.row4Btn04, row4sector, R.id.row4PB04, R.id.row4Text04);
+        initializeButton(R.id.row4Btn05, row4sector, R.id.row4PB05, R.id.row4Text05);
+        initializeButton(R.id.row4Btn06, row4sector, R.id.row4PB06, R.id.row4Text06);
+        initializeButton(R.id.row4Btn07, row4sector, R.id.row4PB07, R.id.row4Text07);
+        initializeButton(R.id.row4Btn08, row4sector, R.id.row4PB08, R.id.row4Text08);
+        initializeButton(R.id.row4Btn09, row4sector, R.id.row4PB09, R.id.row4Text09);
+        initializeButton(R.id.row4Btn10, row4sector, R.id.row4PB10, R.id.row4Text10);
+        initializeButton(R.id.row4Btn11, row4sector, R.id.row4PB11, R.id.row4Text11);
+        initializeButton(R.id.row4Btn12, row4sector, R.id.row4PB12, R.id.row4Text12);
 
         FaceSector row5sector = FaceSector.MOUTH;
 
-        initializeButton(R.id.row5Btn01 , row5sector, R.id.row5PB01, R.id.row5Text01);
-        initializeButton(R.id.row5Btn02 , row5sector, R.id.row5PB02, R.id.row5Text02);
-        initializeButton(R.id.row5Btn03 , row5sector, R.id.row5PB03, R.id.row5Text03);
-        initializeButton(R.id.row5Btn04 , row5sector, R.id.row5PB04, R.id.row5Text04);
-        initializeButton(R.id.row5Btn05 , row5sector, R.id.row5PB05, R.id.row5Text05);
-        initializeButton(R.id.row5Btn06 , row5sector, R.id.row5PB06, R.id.row5Text06);
-        initializeButton(R.id.row5Btn07 , row5sector, R.id.row5PB07, R.id.row5Text07);
-        initializeButton(R.id.row5Btn08 , row5sector, R.id.row5PB08, R.id.row5Text08);
-        initializeButton(R.id.row5Btn09 , row5sector, R.id.row5PB09, R.id.row5Text09);
-        initializeButton(R.id.row5Btn10 , row5sector, R.id.row5PB10, R.id.row5Text10);
-        initializeButton(R.id.row5Btn11 , row5sector, R.id.row5PB11, R.id.row5Text11);
-        initializeButton(R.id.row5Btn12 , row5sector, R.id.row5PB12, R.id.row5Text12);
+        initializeButton(R.id.row5Btn01, row5sector, R.id.row5PB01, R.id.row5Text01);
+        initializeButton(R.id.row5Btn02, row5sector, R.id.row5PB02, R.id.row5Text02);
+        initializeButton(R.id.row5Btn03, row5sector, R.id.row5PB03, R.id.row5Text03);
+        initializeButton(R.id.row5Btn04, row5sector, R.id.row5PB04, R.id.row5Text04);
+        initializeButton(R.id.row5Btn05, row5sector, R.id.row5PB05, R.id.row5Text05);
+        initializeButton(R.id.row5Btn06, row5sector, R.id.row5PB06, R.id.row5Text06);
+        initializeButton(R.id.row5Btn07, row5sector, R.id.row5PB07, R.id.row5Text07);
+        initializeButton(R.id.row5Btn08, row5sector, R.id.row5PB08, R.id.row5Text08);
+        initializeButton(R.id.row5Btn09, row5sector, R.id.row5PB09, R.id.row5Text09);
+        initializeButton(R.id.row5Btn10, row5sector, R.id.row5PB10, R.id.row5Text10);
+        initializeButton(R.id.row5Btn11, row5sector, R.id.row5PB11, R.id.row5Text11);
+        initializeButton(R.id.row5Btn12, row5sector, R.id.row5PB12, R.id.row5Text12);
     }
 
-    private void initializeButton(int id, FaceSector sector, int pbID, int textID)
-    {
+    private void initializeButton(int id, FaceSector sector, int pbID, int textID) {
         Button b = findViewById(id);
         ProgressBar pb = findViewById(pbID);
         TextView t = findViewById(textID);
@@ -373,8 +368,7 @@ public class MainActivity extends AppCompatActivity {
         container.addPerformanceButton(id, b, sector, pb, t);
     }
 
-    private void initializePresetButton(int id, int pbID, int textID)
-    {
+    private void initializePresetButton(int id, int pbID, int textID) {
         Button b = findViewById(id);
         ProgressBar pb = findViewById(pbID);
         TextView t = findViewById(textID);
@@ -411,8 +405,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //*/
 
-    public void startBTConnection(BluetoothDevice device, BluetoothConnectionService connection)
-    {
+    public void startBTConnection(BluetoothDevice device, BluetoothConnectionService connection) {
         connection.startClient(device);
     }
 
@@ -424,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
             if (action.equals(mBluetoothAdapter.ACTION_STATE_CHANGED)) {
                 final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, mBluetoothAdapter.ERROR);
 
-                switch(state){
+                switch (state) {
                     case BluetoothAdapter.STATE_OFF:
                         Log.d(TAG, "onReceive: STATE OFF");
                         break;
@@ -444,10 +437,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if(timeTask != null)
+        if (timeTask != null)
             timeTask.cancel(true);
 
-        unregisterReceiver(mBroadcastReceiver1);
         unregisterReceiver(mReceiver);
         checkThread.stopChecking();
         mBluetoothConnectionEyes.stopClient();
@@ -457,42 +449,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO: Toast con nome, occhio ai preset
-    public void performClick(View v)
+    public void performClick(View v) //single rec performing
     {
-        performClick(v,null);
-
-    }
-    public void performClick(View v,PresetPerformance startPreset)
-    {
-
         int id = v.getId();
         ButtonPerformance clickedButton = container.getButtonPerformance(id);
-        clickedButton.setStartPreset(startPreset);
 
-        if(!clickedButton.canPerform()) {
+        if (!clickedButton.canPerform()) {
             Toast.makeText(this, Constants.emptyPerformance, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Toast.makeText(this, Constants.performing, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, Constants.performing, Toast.LENGTH_SHORT).show();
         container.deactivatesButtonSectorButton(clickedButton.getFaceSector());
 
-        if(presetRegistrationMode) {
+        if (presetRegistrationMode) {
             presetInRec.setButtonPerformance(container.getButtonPerformance(id));
             timePresetRec = System.currentTimeMillis();
         }
 
         performanceFilter.addAll(clickedButton.getChannels());
         performanceThread pt = new performanceThread();
-        pt.executeOnExecutor(myExecutor,clickedButton);
-        //pt.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, bp);
+        pt.executeOnExecutor(myExecutor, clickedButton);
+        runningPerformances.add(pt);
 
     }
 
-    public void recClick(View v)
-    {
+    public void recClick(View v) {
 
-        if(presetRegistrationMode)
+        if (presetRegistrationMode)
             return;
 
         Toast.makeText(this, Constants.RegistrationString, Toast.LENGTH_LONG).show();
@@ -507,15 +491,14 @@ public class MainActivity extends AppCompatActivity {
         bInRec.deletePerformance();
         previousPerformancePieceTime = System.currentTimeMillis();
 
-        if(timeTask != null)
+        if (timeTask != null)
             timeTask.killTimer();
         timeTask = new TimerForRecorder();
-        timeTask.executeOnExecutor(myExecutor,bInRec);
+        timeTask.executeOnExecutor(myExecutor, bInRec);
     }
 
 
-    public void presetRecClick(View v)
-    {
+    public void presetRecClick(View v) {
         Toast.makeText(this, Constants.RegistrationString, Toast.LENGTH_LONG).show();
 
         //timeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -529,54 +512,60 @@ public class MainActivity extends AppCompatActivity {
         presetInRec.deletePerformance();
         previousPerformancePieceTime = System.currentTimeMillis();
 
-        if(timeTask != null)
+        if (timeTask != null)
             timeTask.killTimer();
         timeTask = new TimerForRecorder();
         timeTask.executeOnExecutor(myExecutor, presetInRec);
     }
 
-    public void presetPerformClick(View v)
-    {
+    public void presetPerformClick(View v) {
         int id = v.getId();
-        PresetPerformance bp = container.getPresetPerformance(id);
-        if(!bp.canPerform())
-        {
+        PresetPerformance presetBtn = container.getPresetPerformance(id);
+        if (!presetBtn.canPerform()) {
             Toast.makeText(this, Constants.emptyPerformance, Toast.LENGTH_SHORT).show();
             return;
         }
         Toast.makeText(this, Constants.performing, Toast.LENGTH_SHORT).show();
-        //container.deactivatesButtonSectorButton(bp.getFaceSector());
-        if(runningPreset != null){
+        if (runningPreset != null) {
             runningPreset.stopThread();
         }
-        for( AbstractPerformance RunPF : runningPerformances){
-            RunPF.stopThread();
+        Log.i("PTRD_S", "got" + runningPerformances.size());
+        Iterator<performanceThread> it = runningPerformances.iterator();
+        while (it.hasNext()) {
+            performanceThread RunPF = it.next();
+            RunPF.stop();
+            it.remove();
         }
+
+        List<Integer> buttonToPress = presetBtn.getButtonsToPress();
+        for (Integer btnId : buttonToPress) {
+            Button b = container.getButtonPerformanceFromLogic(btnId).getButton();
+            b.performClick();
+        }
+
         preSetThread pt = new preSetThread();
-        pt.executeOnExecutor(myExecutor, bp);
-        //pt.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, bp);
+        pt.executeOnExecutor(myExecutor, presetBtn);
     }
 
-    public void speedBtnClick(View v){
+    public void speedBtnClick(View v) {
         int progress = Integer.valueOf((String) v.getTag());
         multiplicator = (double) progress / 10.0;
         multBar.setProgress(progress);
     }
 
 
-    public void stopButton(View v)
-    {
+    public void stopButton(View v) {
         timeTask.killTimer();
         timeTask = null;
         performRegistrationMode = false;
         presetRegistrationMode = false;
-        if(bInRec != null) {
+        if (bInRec != null) {
             bInRec.updateColor();
             bInRec.compressMessage();
         }
         bInRec = null;
 
-        if(presetInRec != null)
+        if (presetInRec != null)
             presetInRec.updateColor();
         presetInRec = null;
         stopButton.setClickable(false);
@@ -602,7 +591,7 @@ public class MainActivity extends AppCompatActivity {
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
-                          );
+        );
     }
 
     // Shows the system bars by removing all the flags
@@ -635,7 +624,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (itemThatWasClickedId == R.id.action_undo) {
             Context context = MainActivity.this;
-            String textToShow =  undoManager.undo() ? "undo done" : "There was nothing to undo";
+            String textToShow = undoManager.undo() ? "undo done" : "There was nothing to undo";
             container.saveMe(this, gson);
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
             return true;
@@ -664,10 +653,10 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(AbstractPerformance... params) {
             long startTime = System.currentTimeMillis();
             registeringPerformance = params[0];
-            while(!isCancelled() && !stop) {
+            while (!isCancelled() && !stop) {
                 //show elapsed time while registering input
-                if(registeringPerformance.canPerform()) {
-                    if (performanceStartTime <= 0){
+                if (registeringPerformance.canPerform()) {
+                    if (performanceStartTime <= 0) {
                         performanceStartTime = System.currentTimeMillis();
                         timeColor = timeDarkColor;
                         publishProgress(zeroedTime);
@@ -683,15 +672,15 @@ public class MainActivity extends AppCompatActivity {
                     String timeString = generateTimerString(timePassed);
                     publishProgress(timeString);
 
-                }else{ //blink the timer while waiting for input
+                } else { //blink the timer while waiting for input
                     long timePassed = System.currentTimeMillis() - startTime;
-                    if(timePassed % 1000 > 500) {
+                    if (timePassed % 1000 > 500) {
                         if (blinkState) {
                             blinkState = false;
                             timeColor = timeDarkColor;
                             publishProgress(zeroedTime);
                         }
-                    }else{
+                    } else {
                         if (!blinkState) {
                             blinkState = true;
                             timeColor = timeLightColor;
@@ -704,7 +693,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(String...values) {
+        protected void onProgressUpdate(String... values) {
             //String timeStr = " " + printNumberForTimer(values[0]) + ":" + printNumberForTimer(values[1]) + ":" + values[2] + values[3];
             cronometro.setText(values[0]);
             if (timeColor != timeColorCurrent) {
@@ -716,9 +705,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             cronometro.setTextColor(timeDarkColor);
-            if(performanceStartTime > 0 ){
-                String timeString = generateTimerString(previousPerformancePieceTime-performanceStartTime);
-                Log.i("TIMER_POST",String.valueOf(previousPerformancePieceTime-performanceStartTime)+" prev: "+previousPerformancePieceTime);
+            if (performanceStartTime > 0) {
+                String timeString = generateTimerString(previousPerformancePieceTime - performanceStartTime);
+                Log.i("TIMER_POST", String.valueOf(previousPerformancePieceTime - performanceStartTime) + " prev: " + previousPerformancePieceTime);
                 cronometro.setText(timeString);
                 return;
             }
@@ -727,8 +716,8 @@ public class MainActivity extends AppCompatActivity {
 
         //utils
 
-        private String generateTimerString(long millisElapsed){
-            if (millisElapsed < 0){
+        private String generateTimerString(long millisElapsed) {
+            if (millisElapsed < 0) {
                 return zeroedTime;
             }
             String timerString = "";
@@ -739,22 +728,22 @@ public class MainActivity extends AppCompatActivity {
             millisElapsed /= 10;
             int seconds = (int) millisElapsed % 60;
             int minutes = (int) millisElapsed / 60;
-            timerString = twodigitFromInt(minutes)+":" + twodigitFromInt(seconds)+":" + String.valueOf(decimi) + String.valueOf(centesimi);
+            timerString = twodigitFromInt(minutes) + ":" + twodigitFromInt(seconds) + ":" + String.valueOf(decimi) + String.valueOf(centesimi);
             return timerString;
         }
+
         private String twodigitFromInt(int n) {
-            if(n > 9)
-                return ""+n;
-            return "0"+n;
+            if (n > 9)
+                return "" + n;
+            return "0" + n;
         }
 
-        public void killTimer(){
+        public void killTimer() {
             stop = true;
         }
     }
 
-    private void addPerforamancePieceToRec(byte[] action, String text)
-    {
+    private void addPerforamancePieceToRec(byte[] action, String text) {
         int time = (int) (System.currentTimeMillis() - previousPerformancePieceTime);
         previousPerformancePieceTime = System.currentTimeMillis();
 
@@ -763,7 +752,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onCheckEyes(CompoundButton buttonView, boolean isChecked) {
-        if(isChecked) {
+        if (isChecked) {
             eyesActiveController = true;
             Toast.makeText(this, Constants.controllerActivated, Toast.LENGTH_LONG).show();
         } else {
@@ -773,7 +762,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCheckMouth(CompoundButton buttonView, boolean isChecked) {
-        if(isChecked) {
+        if (isChecked) {
             mouthActiveController = true;
             Toast.makeText(this, Constants.controllerActivated, Toast.LENGTH_LONG).show();
         } else {
@@ -781,10 +770,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, Constants.controllerDisactived, Toast.LENGTH_LONG).show();
         }
     }
-    
+
 
     public void onCheckNames(CompoundButton buttonView, boolean isChecked) {
-        if(isChecked) {
+        if (isChecked) {
             canIChangeNames = true;
             Toast.makeText(this, Constants.YesICAN, Toast.LENGTH_LONG).show();
         } else {
@@ -800,7 +789,7 @@ public class MainActivity extends AppCompatActivity {
             int id = intent.getIntExtra(Constants.intentIDProp, 0);
             String text = intent.getStringExtra("Message");
             long currentTime = System.currentTimeMillis();
-            switch (id){
+            switch (id) {
                 case Constants.eyesID:
                     checkThread.setLastTimeEyesAlive(currentTime);
                     break;
@@ -814,25 +803,33 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
 
-            if(text.contains("ALI"))
+            if (text.contains("ALI"))
                 return;
             byte[] bytes;
 
             FaceSector f = FaceSector.fromChar(text.charAt(0));
             int packetChannel = PerformancePiece.getChannelFromPacket(text);
-            if(performanceFilter.contains(packetChannel))
-                return;
+            if(runningPerformances.size()> 0) {
+                for (performanceThread pft : runningPerformances) {
+                    if (!pft.isCancelled() && pft.isRunning()) {
+                        if (pft.getChannels().contains(packetChannel)) {
+                            //Log.i("BT_PKT", "filtered: " + text);
+                            return;
+                        }
 
-            //Log.i("BT_REC: ",text);
-            switch (id){
+                    }
+                }
+            }
+
+            //Log.i("BT_PKT ",text);
+            switch (id) {
                 case Constants.eyesID:
-                    if(!eyesActiveController)
+                    if (!eyesActiveController)
                         return;
                     bytes = text.getBytes(Charset.defaultCharset());
 
-                    if(performRegistrationMode)
-                    {
-                        if(f == bInRec.getFaceSector())
+                    if (performRegistrationMode) {
+                        if (f == bInRec.getFaceSector())
                             addPerforamancePieceToRec(bytes, text);
                     }
                     if (checkThread.getReceiverStatus()) {
@@ -840,13 +837,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case Constants.MouthID:
-                    if(!mouthActiveController)
+                    if (!mouthActiveController)
                         return;
                     bytes = text.getBytes(Charset.defaultCharset());
 
-                    if(performRegistrationMode)
-                    {
-                        if(f == bInRec.getFaceSector())
+                    if (performRegistrationMode) {
+                        if (f == bInRec.getFaceSector())
                             addPerforamancePieceToRec(bytes, text);
                     }
                     if (checkThread.getReceiverStatus()) {
@@ -867,6 +863,26 @@ public class MainActivity extends AppCompatActivity {
 
         private ButtonPerformance bpThread;
 
+        private HashSet<Integer> channels;
+        private FaceSector sector;
+        private boolean run = true;
+
+        public FaceSector getFaceSector() {
+            return sector;
+        }
+
+        public HashSet<Integer> getChannels() {
+            return channels;
+        }
+
+        public void stop() {
+            run = false;
+        }
+
+        public boolean isRunning() {
+            return run;
+        }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -876,13 +892,14 @@ public class MainActivity extends AppCompatActivity {
         protected ButtonPerformance doInBackground(ButtonPerformance... params) {
 
             bpThread = params[0];
+            sector = bpThread.getFaceSector();
+            channels = bpThread.getChannels();
             bpThread.initThread();
-            runningPerformances.add(bpThread);
             List<PerformancePiece<byte[]>> performance = bpThread.getPerformance();
             double playback_multiplier = multiplicator;
-            long btn_start_us = System.currentTimeMillis()*1000;
+            long btn_start_us = System.currentTimeMillis() * 1000;
             long btn_current_us = btn_start_us;
-            Log.i("PERFT_G","start: "+ btn_start_us/1000+" with duration:"+bpThread.getDuration()/ playback_multiplier);
+            Log.i("PTRD_G", "started: " + bpThread.getId() + " with duration:" + bpThread.getDuration() / playback_multiplier);
             double mslostcount = 0;
             boolean inPerformance = true;
             PerformancePiece<byte[]> currentPiece = performance.get(0);
@@ -891,26 +908,24 @@ public class MainActivity extends AppCompatActivity {
             int currentIndex = 0;
             long send_time = 0;
             long us_to_action_left = 0;
-            long next_action_us = btn_start_us + (long)(currentPiece.getMillisToAction()*1000 / playback_multiplier);
-            while(inPerformance && bpThread.isThreadRunning())
-            {
+            long next_action_us = btn_start_us + (long) (currentPiece.getMillisToAction() * 1000 / playback_multiplier);
+            while (inPerformance && isRunning()) {
 
                 try {
-                    btn_current_us = System.currentTimeMillis()*1000;
+                    btn_current_us = System.currentTimeMillis() * 1000;
                     us_to_action_left = 0;
-                    if(next_action_us > btn_current_us){
+                    if (next_action_us > btn_current_us) {
                         us_to_action_left = next_action_us - btn_current_us;
                     }
-                    if(us_to_action_left >2000){
-                        long pre_time =  System.currentTimeMillis();
+                    if (us_to_action_left > 2000) {
+                        long pre_time = System.currentTimeMillis();
                         Thread.sleep(2);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                if(btn_current_us > next_action_us)
-                {
+                if (btn_current_us > next_action_us) {
                     byte[] bytes = currentPiece.getAction();
                     byte[] bytesToSend;
                     String messageToSend = new String(bytes);
@@ -919,59 +934,61 @@ public class MainActivity extends AppCompatActivity {
                     if (checkThread.getReceiverStatus()) {
                         mBluetoothConnectionHead.write(bytesToSend);
                     }
-                    //Log.i("PERFT_P","i" +currentIndex);
+                    //Log.i("PTRD_PKT","i" +currentIndex);
                     currentIndex++;
 
-                    if(currentIndex >= performance.size()) {
-                        long realDuration = (btn_current_us - btn_start_us)/1000;
-                        Log.i("PERFT_G", "end-> dur: " + (realDuration)+" r_err: "+(realDuration-bpThread.getDuration()/playback_multiplier));
-                        if(realDuration > 0)
-                            Log.i("PERFT_P", "pkg/s: " +( performance.size()/(realDuration/1000)));
+                    if (currentIndex >= performance.size()) {
+                        long realDuration = (btn_current_us - btn_start_us) / 1000;
+                        Log.i("PTRD_G", "end-> dur: " + (realDuration) + " r_err: " + (realDuration - bpThread.getDuration() / playback_multiplier));
+                        if (realDuration > 0)
+                            Log.i("PTRD_P", "pkg/s: " + (performance.size() / (realDuration / 1000)));
                         inPerformance = false;
-                    }else{
+                    } else {
                         currentPiece = performance.get(currentIndex);
-                        long wait = (long)((currentPiece.getMillisToAction()*1000 ) / playback_multiplier);
+                        long wait = (long) ((currentPiece.getMillisToAction() * 1000) / playback_multiplier);
                         next_action_us = next_action_us + wait;
                     }
                 }
                 long btn_elapsed_us = btn_current_us - btn_start_us;
                 int percentProgress = 0;
-                if(bpThread.getDuration()!= 0){
-                    percentProgress =  (int) ((100 * btn_elapsed_us) / (int)(bpThread.getDuration()*1000 / playback_multiplier));
+                if (bpThread.getDuration() != 0) {
+                    percentProgress = (int) ((100 * btn_elapsed_us) / (int) (bpThread.getDuration() * 1000 / playback_multiplier));
                 }
 
 
                 publishProgress(percentProgress);
-                send_time = System.currentTimeMillis()*1000 - btn_current_us;
+                send_time = System.currentTimeMillis() * 1000 - btn_current_us;
             }
-            if(!bpThread.isThreadRunning()){
-                Log.i("PERFT_K", "stopped_early");
+            if (!bpThread.isThreadRunning()) {
+                Log.i("PTRD_K", "stopped: " + bpThread.getId());
+            } else {
+                Log.i("PTRD_K", "eneded: " + bpThread.getId());
+                stop();
             }
+            runningPerformances.remove(bpThread);
             return bpThread;
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values)
-        {
+        protected void onProgressUpdate(Integer... values) {
             bpThread.getProgressBar().setProgress(values[0]);
         }
 
         @Override
         protected void onPostExecute(ButtonPerformance bp) {
-            runningPerformances.remove(bpThread);
             boolean rowFreeCheck = true;
-            for(AbstractPerformance rnpf : runningPerformances){
-                if(rnpf.isThreadRunning() &&  rnpf.getFaceSector() == bp.getFaceSector()){
-                    rowFreeCheck = false;
-                    break;
+            FaceSector fs = bp.getFaceSector();
+            for (performanceThread rnpf : runningPerformances) {
+                if (!rnpf.isCancelled() && rnpf.isRunning()) {
+                    if (rnpf.getFaceSector() == fs) {
+                        rowFreeCheck = false;
+                    }
                 }
             }
-            if(rowFreeCheck) {
+            if (rowFreeCheck) {
                 container.activatesButtonSectorButton(bp.getFaceSector());
             }
-            performanceFilter.removeAll(bp.getChannels());
             bpThread.getProgressBar().setProgress(0);
-
         }
 
     }
@@ -979,22 +996,17 @@ public class MainActivity extends AppCompatActivity {
     public class preSetThread extends AsyncTask<PresetPerformance, Integer, PresetPerformance> {
 
         private PresetPerformance bpThread;
+
         @Override
         protected PresetPerformance doInBackground(PresetPerformance... presetPerformances) {
             bpThread = presetPerformances[0];
-            int duration = (int)(bpThread.getDuration() / multiplicator);
-            List<Integer> buttonToPress = bpThread.getButtonsToPress();
-
-            publishProgress(buttonToPress.toArray(new Integer[buttonToPress.size() + 1]));
-
-
+            int duration = (int) (bpThread.getDuration() / multiplicator);
             long startTime = System.currentTimeMillis();
             long time = startTime;
             long endTime = time + duration;
             bpThread.initRunning();
             runningPreset = bpThread;
-            while(time < endTime && bpThread.isThreadRunning())
-            {
+            while (time < endTime && bpThread.isThreadRunning()) {
                 try {
                     Thread.sleep(stopMillisPerformance);
                 } catch (InterruptedException e) {
@@ -1003,37 +1015,23 @@ public class MainActivity extends AppCompatActivity {
 
                 time = System.currentTimeMillis();
                 long progressTime = time - startTime;
-                int percentProgress = (int) ((100 * progressTime) / (int)(bpThread.getDuration() / multiplicator));
+                int percentProgress = (int) ((100 * progressTime) / (int) (bpThread.getDuration() / multiplicator));
                 publishProgress(percentProgress);
             }
-            if(!bpThread.isThreadRunning()){
+            if (!bpThread.isThreadRunning()) {
                 Log.i("PERFS_K", "preset thd stopped");
             }
             return null;
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values)
-        {
-            if(values.length > 1)
-            {
-                for(int i = 0; i < values.length - 1; i++)//Trucchetto se ho solo un bottone da premere
-                {
-                    Button b = container.getButtonPerformanceFromLogic(values[i]).getButton();
-                    b.performClick();
-                }
-                return;
-
-            }
+        protected void onProgressUpdate(Integer... values) {
             bpThread.getProgressBar().setProgress(values[0]);
         }
 
 
         @Override
         protected void onPostExecute(PresetPerformance p) {
-            if(bpThread.isThreadRunning()) {
-                container.activatesButtonSectorButton(bpThread.getFaceSector());
-            }
             bpThread.getProgressBar().setProgress(0);
         }
 
@@ -1042,7 +1040,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeName(final View v) {
 
-        if(!canIChangeNames)
+        if (!canIChangeNames)
             return;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -1064,7 +1062,7 @@ public class MainActivity extends AppCompatActivity {
                 AbstractPerformance ap = container.getGenericAbstractPerformance(IDFactory.convertTextToButton(v.getId()));
                 undoManager.addLastEdit(ap, ap.getName());
                 ap.setName(input.getText().toString());
-                container.saveMe(getBaseContext() ,gson);
+                container.saveMe(getBaseContext(), gson);
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -1078,12 +1076,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void shutdownServo(final View v) {
         String messageToSend = "G;0;78\n";
         messageToSend = "r" + messageToSend;
         byte[] bytesToSend = messageToSend.getBytes(Charset.defaultCharset());
-        Log.i("SERVO_STOP","sending: "+ messageToSend);
+        Log.i("SERVO_STOP", "sending: " + messageToSend);
         if (checkThread.getReceiverStatus()) {
             mBluetoothConnectionHead.write(bytesToSend);
         }

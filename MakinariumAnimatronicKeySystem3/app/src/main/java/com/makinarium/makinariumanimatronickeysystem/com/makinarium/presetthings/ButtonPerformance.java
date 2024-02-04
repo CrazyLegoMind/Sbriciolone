@@ -22,12 +22,10 @@ public class ButtonPerformance extends AbstractPerformance{
     private List<PerformancePiece<byte[]>> performance;
     private HashSet<Integer> channels;
 
-    private PresetPerformance startPreset;
     public ButtonPerformance(int id, Button button, FaceSector faceSector, ProgressBar progressBar, TextView textView, int activeColor, int performToRecColor)
     {
         super(id, button,faceSector,progressBar, textView, activeColor, performToRecColor);
         performance = new ArrayList<>();
-        startPreset = null;
     }
 
     //utils functions
@@ -36,19 +34,6 @@ public class ButtonPerformance extends AbstractPerformance{
         super.deletePerformance();
         performance = new ArrayList<>();
         channels = new HashSet<>();
-    }
-
-    public void setStartPreset(PresetPerformance p){
-        startPreset = p;
-    }
-    public PresetPerformance getStartPreset(){
-        return startPreset;
-    }
-    public boolean hasStartPreset(){
-        return startPreset != null;
-    }
-    public void clearStartPreset(){
-        startPreset = null;
     }
 
     public void addPerformancePiece(byte[] action, int time)

@@ -18,7 +18,6 @@ public class PresetPerformance extends AbstractPerformance{
     private ButtonPerformance row3Btn;
     private ButtonPerformance row4Btn;
     private ButtonPerformance row5Btn;
-
     private int runningBtnCounter = 0;
 
     public PresetPerformance(int id, Button button, FaceSector faceSector, ProgressBar progressBar,
@@ -71,7 +70,7 @@ public class PresetPerformance extends AbstractPerformance{
 
     public List<Integer> getButtonsToPress()
     {
-        List result = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
 
         if(row1Btn != null)
             result.add(row1Btn.getId());
@@ -85,14 +84,6 @@ public class PresetPerformance extends AbstractPerformance{
             result.add(row5Btn.getId());
 
         return result;
-    }
-    public void tickRunningBtnCounter(){
-        if (runningBtnCounter <= 1){
-            runningBtnCounter = 0;
-            stopThread();
-        }else{
-            runningBtnCounter = runningBtnCounter -1;
-        }
     }
 
     public void initRunning(){

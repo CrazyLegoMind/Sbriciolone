@@ -22,9 +22,10 @@ import java.util.List;
 import java.util.Set;
 
 public class headActivity extends AppCompatActivity {
-    private enum SpinnerType {REMOTE,RECEIVER}
+    private enum SpinnerType {REMOTE, RECEIVER}
+
     private Button continueButton;
-    private String headMac;
+    private String headMac = Constants.macHead01BT;
     private String remote1Mac = Constants.macEyesBT;
     private String remote2Mac = Constants.macMouthBT;
     private EditText remoteEdit;
@@ -33,23 +34,34 @@ public class headActivity extends AppCompatActivity {
     private int spinTopPos = 0;
     private int spinBtmPos = 0;
 
+    private void allowContinueBtn(boolean allow) {
+        if (allow) {
+            continueButton.setAlpha(1f);
+        } else {
+            continueButton.setAlpha(.5f);
+        }
+        continueButton.setEnabled(allow);
+        continueButton.setClickable(allow);
+    }
+
+    private void allowContinueBtn() {
+        allowContinueBtn(true);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head);
-        continueButton = (Button)findViewById(R.id.continuebutton);
+        continueButton = findViewById(R.id.continuebutton);
         remoteEdit = findViewById(R.id.editremote1Mac);
         headEdit = findViewById(R.id.editHeadMac);
-        continueButton.setAlpha(.5f);
-        continueButton.setEnabled(false);
-        continueButton.setClickable(false);
+        allowContinueBtn(false);
 
         List<String> spinnerArray = new ArrayList<>();
         macArray = new ArrayList<>();
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        for(BluetoothDevice bt : pairedDevices)
-        {
+        for (BluetoothDevice bt : pairedDevices) {
             String deviceStr = "";
             deviceStr += bt.getName() + " - ";
             deviceStr += bt.getAddress();
@@ -65,20 +77,18 @@ public class headActivity extends AppCompatActivity {
         remote1MacSpinner.setOnItemSelectedListener(new MacSpinnerActivity(SpinnerType.REMOTE));
         receiverMacSpinner.setAdapter(adapter);
         receiverMacSpinner.setOnItemSelectedListener(new MacSpinnerActivity(SpinnerType.RECEIVER));
+        allowContinueBtn();
     }
 
 
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
-        continueButton.setAlpha(1);
-        continueButton.setEnabled(true);
-        continueButton.setClickable(true);
+        allowContinueBtn();
         // Check which radio button was clicked
         int i = view.getId();
         if (i == R.id.head01button) {
-            if (checked)
-            {
+            if (checked) {
                 headMac = Constants.macHead01BT;
             }
 
@@ -90,62 +100,60 @@ public class headActivity extends AppCompatActivity {
     }
 
 
-
-    public void ctnBtn(View view){
-
+    public void ctnBtn(View view) {
+        allowContinueBtn(false);
         Intent mainActivityIntent = new Intent(headActivity.this, MainActivity.class);
-
-
         String headMacStr = headEdit.getText().toString();
-        if (BluetoothAdapter.checkBluetoothAddress(headMacStr)){
+        if (BluetoothAdapter.checkBluetoothAddress(headMacStr)) {
             headMac = headMacStr;
-            Log.i("MACS","got head: "+headMacStr);
+            Log.i("MACS", "got head: " + headMacStr);
         }
         mainActivityIntent.putExtra("head_mac", headMac);
 
         String remote1MacStr = remoteEdit.getText().toString();
-        if (BluetoothAdapter.checkBluetoothAddress(remote1MacStr)){
+        if (BluetoothAdapter.checkBluetoothAddress(remote1MacStr)) {
             remote1Mac = remote1MacStr;
 
-            Log.i("MACS","got remote: "+remote1MacStr);
+            Log.i("MACS", "got remote: " + remote1MacStr);
         }
         mainActivityIntent.putExtra("remote1_mac", remote1Mac);
         mainActivityIntent.putExtra("remote2_mac", remote2Mac);
-        Log.i("MACS",  "head: '"+headMac+"' remote1:'"+remote1Mac+"'"+"' remote2:'"+remote2Mac+"'");
+        Log.i("MACS", "head: '" + headMac + "' remote1:'" + remote1Mac + "'" + "' remote2:'" + remote2Mac + "'");
         startActivity(mainActivityIntent);
     }
 
     class MacSpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
         SpinnerType type;
-        public MacSpinnerActivity(SpinnerType type){
+
+        public MacSpinnerActivity(SpinnerType type) {
             this.type = type;
         }
 
         public void onItemSelected(AdapterView<?> parent, View view,
                                    int pos, long id) {
-            if(type == SpinnerType.REMOTE) {
-                if (spinBtmPos == pos){
+            if (type == SpinnerType.REMOTE) {
+                if (spinBtmPos == pos) {
                     return;
                 }
                 spinBtmPos = pos;
                 remote1Mac = macArray.get(pos);
                 Log.i("MACS", "chosen rmt: " + remote1Mac);
-            }else if (type == SpinnerType.RECEIVER){
-                if (spinTopPos == pos){
+            } else if (type == SpinnerType.RECEIVER) {
+                if (spinTopPos == pos) {
                     return;
                 }
                 spinTopPos = pos;
                 headMac = macArray.get(pos);
                 Log.i("MACS", "chosen rec: " + headMac);
-                continueButton.setAlpha(1);
-                continueButton.setEnabled(true);
-                continueButton.setClickable(true);
+                allowContinueBtn();
             }
         }
 
         public void onNothingSelected(AdapterView<?> parent) {
             // Another interface callback
         }
+
+
     }
 }
