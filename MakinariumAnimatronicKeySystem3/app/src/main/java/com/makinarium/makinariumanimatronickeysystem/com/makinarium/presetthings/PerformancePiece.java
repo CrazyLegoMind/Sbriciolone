@@ -11,7 +11,7 @@ import com.makinarium.makinariumanimatronickeysystem.com.makinarium.utilities.Co
 public class PerformancePiece <T>{
 
     private T action;
-    private transient String stringVersion;
+    private transient String stringVersion = "";
     private transient MessageTypes type;
     private transient int channelPin;
     private transient int analogValue;
@@ -35,6 +35,9 @@ public class PerformancePiece <T>{
     //utils functions
     private void parseMessage()
     {
+        if(stringVersion.length() == 0){
+            return;
+        }
         type = MessageTypes.fromChar(stringVersion.charAt(1));
         switch(type)
         {
@@ -169,7 +172,6 @@ public class PerformancePiece <T>{
     public int getCheckSum() {
         return checkSum;
     }
-
 
 
     //object overrides

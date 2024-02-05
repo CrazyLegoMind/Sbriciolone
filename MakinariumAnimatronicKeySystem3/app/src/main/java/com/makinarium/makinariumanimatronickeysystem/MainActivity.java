@@ -863,8 +863,8 @@ public class MainActivity extends AppCompatActivity {
 
         private ButtonPerformance bpThread;
 
-        private HashSet<Integer> channels;
-        private FaceSector sector;
+        private HashSet<Integer> channels = new HashSet<Integer>();
+        private FaceSector sector = FaceSector.ERROR;
         private boolean run = true;
 
         public FaceSector getFaceSector() {
