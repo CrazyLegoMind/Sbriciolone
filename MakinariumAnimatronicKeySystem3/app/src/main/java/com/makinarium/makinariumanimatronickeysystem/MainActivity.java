@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private String remote2Mac;
 
     private List<performanceThread> runningPerformances;
-    private PresetPerformance runningPreset;
+    private preSetThread runningPreset;
 
     //--------- bluetooth variables for remotes and receivers
     private BluetoothAdapter mBluetoothAdapter;
@@ -526,9 +526,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Toast.makeText(this, Constants.performing, Toast.LENGTH_SHORT).show();
-        if (runningPreset != null) {
-            runningPreset.stopThread();
-        }
+
         Log.i("PTRD_S", "got" + runningPerformances.size());
         Iterator<performanceThread> it = runningPerformances.iterator();
         while (it.hasNext()) {
@@ -542,9 +540,13 @@ public class MainActivity extends AppCompatActivity {
             Button b = container.getButtonPerformanceFromLogic(btnId).getButton();
             b.performClick();
         }
-
+        if (runningPreset != null && !runningPreset.isCancelled() && runningPreset.isRunning()) {
+            runningPreset.stop();
+            runningPreset = null;
+        }
         preSetThread pt = new preSetThread();
         pt.executeOnExecutor(myExecutor, presetBtn);
+        runningPreset = pt;
     }
 
     public void speedBtnClick(View v) {
@@ -866,7 +868,12 @@ public class MainActivity extends AppCompatActivity {
         private HashSet<Integer> channels = new HashSet<Integer>();
         private FaceSector sector = FaceSector.ERROR;
         private boolean run = true;
-
+        public void stop() {
+            run = false;
+        }
+        public boolean isRunning() {
+            return run;
+        }
         public FaceSector getFaceSector() {
             return sector;
         }
@@ -875,13 +882,6 @@ public class MainActivity extends AppCompatActivity {
             return channels;
         }
 
-        public void stop() {
-            run = false;
-        }
-
-        public boolean isRunning() {
-            return run;
-        }
 
         @Override
         protected void onPreExecute() {
@@ -996,6 +996,13 @@ public class MainActivity extends AppCompatActivity {
     public class preSetThread extends AsyncTask<PresetPerformance, Integer, PresetPerformance> {
 
         private PresetPerformance bpThread;
+        private boolean run = true;
+        public void stop() {
+            run = false;
+        }
+        public boolean isRunning() {
+            return run;
+        }
 
         @Override
         protected PresetPerformance doInBackground(PresetPerformance... presetPerformances) {
@@ -1005,8 +1012,7 @@ public class MainActivity extends AppCompatActivity {
             long time = startTime;
             long endTime = time + duration;
             bpThread.initRunning();
-            runningPreset = bpThread;
-            while (time < endTime && bpThread.isThreadRunning()) {
+            while (time < endTime && isRunning()) {
                 try {
                     Thread.sleep(stopMillisPerformance);
                 } catch (InterruptedException e) {
@@ -1018,8 +1024,10 @@ public class MainActivity extends AppCompatActivity {
                 int percentProgress = (int) ((100 * progressTime) / (int) (bpThread.getDuration() / multiplicator));
                 publishProgress(percentProgress);
             }
-            if (!bpThread.isThreadRunning()) {
+            if (!isRunning()) {
                 Log.i("PERFS_K", "preset thd stopped");
+            }else{
+                stop();
             }
             return null;
         }
