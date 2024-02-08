@@ -11,7 +11,7 @@
   <Channels MiniMaestroServoPeriod="80000" ServoMultiplier="1">
     <!--Period = 20 ms-->
     <!--Channel 0-->
-    <Channel name="LabDx" mode="Servo" min="5184" max="6528" homemode="Off" home="5184" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="LabDx" mode="Servo" min="3968" max="5440" homemode="Off" home="5184" speed="0" acceleration="0" neutral="5376" range="1905" />
     <!--Channel 1-->
     <Channel name="Naso" mode="Servo" min="3968" max="5824" homemode="Off" home="3968" speed="0" acceleration="0" neutral="5824" range="1905" />
     <!--Channel 2-->
@@ -19,7 +19,7 @@
     <!--Channel 3-->
     <Channel name="CigCDx" mode="Servo" min="4864" max="8000" homemode="Off" home="4864" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 4-->
-    <Channel name="Orecchie" mode="Servo" min="4480" max="6336" homemode="Off" home="4480" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="Orecchie" mode="Servo" min="4480" max="6848" homemode="Off" home="4480" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 5-->
     <Channel name="LabSx" mode="Servo" min="5632" max="7104" homemode="Off" home="5632" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 6-->

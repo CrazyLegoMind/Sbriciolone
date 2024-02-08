@@ -68,8 +68,8 @@ void setup() {
   sbus_rx.Begin();
 
   //NOME SERVO "Lab_D";
-  servoList[0].minValue = 5184;
-  servoList[0].maxValue = 6528;
+  servoList[0].minValue = 3968;
+  servoList[0].maxValue = 5440;
   servoList[0].channel = 0;
   servoList[0].reverse = false;
 
@@ -93,7 +93,7 @@ void setup() {
 
   //NOME SERVO "Orecchie";
   servoList[4].minValue = 4480;
-  servoList[4].maxValue = 6336;  //
+  servoList[4].maxValue = 6848;  //
   servoList[4].channel = 4;
   servoList[4].reverse = false;
 
