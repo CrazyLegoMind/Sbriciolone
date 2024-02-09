@@ -86,7 +86,7 @@ void setup() {
   servoList[2].reverse = false;
 
   //NOME SERVO "Cig_C_Dx";
-  servoList[3].minValue = 4864;
+  servoList[3].minValue = 5440;
   servoList[3].maxValue = 8000;
   servoList[3].channel = 3;
   servoList[3].reverse = true;
