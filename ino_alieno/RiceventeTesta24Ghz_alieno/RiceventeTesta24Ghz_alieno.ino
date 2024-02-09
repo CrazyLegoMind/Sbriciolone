@@ -74,8 +74,8 @@ void setup() {
   servoList[0].reverse = false;
 
   //NOME SERVO "Naso";
-  servoList[1].minValue = 3968;
-  servoList[1].maxValue = 5824;
+  servoList[1].minValue = 4480;
+  servoList[1].maxValue = 6016;
   servoList[1].channel = 1;
   servoList[1].reverse = false;
 
@@ -104,8 +104,8 @@ void setup() {
   servoList[5].reverse = true;
 
   //NOME SERVO "Baf_S";
-  servoList[6].minValue = 5184;
-  servoList[6].maxValue = 8000;  //
+  servoList[6].minValue = 4416;
+  servoList[6].maxValue = 6400;  //
   servoList[6].channel = 6;
   servoList[6].reverse = false;
 
@@ -122,8 +122,8 @@ void setup() {
   servoList[8].reverse = true;
 
   //NOME SERVO "Baf_D";
-  servoList[9].minValue = 4096;
-  servoList[9].maxValue = 6912;
+  servoList[9].minValue = 6016;
+  servoList[9].maxValue = 8000;
   servoList[9].channel = 9;
   servoList[9].reverse = true;
 
