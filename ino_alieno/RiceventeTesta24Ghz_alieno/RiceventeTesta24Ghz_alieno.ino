@@ -111,7 +111,7 @@ void setup() {
 
   //NOME SERVO "Cig_E_Sx";
   servoList[7].minValue = 3968;
-  servoList[7].maxValue = 6080;
+  servoList[7].maxValue = 5504;
   servoList[7].channel = 7;
   servoList[7].reverse = false;
 
@@ -210,7 +210,7 @@ void loop() {
       //Serial.print(",");
 
       int ch_ms = data.ch[i];
-      if (ch_ms==prev_data.ch[i] && ch_ms != 0) {
+      if (ch_ms==prev_data.ch[i]&& ch_ms != 0) {
         continue;
       }
       prev_data.ch[i] = ch_ms;
