@@ -122,7 +122,7 @@ void setup() {
   servoList[8].reverse = true;
 
   //NOME SERVO "Baf_D";
-  servoList[9].minValue = 6016;
+  servoList[9].minValue = 6400;
   servoList[9].maxValue = 8000;
   servoList[9].channel = 9;
   servoList[9].reverse = true;
