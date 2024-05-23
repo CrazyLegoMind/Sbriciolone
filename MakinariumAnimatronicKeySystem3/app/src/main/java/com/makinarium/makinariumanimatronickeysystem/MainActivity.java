@@ -804,6 +804,7 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     break;
             }
+            Log.i("BT_PKT ",text);
 
             if (text.contains("ALI"))
                 return;
@@ -823,7 +824,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            //Log.i("BT_PKT ",text);
+
             switch (id) {
                 case Constants.eyesID:
                     if (!eyesActiveController)
