@@ -69,43 +69,43 @@ void setup() {
 
   //NOME SERVO "Lab_D";
   servoList[0].minValue = 3968;
-  servoList[0].maxValue = 5440;
+  servoList[0].maxValue = 6016;
   servoList[0].channel = 0;
   servoList[0].reverse = false;
 
   //NOME SERVO "Naso";
   servoList[1].minValue = 4480;
-  servoList[1].maxValue = 6016;
+  servoList[1].maxValue = 5632;
   servoList[1].channel = 1;
   servoList[1].reverse = false;
 
   //NOME SERVO "Cig_C_Sx";
-  servoList[2].minValue = 3968;
-  servoList[2].maxValue = 6976;
+  servoList[2].minValue = 4224;
+  servoList[2].maxValue = 5440;
   servoList[2].channel = 2;
   servoList[2].reverse = false;
 
   //NOME SERVO "Cig_C_Dx";
-  servoList[3].minValue = 5440;
+  servoList[3].minValue = 6464;
   servoList[3].maxValue = 8000;
   servoList[3].channel = 3;
   servoList[3].reverse = true;
 
   //NOME SERVO "Orecchie";
   servoList[4].minValue = 4480;
-  servoList[4].maxValue = 6848;  //
+  servoList[4].maxValue = 6464;  //
   servoList[4].channel = 4;
   servoList[4].reverse = false;
 
   //NOME SERVO "Lab_S";
-  servoList[5].minValue = 5632;
-  servoList[5].maxValue = 7104;
+  servoList[5].minValue = 6400;
+  servoList[5].maxValue = 8000;
   servoList[5].channel = 5;
   servoList[5].reverse = true;
 
   //NOME SERVO "Baf_S";
   servoList[6].minValue = 4416;
-  servoList[6].maxValue = 6400;  //
+  servoList[6].maxValue = 6016;  //
   servoList[6].channel = 6;
   servoList[6].reverse = false;
 

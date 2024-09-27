@@ -11,19 +11,19 @@
   <Channels MiniMaestroServoPeriod="80000" ServoMultiplier="1">
     <!--Period = 20 ms-->
     <!--Channel 0-->
-    <Channel name="LabDx" mode="Servo" min="3968" max="5440" homemode="Off" home="3968" speed="0" acceleration="0" neutral="5376" range="1905" />
+    <Channel name="LabDx" mode="Servo" min="3968" max="6016" homemode="Off" home="3968" speed="0" acceleration="0" neutral="5056" range="1905" />
     <!--Channel 1-->
-    <Channel name="Naso" mode="Servo" min="4480" max="6016" homemode="Off" home="4480" speed="0" acceleration="0" neutral="6016" range="1905" />
+    <Channel name="Naso" mode="Servo" min="4480" max="5632" homemode="Off" home="4480" speed="0" acceleration="0" neutral="5632" range="1905" />
     <!--Channel 2-->
-    <Channel name="CigCSx" mode="Servo" min="3968" max="6976" homemode="Off" home="3968" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="CigCSx" mode="Servo" min="4224" max="5440" homemode="Off" home="4224" speed="0" acceleration="0" neutral="5440" range="1905" />
     <!--Channel 3-->
-    <Channel name="CigCDx" mode="Servo" min="5440" max="8000" homemode="Off" home="5440" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="CigCDx" mode="Servo" min="6464" max="8000" homemode="Off" home="6464" speed="0" acceleration="0" neutral="6464" range="1905" />
     <!--Channel 4-->
-    <Channel name="Orecchie" mode="Servo" min="4480" max="6848" homemode="Off" home="4480" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="Orecchie" mode="Servo" min="4480" max="6464" homemode="Off" home="4480" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 5-->
-    <Channel name="LabSx" mode="Servo" min="5632" max="7104" homemode="Off" home="5632" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="LabSx" mode="Servo" min="6400" max="8000" homemode="Off" home="6400" speed="0" acceleration="0" neutral="6400" range="1905" />
     <!--Channel 6-->
-    <Channel name="BafSx" mode="Servo" min="4416" max="6400" homemode="Off" home="4416" speed="0" acceleration="0" neutral="6000" range="1905" />
+    <Channel name="BafSx" mode="Servo" min="4416" max="6016" homemode="Off" home="4416" speed="0" acceleration="0" neutral="6000" range="1905" />
     <!--Channel 7-->
     <Channel name="CigESx" mode="Servo" min="3968" max="5504" homemode="Off" home="3968" speed="0" acceleration="0" neutral="5504" range="1905" />
     <!--Channel 8-->
