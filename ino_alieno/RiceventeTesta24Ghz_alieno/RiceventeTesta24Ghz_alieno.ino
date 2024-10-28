@@ -92,8 +92,8 @@ void setup() {
   servoList[3].reverse = true;
 
   //NOME SERVO "Orecchie";
-  servoList[4].minValue = 4480;
-  servoList[4].maxValue = 6464;  //
+  servoList[4].minValue = 4800;
+  servoList[4].maxValue = 6400;  //
   servoList[4].channel = 4;
   servoList[4].reverse = false;
 
